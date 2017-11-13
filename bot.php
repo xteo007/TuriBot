@@ -85,7 +85,6 @@ function getMe($verbose = false)
 	$context = stream_context_create($options);
 	$r = file_get_contents("https://api.telegram.org/bot$api/getMe", false, $context);
 	$rr = json_decode($r, true);
-
 	if($verbose)
 	{
 		if($rr['ok'])
@@ -1485,7 +1484,7 @@ the Free Software Foundation, either version 3 of the License, or
 at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
+but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 
