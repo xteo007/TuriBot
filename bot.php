@@ -1134,7 +1134,9 @@ sendMessage($message_chat_id, "/help - Show this message\n/license - Sends you t
 
 if(stripos($message_text, "/license")===0)
 {
-sendMessage($message_chat_id, "This program is free software: you can redistribute it and/or modify
+sendMessage($message_chat_id, "Copyright (C) 2017  Davide Turaccio
+
+This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 at your option) any later version.
