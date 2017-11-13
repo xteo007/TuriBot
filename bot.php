@@ -1126,6 +1126,349 @@ function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NUL
 }
 
 
+//updating messages
+function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $parse_mode = NULL, $disable_web_page_preview = NULL, $reply_markup = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'text' => $text
+		);
+	if(isset($chat_id))
+	{
+		$args['chat_id'] = $chat_id;
+	}
+	if(isset($message_id))
+	{
+		$args['message_id'] = $message_id;
+	}
+	if(isset($inline_message_id))
+	{
+		$args['inline_message_id'] = $inline_message_id;
+	}
+	if(isset($parse_mode))
+	{
+		$args['parse_mode'] = $parse_mode;
+	}
+	if(isset($disable_web_page_preview))
+	{
+		$args['disable_web_page_preview'] = $disable_web_page_preview;
+	}
+	if(isset($reply_markup))
+	{
+		$args['reply_markup'] = $reply_markup;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/editMessageText?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $caption = NULL, $reply_markup = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	if(isset($chat_id))
+	{
+		$args['chat_id'] = $chat_id;
+	}
+	if(isset($message_id))
+	{
+		$args['message_id'] = $message_id;
+	}
+	if(isset($inline_message_id))
+	{
+		$args['inline_message_id'] = $inline_message_id;
+	}
+	if(isset($caption))
+	{
+		$args['caption'] = $caption;
+	}
+	if(isset($reply_markup))
+	{
+		$args['reply_markup'] = $reply_markup;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/editMessageCaption?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	if(isset($chat_id))
+	{
+		$args['chat_id'] = $chat_id;
+	}
+	if(isset($message_id))
+	{
+		$args['message_id'] = $message_id;
+	}
+	if(isset($inline_message_id))
+	{
+		$args['inline_message_id'] = $inline_message_id;
+	}
+	if(isset($reply_markup))
+	{
+		$args['reply_markup'] = $reply_markup;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/editMessageReplyMarkup?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function deleteMessage($chat_id, $message_id)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'chat_id' => $chat_id,
+		'message_id' => $message_id,
+		);
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/deleteMessage?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+//stickers
+function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$file = false;
+	if(stripos($sticker, "http") === false)
+	{
+		if(stripos($sticker, ".") !== false)
+		{
+			$file = true;
+			$file_name = realpath($sticker);
+			$sticker = curl_file_create($file_name);
+		}
+	}
+	$args = array(
+		'chat_id' => $chat_id,
+		'sticker' => $sticker
+		);
+	if(isset($disable_notification))
+	{
+		$args['disable_notification'] = $disable_notification;
+	}
+	if(isset($reply_to_message_id))
+	{
+		$args['reply_to_message_id'] = $reply_to_message_id;
+	}
+	if(isset($reply_markup))
+	{
+		$args['reply_markup'] = $reply_markup;
+	}
+	if(!$file)
+	{
+		$params = http_build_query($args);
+		$r = file_get_contents("https://api.telegram.org/bot$api/sendSticker?$params", false, $context);
+		$rr = json_decode($r, true);
+	}
+	else
+	{
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendSticker");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$rr = curl_exec($ch);
+		curl_close($ch);
+	}
+	return $rr;	
+}
+
+
+function getStickerSet($name)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'name' => $name
+		);
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/getStickerSet?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function uploadStickerFile($user_id, $png_sticker)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$file_name = realpath($png_sticker);
+	$png_sticker = curl_file_create($file_name);
+	$args = array(
+		'user_id' => $user_id,
+		'png_sticker' => $png_sticker
+		);
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/uploadStickerFile");
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$rr = curl_exec($ch);
+	curl_close($ch);
+	return $rr;	
+}
+
+
+function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $contains_masks = NULL, $mask_position = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$file = false;
+	if(stripos($png_sticker, "http") === false)
+	{
+		if(stripos($png_sticker, ".") !== false)
+		{
+			$file = true;
+			$file_name = realpath($png_sticker);
+			$png_sticker = curl_file_create($file_name);
+		}
+	}
+	$args = array(
+		'user_id' => $user_id,
+		'name' => $name,
+		'title' => $title,
+		'png_sticker' => $png_sticker,
+		'emojis' => $emojis
+		);
+	if(isset($contains_masks))
+	{
+		$args['contains_masks'] = $contains_masks;
+	}
+	if(isset($mask_position))
+	{
+		$args['mask_position'] = $mask_position;
+	}
+	if(!$file)
+	{
+		$params = http_build_query($args);
+		$r = file_get_contents("https://api.telegram.org/bot$api/createNewStickerSet?$params", false, $context);
+		$rr = json_decode($r, true);
+	}
+	else
+	{
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/createNewStickerSet");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$rr = curl_exec($ch);
+		curl_close($ch);
+	}
+	return $rr;	
+}
+
+
+function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$file = false;
+	if(stripos($png_sticker, "http") === false)
+	{
+		if(stripos($png_sticker, ".") !== false)
+		{
+			$file = true;
+			$file_name = realpath($png_sticker);
+			$png_sticker = curl_file_create($file_name);
+		}
+	}
+	$args = array(
+		'user_id' => $user_id,
+		'name' => $name,
+		'png_sticker' => $png_sticker,
+		'emojis' => $emojis
+		);
+	if(isset($mask_position))
+	{
+		$args['mask_position'] = $mask_position;
+	}
+	if(!$file)
+	{
+		$params = http_build_query($args);
+		$r = file_get_contents("https://api.telegram.org/bot$api/addStickerToSet?$params", false, $context);
+		$rr = json_decode($r, true);
+	}
+	else
+	{
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/addStickerToSet");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$rr = curl_exec($ch);
+		curl_close($ch);
+	}
+	return $rr;	
+}
+
+
+function setStickerPositionInSet($sticker, $position)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'sticker' => $sticker,
+		'position' => $position
+		);
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/setStickerPositionInSet?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function deleteStickerFromSet($sticker)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'sticker' => $sticker
+		);
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/deleteStickerFromSet?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if(stripos($message_text, "/start")===0 or stripos($message_text, "/help")===0)
 {
@@ -1134,7 +1477,7 @@ sendMessage($message_chat_id, "/help - Show this message\n/license - Sends you t
 
 if(stripos($message_text, "/license")===0)
 {
-sendMessage($message_chat_id, "Copyright (C) 2017  Davide Turaccio
+sendMessage($message_chat_id, "Copyright (C) 2017 Davide Turaccio
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
