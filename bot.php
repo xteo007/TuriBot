@@ -85,6 +85,7 @@ function getMe($verbose = false)
 	$context = stream_context_create($options);
 	$r = file_get_contents("https://api.telegram.org/bot$api/getMe", false, $context);
 	$rr = json_decode($r, true);
+
 	if($verbose)
 	{
 		if($rr['ok'])
@@ -1456,6 +1457,212 @@ function deleteStickerFromSet($sticker)
 }
 
 
+//payments
+function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'chat_id' => $chat_id,
+		'title' => $title,
+		'description' => $description,
+		'payload' => $payload,
+		'provider_token' => $provider_token,
+		'start_parameter' => $start_parameter,
+		'currency' => $currency,
+		'prices' => $prices
+		);
+	if(isset($photo_url))
+	{
+		$args['photo_url'] = $photo_url;
+	}
+	if(isset($photo_size))
+	{
+		$args['photo_size'] = $photo_size;
+	}
+	if(isset($photo_width))
+	{
+		$args['photo_width'] = $photo_width;
+	}
+	if(isset($photo_height))
+	{
+		$args['photo_height'] = $photo_height;
+	}
+	if(isset($need_name))
+	{
+		$args['need_name'] = $need_name;
+	}
+	if(isset($need_phone_number))
+	{
+		$args['need_phone_number'] = $need_phone_number;
+	}
+	if(isset($need_email))
+	{
+		$args['need_email'] = $need_email;
+	}
+	if(isset($need_shipping_address))
+	{
+		$args['need_shipping_address'] = $need_shipping_address;
+	}
+	if(isset($is_flexible))
+	{
+		$args['is_flexible'] = $is_flexible;
+	}
+	if(isset($disable_notification))
+	{
+		$args['disable_notification'] = $disable_notification;
+	}
+	if(isset($reply_to_message_id))
+	{
+		$args['reply_to_message_id'] = $reply_to_message_id;
+	}
+	if(isset($reply_markup))
+	{
+		$args['reply_markup'] = $reply_markup;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/sendInvoice?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, $error_message = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'shipping_query_id' => $shipping_query_id,
+		'ok' => $ok
+		);
+	if(isset($shipping_options))
+	{
+		$args['shipping_options'] = $shipping_options;
+	}
+	if(isset($error_message))
+	{
+		$args['error_message'] = $error_message;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/answerShippingQuery?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'pre_checkout_query_id' => $pre_checkout_query_id,
+		'ok' => $ok
+		);
+	if(isset($error_message))
+	{
+		$args['error_message'] = $error_message;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/answerPreCheckoutQuery?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+//games
+function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'chat_id' => $chat_id,
+		'game_short_name' => $game_short_name
+		);
+	if(isset($disable_notification))
+	{
+		$args['disable_notification'] = $disable_notification;
+	}
+	if(isset($reply_to_message_id))
+	{
+		$args['reply_to_message_id'] = $reply_to_message_id;
+	}
+	if(isset($reply_markup))
+	{
+		$args['reply_markup'] = $reply_markup;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/sendGame?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = NULL, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'user_id' => $user_id,
+		'score' => $score
+		);
+	if(isset($force))
+	{
+		$args['force'] = $force;
+	}
+	if(isset($disable_edit_message))
+	{
+		$args['disable_edit_message'] = $disable_edit_message;
+	}
+	if(isset($chat_id))
+	{
+		$args['chat_id'] = $chat_id;
+	}
+	if(isset($message_id))
+	{
+		$args['message_id'] = $message_id;
+	}
+	if(isset($inline_message_id))
+	{
+		$args['inline_message_id'] = $inline_message_id;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/setGameScore?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function getGameHighScores($user_id, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'user_id' => $user_id
+		);
+	if(isset($chat_id))
+	{
+		$args['chat_id'] = $chat_id;
+	}
+	if(isset($message_id))
+	{
+		$args['message_id'] = $message_id;
+	}
+	if(isset($inline_message_id))
+	{
+		$args['inline_message_id'] = $inline_message_id;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/getGameHighScores?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
 
 
 
@@ -1484,7 +1691,7 @@ the Free Software Foundation, either version 3 of the License, or
 at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 
