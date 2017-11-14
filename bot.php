@@ -75,7 +75,6 @@ foreach($update as $update_key => $update_val)
 	}
 }
 
-
 //test if the bot works
 //returns an array with the telegram response
 //optional parameter to print on screen if bot works
@@ -158,7 +157,6 @@ function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notificat
 	$rr = json_decode($r, true);
 	return $rr;
 }
-
 
 //$photo = file_id or http url or file
 //example = "11111111" or "http://your_website.com/photo.jpg" or "photo.jpg" (in same directory)
@@ -715,8 +713,7 @@ function getUserProfilePhotos($user_id, $offset = NULL, $limit = NULL)
 	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
 	$context = stream_context_create($options);
 	$args = array(
-		'user_id' => $user_id,
-		'text' => $text
+		'user_id' => $user_id
 		);
 	if(isset($offset))
 	{
@@ -1266,11 +1263,11 @@ function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_p
 	{
 		$args['next_offset'] = $next_offset;
 	}
-	if(isset(switch_pm_text))
+	if(isset($switch_pm_text))
 	{
 		$args['switch_pm_text'] = $switch_pm_text;
 	}
-	if(isset(switch_pm_parameter))
+	if(isset($switch_pm_parameter))
 	{
 		$args['switch_pm_parameter'] = $switch_pm_parameter;
 	}
@@ -1740,3 +1737,4 @@ if(stripos($message_text, "/test")===0)
 sendMessage($message_chat_id, "Hi " . $message_from_first_name . "\n" . $message_text, "Markdown", false, false, $message_message_id);
 //sendPhoto($message_chat_id, "photo.jpg");
 }
+
