@@ -129,6 +129,7 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -193,6 +194,7 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NU
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	if(!$file)
@@ -260,6 +262,7 @@ function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $perform
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	if(!$file)
@@ -315,6 +318,7 @@ function sendDocument($chat_id, $document, $caption = NULL, $disable_notificatio
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	if(!$file)
@@ -382,6 +386,7 @@ function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = 
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	if(!$file)
@@ -441,6 +446,7 @@ function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	if(!$file)
@@ -500,6 +506,7 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	if(!$file)
@@ -546,6 +553,7 @@ function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $dis
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -578,6 +586,7 @@ function editMessageLiveLocation($latitude, $longitude, $chat_id = NULL, $messag
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -606,6 +615,7 @@ function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_me
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -649,6 +659,7 @@ function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquar
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -682,6 +693,7 @@ function sendContact($chat_id, $phone_number, $first_name, $last_name, $disable_
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -1156,6 +1168,7 @@ function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_mes
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -1188,6 +1201,7 @@ function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -1216,6 +1230,7 @@ function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_mes
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -1247,6 +1262,7 @@ function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_p
 	global $api;
 	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
 	$context = stream_context_create($options);
+	$results = json_encode($results);
 	$args = array(
 		'inline_query_id' => $inline_query_id,
 		'results' => $results
@@ -1308,6 +1324,7 @@ function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	if(!$file)
@@ -1395,6 +1412,7 @@ function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $co
 	}
 	if(isset($mask_position))
 	{
+		$mask_position = json_encode($mask_position);
 		$args['mask_position'] = $mask_position;
 	}
 	if(!$file)
@@ -1440,6 +1458,7 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
 		);
 	if(isset($mask_position))
 	{
+		$mask_position = json_encode($mask_position);
 		$args['mask_position'] = $mask_position;
 	}
 	if(!$file)
@@ -1555,6 +1574,7 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
@@ -1575,6 +1595,7 @@ function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, 
 		);
 	if(isset($shipping_options))
 	{
+		$shipping_options = json_encode($shipping_options);
 		$args['shipping_options'] = $shipping_options;
 	}
 	if(isset($error_message))
@@ -1628,6 +1649,7 @@ function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $rep
 	}
 	if(isset($reply_markup))
 	{
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
