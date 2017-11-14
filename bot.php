@@ -75,6 +75,7 @@ foreach($update as $update_key => $update_val)
 	}
 }
 
+
 //test if the bot works
 //returns an array with the telegram response
 //optional parameter to print on screen if bot works
@@ -157,6 +158,7 @@ function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notificat
 	$rr = json_decode($r, true);
 	return $rr;
 }
+
 
 //$photo = file_id or http url or file
 //example = "11111111" or "http://your_website.com/photo.jpg" or "photo.jpg" (in same directory)
@@ -1242,6 +1244,43 @@ function deleteMessage($chat_id, $message_id)
 }
 
 
+//inline mode
+function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_personal = NULL, $next_offset = NULL, $switch_pm_text = NULL, $switch_pm_parameter = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$args = array(
+		'inline_query_id' => $inline_query_id,
+		'results' => $results
+		);
+	if(isset($cache_time))
+	{
+		$args['cache_time'] = $cache_time;
+	}
+	if(isset($is_personal))
+	{
+		$args['is_personal'] = $is_personal;
+	}
+	if(isset($next_offset))
+	{
+		$args['next_offset'] = $next_offset;
+	}
+	if(isset(switch_pm_text))
+	{
+		$args['switch_pm_text'] = $switch_pm_text;
+	}
+	if(isset(switch_pm_parameter))
+	{
+		$args['switch_pm_parameter'] = $switch_pm_parameter;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/answerInlineQuery?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
 //stickers
 function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
@@ -1666,16 +1705,6 @@ function getGameHighScores($user_id, $chat_id = NULL, $message_id = NULL, $inlin
 
 
 
-
-
-
-
-
-
-
-
-
-
 if(stripos($message_text, "/start")===0 or stripos($message_text, "/help")===0)
 {
 sendMessage($message_chat_id, "/help - Show this message\n/license - Sends you the link of the page with the license and source code of the bot");
@@ -1691,7 +1720,7 @@ the Free Software Foundation, either version 3 of the License, or
 at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
+but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 
@@ -1711,7 +1740,3 @@ if(stripos($message_text, "/test")===0)
 sendMessage($message_chat_id, "Hi " . $message_from_first_name . "\n" . $message_text, "Markdown", false, false, $message_message_id);
 //sendPhoto($message_chat_id, "photo.jpg");
 }
-
-
-
-
