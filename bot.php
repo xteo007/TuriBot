@@ -38,7 +38,7 @@ $update = json_decode($content, true);
 
 //all variables are created automatically without the need of $update['message']['text']; (you can simply use $message_text)
 //variables are created using the available telegram types fields https://core.telegram.org/bots/api#available-types
-//to get all the names of the variables just go to this link https://core.telegram.org/bots/api#update and go to see the various types below
+//To get a list of all the variables, visit https://core.telegram.org/bots/api#update
 //For example, the update object https://core.telegram.org/bots/api#update has "edited_message" (if there is no edited message in the update received from the telegram the variable will not exist) to read the contents of the text will just go to see the type used for edited_message that corresponds to "message" https://core.telegram.org/bots/api#message, if you want to read the message text just use $message_text ("message" + _ + "text")
 
 //scan update
