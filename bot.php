@@ -26,7 +26,7 @@ $api = $_GET['api'];
 }
 else
 {
-//enter here your api id obtained with @BotFather or use setup.php
+//enter here your api id obtained with @BotFather and manually set the webhook or use setup.php
 $api = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11";
 }
 
@@ -36,10 +36,10 @@ $content = file_get_contents("php://input");
 $update = json_decode($content, true);
 
 
-//all variables are created automatically without the need of $update['message']['text']; (you can simply use $message_text)
-//variables are created using the available telegram types fields https://core.telegram.org/bots/api#available-types
+//All variables are created automatically without the need of $update['message']['text']; (you can simply use $message_text)
+//Variables are created using the available telegram types fields https://core.telegram.org/bots/api#available-types
 //To get a list of all the variables, visit https://core.telegram.org/bots/api#update
-//For example, the update object https://core.telegram.org/bots/api#update has "edited_message" (if there is no edited message in the update received from Telegram the variable will not exist) to read the contents of the text will just go to see the type used for edited_message that corresponds to "message" https://core.telegram.org/bots/api#message, if you want to read the message text just use $message_text ("message" + _ + "text")
+//For example, the update object https://core.telegram.org/bots/api#update has "edited_message" (if there is no edited message in the update received from Telegram the variable will not exist) to read the contents of the text you can just have a look at the type used for edited_message that corresponds to "message" https://core.telegram.org/bots/api#message, if you want to read the message text just use $message_text ("message" + _ + "text")
 
 //scan update
 foreach($update as $update_key => $update_val)
