@@ -61,12 +61,11 @@ foreach($update as $update_key => $update_val)
 			{
 				$update_scan2_key = $update_scan_key . "_" . $update_scan2_key;
 				$$update_scan2_key = $update_scan2_val;
-				//another scan
+				//another scan...
 				foreach($$update_scan2_key as $update_scan3_key => $update_scan3_val)
 				{
 					$update_scan3_key = $update_scan2_key . "_" . $update_scan3_key;
 					$$update_scan3_key = $update_scan3_val;
-					//another scan
 					foreach($$update_scan2_key as $update_scan3_key => $update_scan3_val)
 					{
 						$update_scan3_key = $update_scan2_key . "_" . $update_scan3_key;
@@ -157,9 +156,9 @@ function deleteWebhook()
 }
 
 
-//test if the bot works
+//tests if the bot works
 //returns an array with the telegram response
-//optional parameter to print on screen if bot works
+//optional parameter to print on screen if the bot works
 function getMe($verbose = false)
 {
 	global $api;
