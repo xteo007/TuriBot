@@ -6,6 +6,13 @@ require "bot.php";
 getMe(true);
 
 
+//save last request for debug
+$file = "update.json";
+$f = fopen($file, 'w');
+fwrite($f, $content);
+fclose($f);
+
+
 //a simple message when /start or /help received from update
 if(stripos($message_text, "/start")===0 or stripos($message_text, "/help")===0)
 {
@@ -23,25 +30,50 @@ if(stripos($message_text, "/license")===0)
 //a message with the user's name, response to the user's message, and a buttons
 if(stripos($message_text, "/message")===0)
 {
-    $menu['inline_keyboard'] = array(
-				array(
-					array(
-					"text" => "Button 1",
-					"callback_data" => "btn1"
-					)
-				),
-				array(
-					array(
-					"text" => "Button 2",
-					"callback_data" => "btn2"
-					),
-					array(
-					"text" => "Button 3",
-					"callback_data" => "btn3"
-					)
-				)
-			);
-	$info = sendMessage($message_chat_id, "Hi " . $message_from_first_name . "\n" . $message_text, "Markdown", false, false, $message_message_id, $menu);
+	$menu['inline_keyboard'] = array(
+		array(
+			array(
+			"text" => "Button 1",
+			"callback_data" => "btn1"
+			)
+		),
+		array(
+			array(
+			"text" => "Button 2",
+			"callback_data" => "btn2"
+			),
+			array(
+			"text" => "Button 3",
+			"callback_data" => "btn3"
+			)
+		)
+	);
+	sendMessage($message_chat_id, "Hi " . $message_from_first_name . "\n" . $message_text, "Markdown", false, false, $message_message_id, $menu);
+}
+
+
+if(stripos($callback_query_data, "btn1")===0)
+{
+	$menu['inline_keyboard'] = array(
+		array(
+			array(
+			"text" => "Button 1",
+			"callback_data" => "btn1"
+			)
+		),
+		array(
+			array(
+			"text" => "Button 2",
+			"callback_data" => "btn2"
+			),
+			array(
+			"text" => "Button 3",
+			"callback_data" => "btn3"
+			)
+		)
+	);
+	$info2 = answerCallbackQuery($callback_query_id, "Button 1");
+	editMessageText("Button 1", $callback_query_message_chat_id, $callback_query_message_message_id, NULL, NULL, NULL, $menu);
 }
 
 

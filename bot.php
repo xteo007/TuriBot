@@ -60,20 +60,20 @@ foreach($update as $update_key => $update_val)
 			foreach($$update_scan_key as $update_scan2_key => $update_scan2_val)
 			{
 				$update_scan2_key = $update_scan_key . "_" . $update_scan2_key;
-				$$update_scan2_key = $update_scan2_field;
+				$$update_scan2_key = $update_scan2_val;
 				//another scan
 				foreach($$update_scan2_key as $update_scan3_key => $update_scan3_val)
 				{
 					$update_scan3_key = $update_scan2_key . "_" . $update_scan3_key;
-					$$update_scan3_key = $update_scan3_field;
+					$$update_scan3_key = $update_scan3_val;
 					//another scan
 					foreach($$update_scan2_key as $update_scan3_key => $update_scan3_val)
 					{
 						$update_scan3_key = $update_scan2_key . "_" . $update_scan3_key;
-						$$update_scan3_key = $update_scan3_field;
+						$$update_scan3_key = $update_scan3_val;
 						foreach($$update_scan3_key as $update_scan4_key => $update_scan4_val)
 						{
-							$$update_scan4_key = $update_scan4_field;
+							$$update_scan4_key = $update_scan4_val;
 						}
 					}					
 				}
@@ -81,6 +81,81 @@ foreach($update as $update_key => $update_val)
 		}
 	}
 }
+
+
+
+
+function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	if(isset($offset))
+	{
+		$args['offset'] = $offset;
+	}
+	if(isset($limit))
+	{
+		$args['limit'] = $limit;
+	}
+	if(isset($timeout))
+	{
+		$args['timeout'] = $timeout;
+	}
+	if(isset($allowed_updates))
+	{
+		$args['allowed_updates'] = $allowed_updates;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/getUpdates?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed_updates = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$file_name = realpath($certificate);
+	$certificate = curl_file_create($file_name);
+	$args = array(
+		'url' => $url
+		);
+	if(isset($certificate))
+	{
+		$args['certificate'] = $certificate;
+	}
+	if(isset($max_connections))
+	{
+		$args['max_connections'] = $max_connections;
+	}
+	if(isset($allowed_updates))
+	{
+		$args['allowed_updates'] = $allowed_updates;
+	}
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/setWebhook");
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$rr = curl_exec($ch);
+	curl_close($ch);
+	return $rr;
+}
+
+
+function deleteWebhook()
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$context = stream_context_create($options);
+	$r = file_get_contents("https://api.telegram.org/bot$api/deleteWebhook", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;
+}
+
 
 //test if the bot works
 //returns an array with the telegram response

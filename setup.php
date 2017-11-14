@@ -29,6 +29,8 @@ elseif(isset($_POST['api']))
 		global $api;
 		$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
 		$context = stream_context_create($options);
+		$file_name = realpath($certificate);
+		$certificate = curl_file_create($file_name);
 		$args = array(
 			'url' => $url
 			);
@@ -44,9 +46,13 @@ elseif(isset($_POST['api']))
 		{
 			$args['allowed_updates'] = $allowed_updates;
 		}
-		$params = http_build_query($args);
-		$r = file_get_contents("https://api.telegram.org/bot$api/setWebhook?$params", false, $context);
-		$rr = json_decode($r, true);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/setWebhook");
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$rr = curl_exec($ch);
+		curl_close($ch);
 		return $rr;
 	}
 	function getMe($verbose = false)
