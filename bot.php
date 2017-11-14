@@ -19,9 +19,16 @@
 **/
 
 
-//enter here your api id obtained with @BotFather
 //$api is a global variable in many function!
+if(isset($_GET['api']))
+{
+$api = $_GET['api'];
+}
+else
+{
+//enter here your api id obtained with @BotFather or use setup.php
 $api = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11";
+}
 
 
 //receiving updates via the webhook
@@ -81,7 +88,7 @@ foreach($update as $update_key => $update_val)
 function getMe($verbose = false)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$r = file_get_contents("https://api.telegram.org/bot$api/getMe", false, $context);
 	$rr = json_decode($r, true);
@@ -95,7 +102,7 @@ function getMe($verbose = false)
 		}
 		else
 		{
-			echo "Api ID wrong or impossible to connect to Telegram";
+			echo "API ID wrong or impossible to connect to Telegram";
 		}
 	}
 	return $rr;
@@ -105,7 +112,7 @@ function getMe($verbose = false)
 function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_preview = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -133,7 +140,7 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/sendMessage?$params", false, $context);
+	$r = @file_get_contents("https://api.telegram.org/bot$api/sendMessage?$params", false, $context);
 	$rr = json_decode($r, true);
 	return $rr;
 }
@@ -142,7 +149,7 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notification = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -164,7 +171,7 @@ function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notificat
 function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($photo, "http") === false)
@@ -220,7 +227,7 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NU
 function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $performer = NULL, $title = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($audio, "http") === false)
@@ -288,7 +295,7 @@ function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $perform
 function sendDocument($chat_id, $document, $caption = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($document, "http") === false)
@@ -344,7 +351,7 @@ function sendDocument($chat_id, $document, $caption = NULL, $disable_notificatio
 function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = NULL, $caption = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($video, "http") === false)
@@ -412,7 +419,7 @@ function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = 
 function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($voice, "http") === false)
@@ -472,7 +479,7 @@ function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable
 function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($video_note, "http") === false)
@@ -532,7 +539,7 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -566,7 +573,7 @@ function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $dis
 function editMessageLiveLocation($latitude, $longitude, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'latitude' => $latitude,
@@ -599,7 +606,7 @@ function editMessageLiveLocation($latitude, $longitude, $chat_id = NULL, $messag
 function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	if(isset($chat_id))
 	{
@@ -628,7 +635,7 @@ function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_me
 function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquare_id = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -672,7 +679,7 @@ function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquar
 function sendContact($chat_id, $phone_number, $first_name, $last_name, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -706,7 +713,7 @@ function sendContact($chat_id, $phone_number, $first_name, $last_name, $disable_
 function sendChatAction($chat_id, $action)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -722,7 +729,7 @@ function sendChatAction($chat_id, $action)
 function getUserProfilePhotos($user_id, $offset = NULL, $limit = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'user_id' => $user_id
@@ -745,7 +752,7 @@ function getUserProfilePhotos($user_id, $offset = NULL, $limit = NULL)
 function getFile($file_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'file_id' => $file_id
@@ -760,7 +767,7 @@ function getFile($file_id)
 function kickChatMember($chat_id, $user_id, $until_date = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -780,7 +787,7 @@ function kickChatMember($chat_id, $user_id, $until_date = NULL)
 function unbanChatMember($chat_id, $user_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -796,7 +803,7 @@ function unbanChatMember($chat_id, $user_id)
 function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_messages = NULL, $can_send_media_messages = NULL, $can_send_other_messages = NULL, $can_add_web_page_previews = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -832,7 +839,7 @@ function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_me
 function promoteChatMember($chat_id, $user_id, $can_change_info = NULL, $can_post_messages = NULL, $can_edit_messages = NULL, $can_delete_messages = NULL, $can_invite_users = NULL, $can_restrict_members = NULL, $can_pin_messages = NULL, $can_promote_members = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -880,7 +887,7 @@ function promoteChatMember($chat_id, $user_id, $can_change_info = NULL, $can_pos
 function exportChatInviteLink($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -895,7 +902,7 @@ function exportChatInviteLink($chat_id)
 function setChatPhoto($chat_id, $photo)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file_name = realpath($photo);
 	$photo = curl_file_create($file_name);
@@ -917,7 +924,7 @@ function setChatPhoto($chat_id, $photo)
 function deleteChatPhoto($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -932,7 +939,7 @@ function deleteChatPhoto($chat_id)
 function setChatTitle($chat_id, $title)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -948,7 +955,7 @@ function setChatTitle($chat_id, $title)
 function setChatDescription($chat_id, $description = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -967,7 +974,7 @@ function setChatDescription($chat_id, $description = NULL)
 function pinChatMessage($chat_id, $message_id, $disable_notification = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -987,7 +994,7 @@ function pinChatMessage($chat_id, $message_id, $disable_notification = NULL)
 function unpinChatMessage($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -1002,7 +1009,7 @@ function unpinChatMessage($chat_id)
 function leaveChat($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -1017,7 +1024,7 @@ function leaveChat($chat_id)
 function getChat($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -1032,7 +1039,7 @@ function getChat($chat_id)
 function getChatAdministrators($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -1047,7 +1054,7 @@ function getChatAdministrators($chat_id)
 function getChatMembersCount($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -1062,7 +1069,7 @@ function getChatMembersCount($chat_id)
 function getChatMember($chat_id, $user_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -1078,7 +1085,7 @@ function getChatMember($chat_id, $user_id)
 function setChatStickerSet($chat_id, $sticker_set_name)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -1094,7 +1101,7 @@ function setChatStickerSet($chat_id, $sticker_set_name)
 function deleteChatStickerSet($chat_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id
@@ -1109,7 +1116,7 @@ function deleteChatStickerSet($chat_id)
 function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NULL, $url = NULL, $cache_time = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'callback_query_id' => $callback_query_id
@@ -1141,7 +1148,7 @@ function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NUL
 function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $parse_mode = NULL, $disable_web_page_preview = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'text' => $text
@@ -1181,7 +1188,7 @@ function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_mes
 function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $caption = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	if(isset($chat_id))
 	{
@@ -1214,7 +1221,7 @@ function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message
 function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	if(isset($chat_id))
 	{
@@ -1243,7 +1250,7 @@ function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_mes
 function deleteMessage($chat_id, $message_id)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -1260,7 +1267,7 @@ function deleteMessage($chat_id, $message_id)
 function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_personal = NULL, $next_offset = NULL, $switch_pm_text = NULL, $switch_pm_parameter = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$results = json_encode($results);
 	$args = array(
@@ -1298,7 +1305,7 @@ function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_p
 function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($sticker, "http") === false)
@@ -1350,7 +1357,7 @@ function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to
 function getStickerSet($name)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'name' => $name
@@ -1365,7 +1372,7 @@ function getStickerSet($name)
 function uploadStickerFile($user_id, $png_sticker)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file_name = realpath($png_sticker);
 	$png_sticker = curl_file_create($file_name);
@@ -1387,7 +1394,7 @@ function uploadStickerFile($user_id, $png_sticker)
 function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $contains_masks = NULL, $mask_position = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($png_sticker, "http") === false)
@@ -1438,7 +1445,7 @@ function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $co
 function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file = false;
 	if(stripos($png_sticker, "http") === false)
@@ -1484,7 +1491,7 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
 function setStickerPositionInSet($sticker, $position)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'sticker' => $sticker,
@@ -1500,7 +1507,7 @@ function setStickerPositionInSet($sticker, $position)
 function deleteStickerFromSet($sticker)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'sticker' => $sticker
@@ -1516,7 +1523,7 @@ function deleteStickerFromSet($sticker)
 function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -1587,7 +1594,7 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, $error_message = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'shipping_query_id' => $shipping_query_id,
@@ -1612,7 +1619,7 @@ function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, 
 function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'pre_checkout_query_id' => $pre_checkout_query_id,
@@ -1633,7 +1640,7 @@ function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NU
 function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
@@ -1662,7 +1669,7 @@ function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $rep
 function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = NULL, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'user_id' => $user_id,
@@ -1698,7 +1705,7 @@ function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = N
 function getGameHighScores($user_id, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$args = array(
 		'user_id' => $user_id
@@ -1720,43 +1727,3 @@ function getGameHighScores($user_id, $chat_id = NULL, $message_id = NULL, $inlin
 	$rr = json_decode($r, true);
 	return $rr;
 }
-
-
-
-
-if(stripos($message_text, "/start")===0 or stripos($message_text, "/help")===0)
-{
-sendMessage($message_chat_id, "/help - Show this message\n/license - Sends you the link of the page with the license and source code of the bot");
-}
-
-if(stripos($message_text, "/license")===0)
-{
-sendMessage($message_chat_id, "Copyright (C) 2017 Davide Turaccio
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-The source code of this bot is avaible on https://github.com/davtur19/php-telegram-bot-api");
-}
-
-
-//example
-getMe(true);
-
-if(stripos($message_text, "/test")===0)
-{
-sendMessage($message_chat_id, "Hi " . $message_from_first_name . "\n" . $message_text, "Markdown", false, false, $message_message_id);
-//sendPhoto($message_chat_id, "photo.jpg");
-}
-
