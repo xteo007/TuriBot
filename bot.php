@@ -87,7 +87,7 @@ foreach($update as $update_key => $update_val)
 function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	if(isset($offset))
 	{
@@ -115,7 +115,7 @@ function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = 
 function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed_updates = NULL)
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$file_name = realpath($certificate);
 	$certificate = curl_file_create($file_name);
@@ -148,7 +148,7 @@ function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed
 function deleteWebhook()
 {
 	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
 	$r = file_get_contents("https://api.telegram.org/bot$api/deleteWebhook", false, $context);
 	$rr = json_decode($r, true);
