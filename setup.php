@@ -27,8 +27,7 @@ elseif(isset($_POST['api']))
 	function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed_updates = NULL)
 	{
 		global $api;
-		$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
-		$context = stream_context_create($options);
+		$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));		$context = stream_context_create($options);
 		$file_name = realpath($certificate);
 		$certificate = curl_file_create($file_name);
 		$args = array(
@@ -58,8 +57,7 @@ elseif(isset($_POST['api']))
 	function getMe($verbose = false)
 	{
 		global $api;
-		$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n"));
-		$context = stream_context_create($options);
+		$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));		$context = stream_context_create($options);
 		$r = file_get_contents("https://api.telegram.org/bot$api/getMe", false, $context);
 		$rr = json_decode($r, true);
 
