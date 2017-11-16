@@ -84,6 +84,20 @@ foreach($update as $update_key => $update_val)
 
 
 
+function curlRequest($str, $args)
+{
+	global $api;
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/$str");
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$rr = curl_exec($ch);
+	curl_close($ch);
+	return $rr;
+}
+		
+		
 function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = NULL)
 {
 	global $api;
@@ -122,10 +136,6 @@ function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed
 	$args = array(
 		'url' => $url
 		);
-	if(isset($certificate))
-	{
-		$args['certificate'] = $certificate;
-	}
 	if(isset($max_connections))
 	{
 		$args['max_connections'] = $max_connections;
@@ -134,13 +144,18 @@ function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed
 	{
 		$args['allowed_updates'] = $allowed_updates;
 	}
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/setWebhook");
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$rr = curl_exec($ch);
-	curl_close($ch);
+	if(isset($certificate))
+	{
+		$args['certificate'] = $certificate;
+		
+		$rr = curlRequest("setWebhook", $args);
+	}
+	else
+	{
+		$params = http_build_query($args);
+		$r = file_get_contents("https://api.telegram.org/bot$api/setWebhook?$params", false, $context);
+		$rr = json_decode($r, true);
+	}
 	return $rr;
 }
 
@@ -286,13 +301,7 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NU
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendPhoto");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("sendPhoto", $args);
 	}
 	return $rr;	
 }
@@ -354,13 +363,7 @@ function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $perform
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendAudio");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("sendAudio", $args);
 	}
 	return $rr;	
 }
@@ -410,13 +413,7 @@ function sendDocument($chat_id, $document, $caption = NULL, $disable_notificatio
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendDocument");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("sendDocument", $args);
 	}
 	return $rr;	
 }
@@ -478,13 +475,7 @@ function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = 
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendVideo");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("sendVideo", $args);
 	}
 	return $rr;	
 }
@@ -538,13 +529,7 @@ function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendVoice");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("sendVoice", $args);
 	}
 	return $rr;	
 }
@@ -598,13 +583,7 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendVideoNote");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("sendVideoNote", $args);
 	}
 	return $rr;	
 }
@@ -984,13 +963,7 @@ function setChatPhoto($chat_id, $photo)
 		'chat_id' => $chat_id,
 		'photo' => $photo
 		);
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/setChatPhoto");
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$rr = curl_exec($ch);
-	curl_close($ch);
+	$rr = curlRequest("sendChatPhoto", $args);
 	return $rr;
 }
 
@@ -1416,13 +1389,7 @@ function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/sendSticker");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("sendSticker", $args);
 	}
 	return $rr;	
 }
@@ -1454,13 +1421,7 @@ function uploadStickerFile($user_id, $png_sticker)
 		'user_id' => $user_id,
 		'png_sticker' => $png_sticker
 		);
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/uploadStickerFile");
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$rr = curl_exec($ch);
-	curl_close($ch);
+	$rr = curlRequest("sendStickerFile", $args);
 	return $rr;	
 }
 
@@ -1504,13 +1465,7 @@ function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $co
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/createNewStickerSet");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("createNewStickerSet", $args);
 	}
 	return $rr;	
 }
@@ -1550,13 +1505,7 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
 	}
 	else
 	{
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/addStickerToSet");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
+		$rr = curlRequest("addStickerToSet", $args);
 	}
 	return $rr;	
 }
