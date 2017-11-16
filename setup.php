@@ -1,5 +1,7 @@
 <?php
 
+require "bot.php";
+
 echo "<form action='setup.php' method='POST'>";
 
 if(isset($_POST['yes']))
@@ -24,57 +26,6 @@ elseif(isset($_POST['api']))
 	$api = $_POST['api'];
 	$link = $_POST['link'];
 	$link = $link . "?api=" . $api;
-	function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed_updates = NULL)
-	{
-		global $api;
-		$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));		$context = stream_context_create($options);
-		$file_name = realpath($certificate);
-		$certificate = curl_file_create($file_name);
-		$args = array(
-			'url' => $url
-			);
-		if(isset($certificate))
-		{
-			$args['certificate'] = $certificate;
-		}
-		if(isset($max_connections))
-		{
-			$args['max_connections'] = $max_connections;
-		}
-		if(isset($allowed_updates))
-		{
-			$args['allowed_updates'] = $allowed_updates;
-		}
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/setWebhook");
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		$rr = curl_exec($ch);
-		curl_close($ch);
-		return $rr;
-	}
-	function getMe($verbose = false)
-	{
-		global $api;
-		$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));		$context = stream_context_create($options);
-		$r = file_get_contents("https://api.telegram.org/bot$api/getMe", false, $context);
-		$rr = json_decode($r, true);
-
-		if($verbose)
-		{
-			if($rr['ok'])
-			{
-				$bot = $rr['result']['username'];
-				echo "Bot: @" . $bot;
-			}
-			else
-			{
-				echo "API ID wrong or impossible to connect to Telegram";
-			}
-		}
-		return $rr;
-	}
 	setWebhook($link);
 	getMe(true);
 }
