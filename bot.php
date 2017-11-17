@@ -126,13 +126,10 @@ function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = 
 }
 
 
-function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed_updates = NULL)
+function setWebhook($api, $url, $certificate = NULL, $max_connections = NULL, $allowed_updates = NULL)
 {
-	global $api;
 	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
 	$context = stream_context_create($options);
-	$file_name = realpath($certificate);
-	$certificate = curl_file_create($file_name);
 	$args = array(
 		'url' => $url
 		);
@@ -146,8 +143,9 @@ function setWebhook($url, $certificate = NULL, $max_connections = NULL, $allowed
 	}
 	if(isset($certificate))
 	{
+		$file_name = realpath($certificate);
+		$certificate = curl_file_create($file_name);
 		$args['certificate'] = $certificate;
-		
 		$rr = curlRequest("setWebhook", $args);
 	}
 	else
@@ -167,6 +165,31 @@ function deleteWebhook()
 	$context = stream_context_create($options);
 	$r = file_get_contents("https://api.telegram.org/bot$api/deleteWebhook", false, $context);
 	$rr = json_decode($r, true);
+	return $rr;
+}
+
+
+//Webhook URL, may be empty if webhook is not set up
+function getWebhookInfo($verbose = false)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
+	$context = stream_context_create($options);
+	$r = file_get_contents("https://api.telegram.org/bot$api/getWebhookInfo", false, $context);
+	$rr = json_decode($r, true);
+
+	if($verbose)
+	{
+		if($rr['ok'])
+		{
+			$bot = $rr['result']['url'];
+			echo "URL: " . $bot;
+		}
+		else
+		{
+			echo "API ID wrong or impossible to connect to Telegram";
+		}
+	}
 	return $rr;
 }
 

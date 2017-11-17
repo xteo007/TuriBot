@@ -26,7 +26,7 @@ elseif(isset($_POST['api']))
 	$api = $_POST['api'];
 	$link = $_POST['link'];
 	$link = $link . "?api=" . $api;
-	setWebhook($link);
+	setWebhook($api, $link);
 	getMe(true);
 }
 elseif(isset($_POST['no']))
