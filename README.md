@@ -1,6 +1,6 @@
 # php-telegram-bot-api
 
-[![Donate](https://img.shields.io/badge/%F0%9F%92%99-Donate-blue.svg)](#donate)
+[![Donate](https://img.shields.io/badge/%F0%9F%92%99-Donate-blue.svg)](https://www.paypal.me/davtur19)
 
 PHP Telegram Bot API is a simple way to communicate with telegram APIs
 
