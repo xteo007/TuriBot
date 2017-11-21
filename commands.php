@@ -83,3 +83,19 @@ if(stripos($message_text, "/photo")===0)
 {
 	sendPhoto($message_chat_id, "photo.jpg");
 }
+
+
+if(stripos($message_text, "/album")===0)
+{
+	$media = array(
+		array(
+		"type" => "photo",
+		"media" => "http://example/img/photo.jpg"
+		),
+		array(
+		"type" => "photo",
+		"media" => "http://example/img/test.png"
+		),		
+	);
+	sendMediaGroup($message_chat_id, $media);
+}

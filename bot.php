@@ -612,6 +612,33 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 }
 
 
+//in $media send array of InputMedia, for now it only supports sending via id or link
+function sendMediaGroup($chat_id, $media, $disable_notification = NULL, $reply_to_message_id = NULL)
+{
+	global $api;
+	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
+	$context = stream_context_create($options);
+	$media = json_encode($media);
+	var_dump($media);
+	$args = array(
+		'chat_id' => $chat_id,
+		'media' => $media
+		);
+	if(isset($disable_notification))
+	{
+		$args['disable_notification'] = $disable_notification;
+	}
+	if(isset($reply_to_message_id))
+	{
+		$args['reply_to_message_id'] = $reply_to_message_id;
+	}
+	$params = http_build_query($args);
+	$r = file_get_contents("https://api.telegram.org/bot$api/sendMediaGroup?$params", false, $context);
+	$rr = json_decode($r, true);
+	return $rr;	
+}
+
+
 function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
@@ -1566,7 +1593,7 @@ function deleteStickerFromSet($sticker)
 
 
 //payments
-function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $provider_data, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
 	global $api;
 	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
@@ -1581,6 +1608,10 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 		'currency' => $currency,
 		'prices' => $prices
 		);
+	if(isset($provider_data))
+	{
+		$args['provider_data'] = $provider_data;
+	}
 	if(isset($photo_url))
 	{
 		$args['photo_url'] = $photo_url;
