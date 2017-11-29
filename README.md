@@ -10,11 +10,11 @@ PHP Telegram Bot API is a simple way to communicate with telegram APIs
 Documentation is only in Italian at the moment
 
 # Guida
-Caricare i file su un webserver e impostare il webhook manualmente che punti a bot.php, oppure aprire dal browser il file setup.php e fare il setup con esso.
+Caricare i file su un webserver e impostare il webhook manualmente che punti a commands.php, oppure aprire dal browser il file setup.php e fare il setup con esso.
 
 * Il file .htaccess serve per permettere richieste solo dai server di telegram (testato su apache2)
-* bot.php è il file principale a cui settare il webhook e che riceve gli update
-* commands.php è un file di esempio con dei comandi base per il bot
+* bot.php è il file principale che elabora gli update e richiama le varie funzioni
+* commands.php è un file di esempio con dei comandi base per il bot a cui bisogna puntare il webhook
 * LICENSE il file con la licenza (GNU Affero General Public License v3.0)
 * setup.php serve per settare il webhook in modo facile
 * functions è la cartella con le varie funzioni
