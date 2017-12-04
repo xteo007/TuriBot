@@ -30,7 +30,7 @@ Mentre facendo solo $chat conterrà l'array di 'chat'.
 ## Funzionamento del bot:
 1. Quando il bot riceve un messaggio, Telegram manda un json come quello qua sotto, alla pagina a cui è settato il webhook.
 1. Poi questo json viene decodificato e messo nella variabile $update che sarà un array come quello qua sotto.
-1. Dopodichè vengono create le variabili usando i campi del array e vengono separati da un underscore, tranne per la prima dimensionde del array (ovvere i campi di update come update_id, message, edited_message, channel_post, ecc..).
+1. Dopodichè vengono create le variabili usando i campi del array e vengono separati da un underscore, tranne per la prima dimensionde del array (ovvero i campi di update come update_id, message, edited_message, channel_post, ecc..).
 
 Json mandato da Telegram
 ```
