@@ -73,7 +73,7 @@ if(stripos($callback_query_data, "btn1")===0)
 			)
 		)
 	);
-	$info2 = answerCallbackQuery($callback_query_id, "Button 1");
+	answerCallbackQuery($callback_query_id, "Button 1");
 	editMessageText("Button 1", $callback_query_message_chat_id, $callback_query_message_message_id, NULL, NULL, NULL, $menu);
 }
 
