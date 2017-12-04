@@ -93,7 +93,7 @@ array(2) {
   }
 }
 ```
-Esempio di alcune variabili seguendo l'array usato sompra
+Esempio di alcune variabili seguendo l'array usato sopra
 ```
 $chat
 ["chat"]=>
