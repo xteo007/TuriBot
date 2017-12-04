@@ -49,7 +49,7 @@ foreach($update as $update_key => $update_val)
 	//scan field of update (message/edited_message/channel_post/edited_channel_post...)
 	foreach($$update_key as $update_field_key => $update_field_val)
 	{
-		$update_field_key = $update_key . "_" . $update_field_key;
+		//$update_field_key = $update_key . "_" . $update_field_key;
 		$$update_field_key = $update_field_val;
 		//scan field of update of message/edited_message/channel_post/edited_channel_post... (message_id,from,date,chat...) https://core.telegram.org/bots/api#update
 		foreach($$update_field_key as $update_scan_key => $update_scan_val)
