@@ -17,7 +17,7 @@ In alternativa si può settare il webhook che punti a bot.php e includere comman
 ## Nomi delle variabili
 I nomi delle variabili sono create in modo dinamico e esse esisteranno solo se presenti nel update ricevuto da Telegram. Come nomi hanno gli stessi campi degli array mandati dalle richieste di update tramite webhook di Telegram. Inoltre la prima dimensione del array viene esclusa per creare i nomi delle variabili che sono separate da un underscore.
 
-Nonostante la prima dimesione del array non venga usata per creare i nomi delle variabili, è possibile usare $message, $edited_message, $channel_post, ecc... per distinguere i vari messaggi, ad esempio per capire se il messaggio ricevuto è un messaggio normale o modificato.
+Nonostante la prima dimesione dell'array non venga usata per creare i nomi delle variabili, è possibile usare $message, $edited_message, $channel_post, ecc... per distinguere i vari messaggi, ad esempio per capire se il messaggio ricevuto è un messaggio normale o modificato.
 (Vedere qua per i nomi: https://core.telegram.org/bots/api#update)
 
 Possono essere usati anche i nomi delle variabili non completi
