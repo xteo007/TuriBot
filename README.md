@@ -25,7 +25,7 @@ Possono essere usati anche i nomi delle variabili non completi
 Per esempio:
 $chat_id conterrà 'id' che è all'interno del array di 'chat'.
 Mentre facendo solo $chat conterrà l'array di 'chat'.
-Per maggiori info guardare le api di Telegram https://core.telegram.org/bots/api#chat
+(Per maggiori info sui nomi guardare le api di Telegram https://core.telegram.org/bots/api#chat)
 
 ## Funzionamento del bot:
 1. Quando il bot riceve un messaggio, Telegram manda un json come quello qua sotto, alla pagina a cui è settato il webhook.
