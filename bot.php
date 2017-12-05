@@ -132,7 +132,7 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 		$args['reply_markup'] = $reply_markup;
 	}
 	$params = http_build_query($args);
-	$r = @file_get_contents("https://api.telegram.org/bot$api/sendMessage?$params", false, $context);
+	$r = file_get_contents("https://api.telegram.org/bot$api/sendMessage?$params", false, $context);
 	$rr = json_decode($r, true);
 	return $rr;
 }
