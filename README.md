@@ -5,9 +5,6 @@
 
 TuriBot is a simple way to communicate with Telegram APIs in PHP
 
-.htaccess file is not needed for the bot, but it is recommended to use it to allow requests only from Telegram servers and also to not allow access to files and indexing (tested on apache2)
-
-
 Documentation is only in Italian at the moment
 
 # Guida
@@ -153,7 +150,6 @@ $message
 ```
 ## Divisione dei file
 Nella directory principale troviamo:
-* .htaccess serve per permettere richieste solo dai server di telegram ma non è un file necessario per il funzionamento. Attenzione questo file potrebbe non funzionare su tutti i webserver, è stato testato su apache2.
 * bot.php è il file principale che elabora gli update e richiama i file con all'interno le varie funzioni.
 * commands.php è un file di esempio con dei comandi base per il bot.
 * functions è la cartella con le varie funzioni
@@ -163,7 +159,6 @@ Nella directory principale troviamo:
 Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stesso nome dei metodi disponibili di Telegram
 ```
 /bot
-|   .htaccess
 |   bot.php
 |   commands.php
 |   LICENSE
