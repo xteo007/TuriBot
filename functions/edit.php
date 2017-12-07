@@ -4,9 +4,6 @@
 //updating messages
 function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $parse_mode = NULL, $disable_web_page_preview = NULL, $reply_markup = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$args = array(
 		'text' => $text
 		);
@@ -35,18 +32,13 @@ function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_mes
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/editMessageText?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("editMessageText", $args);
 	return $rr;
 }
 
 
 function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $caption = NULL, $reply_markup = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	if(isset($chat_id))
 	{
 		$args['chat_id'] = $chat_id;
@@ -68,18 +60,13 @@ function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/editMessageCaption?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("editMessageCaption", $args);
 	return $rr;
 }
 
 
 function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	if(isset($chat_id))
 	{
 		$args['chat_id'] = $chat_id;
@@ -97,24 +84,17 @@ function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_mes
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/editMessageReplyMarkup?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("editMessageReplyMarkup", $args);
 	return $rr;
 }
 
 
 function deleteMessage($chat_id, $message_id)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
 		'message_id' => $message_id,
 		);
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/deleteMessage?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("deleteMessage", $args);
 	return $rr;
 }

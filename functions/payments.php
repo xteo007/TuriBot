@@ -4,9 +4,6 @@
 //payments
 function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $provider_data, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
 		'title' => $title,
@@ -70,18 +67,13 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/sendInvoice?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("sendInvoice", $args);
 	return $rr;
 }
 
 
 function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, $error_message = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$args = array(
 		'shipping_query_id' => $shipping_query_id,
 		'ok' => $ok
@@ -95,18 +87,13 @@ function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, 
 	{
 		$args['error_message'] = $error_message;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/answerShippingQuery?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("answerShippingQuery", $args);
 	return $rr;
 }
 
 
 function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$args = array(
 		'pre_checkout_query_id' => $pre_checkout_query_id,
 		'ok' => $ok
@@ -115,8 +102,6 @@ function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NU
 	{
 		$args['error_message'] = $error_message;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/answerPreCheckoutQuery?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("answerPreCheckoutQuery", $args);
 	return $rr;
 }

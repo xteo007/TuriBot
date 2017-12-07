@@ -3,9 +3,6 @@
 //inline mode
 function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_personal = NULL, $next_offset = NULL, $switch_pm_text = NULL, $switch_pm_parameter = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$results = json_encode($results);
 	$args = array(
 		'inline_query_id' => $inline_query_id,
@@ -31,8 +28,6 @@ function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_p
 	{
 		$args['switch_pm_parameter'] = $switch_pm_parameter;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/answerInlineQuery?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("answerInlineQuery", $args);
 	return $rr;
 }
