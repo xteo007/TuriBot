@@ -19,7 +19,7 @@
 **/
 
 
-//$api is a global variable in many function!
+//$api is a global variable in curlRequest function!
 if(isset($_GET['api']))
 {
 $api = $_GET['api'];
@@ -84,16 +84,20 @@ foreach($update as $update_key => $update_val)
 
 
 
-function curlRequest($str, $args)
+function curlRequest($str, $args = NULL)
 {
 	global $api;
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/$str");
 	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+	if(isset($args))
+	{
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
+	}	
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$rr = curl_exec($ch);
+	$r = curl_exec($ch);
 	curl_close($ch);
+	$rr = json_decode($r, true);
 	return $rr;
 }
 
@@ -103,9 +107,6 @@ function curlRequest($str, $args)
 //base functions
 function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_preview = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
 		'text' => $text
@@ -131,18 +132,13 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/sendMessage?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("sendMessage", $args);
 	return $rr;
 }
 
 
 function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notification = NULL)
 {
-	global $api;
-	$options = array('http'=>array('method'=>"GET", 'header'=>"Accept-language: en\r\n" . "Cookie: foo=bar\r\n", 'ignore_errors' => true));
-	$context = stream_context_create($options);
 	$args = array(
 		'chat_id' => $chat_id,
 		'from_chat_id' => $from_chat_id,
@@ -152,9 +148,7 @@ function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notificat
 	{
 		$args['disable_notification'] = $disable_notification;
 	}
-	$params = http_build_query($args);
-	$r = file_get_contents("https://api.telegram.org/bot$api/forwardMessage?$params", false, $context);
-	$rr = json_decode($r, true);
+	$rr = curlRequest("forwardMessage", $args);
 	return $rr;
 }
 

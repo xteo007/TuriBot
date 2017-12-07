@@ -1,6 +1,6 @@
 <?php
 
-require "functions/updates.php";
+require "bot.php";
 
 echo "<form action='setup.php' method='POST'>";
 

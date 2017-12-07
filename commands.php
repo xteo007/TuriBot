@@ -53,7 +53,7 @@ if(stripos($text, "/message")===0)
 
 
 //edits the message and notifies the user
-if(stripos($query_data, "btn1")===0)
+if(stripos($data, "btn1")===0)
 {
 	$menu['inline_keyboard'] = array(
 		array(
@@ -73,8 +73,8 @@ if(stripos($query_data, "btn1")===0)
 			)
 		)
 	);
-	answerCallbackQuery($query_id, "Button 1");
-	editMessageText("Button 1", $query_message_chat_id, $query_message_message_id, NULL, NULL, NULL, $menu);
+	answerCallbackQuery($id, "Button 1");
+	editMessageText("Button 1", $message_chat_id, $message_message_id, NULL, NULL, NULL, $menu);
 }
 
 
