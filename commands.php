@@ -2,10 +2,6 @@
 require "bot.php";
 
 
-//tests if the bot works and prints on page the name of the bot
-getMe(true);
-
-
 //saves last request for debug
 $file = "update.json";
 $f = fopen($file, 'w');
