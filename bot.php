@@ -84,19 +84,19 @@ foreach($update as $update_key => $update_val)
 
 
 
-function curlRequest($str, $args = NULL)
+function curlRequest($method, $args = NULL)
 {
 	global $api;
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/$str");
-	curl_setopt($ch, CURLOPT_POST, 1);
+	$c = curl_init();
+	curl_setopt($c, CURLOPT_URL, "https://api.telegram.org/bot$api/$method");
+	curl_setopt($c, CURLOPT_POST, 1);
 	if(isset($args))
 	{
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
-	}	
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	$r = curl_exec($ch);
-	curl_close($ch);
+		curl_setopt($c, CURLOPT_POSTFIELDS, $args);
+	}
+	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+	$r = curl_exec($c);
+	curl_close($c);
 	$rr = json_decode($r, true);
 	return $rr;
 }
