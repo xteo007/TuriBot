@@ -137,7 +137,7 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 }
 
 
-function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notification = NULL)
+function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $message_id)
 {
 	$args = array(
 		'chat_id' => $chat_id,
