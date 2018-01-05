@@ -244,5 +244,3 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
             getWebhookInfo
             setWebhook
 ```
-
-
