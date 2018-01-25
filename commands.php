@@ -74,7 +74,7 @@ if(stripos($data, "btn1")===0)
 }
 
 
-//it will only work if you have a photo.jpg in the bot folder
+//it will only work if you have a photo.jpg in the bot folder, otherwise you can use link or file_id
 if(stripos($text, "/photo")===0)
 {
 	sendPhoto($chat_id, "photo.jpg");
