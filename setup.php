@@ -1,6 +1,6 @@
 <?php
 
-require "bot.php";
+require_once "bot.php";
 
 echo "<form action='setup.php' method='POST'>";
 
