@@ -16,7 +16,8 @@ In alternativa si può settare il webhook che punti a bot.php e includere comman
 ## Attenzione!
 Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da ```require_once(bot.php);``` a ```require_once(bot_debug.php);```)
 
-La generazione delle variabili per ogni update ricevuto neccessita di attenzione durante la scrittura del codice, siccome un eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
+Siccome il bot genera le variabili in base al contenuto del update ricevuto, un eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
+(Es: $text non esisterà se il bot riceverà una foto)
 
 ## Nomi delle variabili
 I nomi delle variabili sono create in modo dinamico e esse esisteranno solo se presenti nel update ricevuto da Telegram. Come nomi hanno gli stessi campi degli array mandati dalle richieste di update tramite webhook di Telegram. Inoltre la prima dimensione del array viene esclusa per creare i nomi delle variabili che sono separate da un underscore.
