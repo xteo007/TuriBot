@@ -16,7 +16,7 @@ In alternativa si può settare il webhook che punti a bot.php e includere comman
 ## Attenzione!
 Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da ```require_once(bot.php);``` a ```require_once(bot_debug.php);```)
 
-Siccome il bot genera le variabili in base al contenuto del update ricevuto, un eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
+Siccome il bot genera le variabili in base al contenuto del update ricevuto, una eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
 (Es: $text non esisterà se il bot riceverà una foto)
 
 ## Nomi delle variabili
