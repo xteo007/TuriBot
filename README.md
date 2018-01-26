@@ -12,6 +12,12 @@ Documentation is only in Italian at the moment
 Caricare i file su un webserver e impostare il webhook manualmente che punti a commands.php, oppure aprire dal browser il file setup.php e fare il setup con esso.
 
 In alternativa si può settare il webhook che punti a bot.php e includere commands.php (togliendo include "bot.php"; da commands.php)
+
+## Attenzione!
+Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da ```require_once(bot.php);``` a ```require_once(bot_debug.php);```)
+
+La generazione delle variabili per ogni update ricevuto neccessita di attenzione durante la scrittura del codice, siccome un eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
+
 ## Nomi delle variabili
 I nomi delle variabili sono create in modo dinamico e esse esisteranno solo se presenti nel update ricevuto da Telegram. Come nomi hanno gli stessi campi degli array mandati dalle richieste di update tramite webhook di Telegram. Inoltre la prima dimensione del array viene esclusa per creare i nomi delle variabili che sono separate da un underscore.
 
@@ -151,6 +157,7 @@ $message
 ## Divisione dei file
 Nella directory principale troviamo:
 * bot.php è il file principale che elabora gli update e richiama i file con all'interno le varie funzioni.
+* bot_debug.php è il file che permette di mandare tutte le variabili create nella chat con il bot, così da poter fare un debug e capire meglio il funzionamento di esso (per usarlo è da sostituire nel require_once in commands.php)
 * commands.php è un file di esempio con dei comandi base per il bot.
 * functions è la cartella con le varie funzioni
 * setup.php serve solo per settare il webhook in modo facile
@@ -160,6 +167,7 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
 ```
 /bot
 |   bot.php
+|   bot_debug.php
 |   commands.php
 |   LICENSE
 |   setup.php
