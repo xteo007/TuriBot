@@ -160,11 +160,11 @@ $message
 ## Divisione dei file
 Nella directory principale troviamo:
 * bot.php è il file principale che elabora gli update e richiama i file con all'interno le varie funzioni.
-* bot_debug.php è il file che permette di mandare tutte le variabili create nella chat con il bot, così da poter fare un debug e capire meglio il funzionamento di esso (per usarlo è da sostituire nel require_once in commands.php)
-* commands.php è un file di esempio con dei comandi base per il bot.
-* functions è la cartella con le varie funzioni
-* setup.php serve solo per settare il webhook in modo facile
-* LICENSE il file con la licenza (GNU Affero General Public License v3.0)
+* bot_debug.php è il file che permette di mandare tutte le variabili create nella chat con il bot, così da poter fare un debug e capire meglio il funzionamento di esso (per usarlo è da sostituire nel require_once in commands.php).
+* commands.php è un file di esempio con dei comandi base per il bot, a cui va settato il webhook.
+* functions è la cartella con le varie funzioni.
+* setup.php serve solo per settare il webhook in modo facile.
+* LICENSE il file con la licenza (GNU Affero General Public License v3.0).
 
 Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stesso nome dei metodi disponibili di Telegram
 ```
