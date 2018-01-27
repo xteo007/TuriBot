@@ -13,8 +13,10 @@ Caricare i file su un webserver e impostare il webhook manualmente che punti a c
 
 In alternativa si può settare il webhook che punti a bot.php e includere commands.php (togliendo include "bot.php"; da commands.php)
 
-## Attenzione!
-Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da ```require_once(bot.php);``` a ```require_once(bot_debug.php);```)
+## Attenzione⚠️
+Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da `require_once(bot.php);` a `require_once(bot_debug.php);`)
+
+Nel file `bot_debug.php` sostituire `1111` con il proprio id in questa riga `define("MYID", "1111");` , altrimenti sarà solo molto lento ⚠️
 
 Siccome il bot genera le variabili in base al contenuto del update ricevuto, una eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
 (Es: $text non esisterà se il bot riceverà una foto)
