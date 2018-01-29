@@ -23,6 +23,8 @@ Siccome il bot genera le variabili in base al contenuto del update ricevuto, una
 
 Il bot per essere più veloce usa json payload, per questo per alcune funzioni se si vuole ottenere la risposta da Telegram bisognerà specificare un parametro in più. Ciò viene fatto solo sulla prima funzione che viene eseguita dal update ricevuto ma solo con quelle che supportano il json payload, quelle che devono fare file upload o servono solo a ottenere informazioni non lo useranno.
 
+⚠️ Con alcune configurazioni il json payload potrebbe non funzionare correttamente ed essere eseguito per ultimo, se così fosse forzare l'utilizzo della richiesta post mettendo il parametro `$response` a `true` come da esempio.
+
 Esempio: `$risposta = sendMessage(...); $risposta = true` mentre così `$risposta = sendMessage(..., true); $risposta = array di risposta da Telegram`. Una `sendPhoto` usando un file invece di `file_id` o `link` userà in automatico la richiesta post. 
 
 ## Nomi delle variabili
