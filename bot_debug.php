@@ -123,7 +123,7 @@ function jsonPayload($method, $args = NULL)
 
         ob_start();
         echo $json;
-        header("Content-Type: application/json");
+        header('Content-Type: application/json');
         header('Connection: close');
         header('Content-Length: ' . strlen($json));
         ob_end_flush();
@@ -180,7 +180,6 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
     }
     if(isset($reply_markup))
     {
-        $reply_markup = json_encode($reply_markup);
         $args['reply_markup'] = $reply_markup;
     }
 
