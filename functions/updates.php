@@ -4,23 +4,9 @@
 //tests if the bot works
 //returns an array with the telegram response
 //optional parameter to print on screen if the bot works
-function getMe($verbose = false)
+function getMe()
 {
 	$rr = curlRequest("getMe");
-
-	if($verbose)
-	{
-		if($rr['ok'])
-		{
-			$bot = $rr['result']['username'];
-			echo "Bot: @" . $bot;
-		}
-		else
-		{
-			echo "API ID wrong or impossible to connect to Telegram";
-		}
-	}
-
 	return $rr;
 }
 
@@ -43,7 +29,15 @@ function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = 
 	{
 		$args['allowed_updates'] = $allowed_updates;
 	}
-	$rr = curlRequest("getUpdates", $args);
+
+	if(isset($args))
+	{
+        $rr = curlRequest("getUpdates", $args);
+    }
+    else
+    {
+        $rr = curlRequest("getUpdates");
+    }
 	return $rr;
 }
 

@@ -14,8 +14,9 @@ function getUserProfilePhotos($user_id, $offset = NULL, $limit = NULL)
 	{
 		$args['limit'] = $limit;
 	}
+
 	$rr = curlRequest("getUserProfilePhotos", $args);
-	return $rr;
+    return $rr;
 }
 
 
@@ -25,8 +26,9 @@ function getFile($file_id)
 	$args = array(
 		'file_id' => $file_id
 		);
-	$rr = curlRequest("getFile", $args);
-	return $rr;
+
+    $rr = curlRequest("getFile", $args);
+    return $rr;
 }
 
 
@@ -35,6 +37,7 @@ function getChat($chat_id)
 	$args = array(
 		'chat_id' => $chat_id
 		);
-	$rr = curlRequest("getChat", $args);
-	return $rr;
+
+    $rr = curlRequest("getChat", $args);
+    return $rr;
 }

@@ -1,7 +1,7 @@
 <?php
 
 //inline mode
-function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_personal = NULL, $next_offset = NULL, $switch_pm_text = NULL, $switch_pm_parameter = NULL)
+function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_personal = NULL, $next_offset = NULL, $switch_pm_text = NULL, $switch_pm_parameter = NULL, $response = false)
 {
 	$results = json_encode($results);
 	$args = array(
@@ -28,6 +28,16 @@ function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_p
 	{
 		$args['switch_pm_parameter'] = $switch_pm_parameter;
 	}
-	$rr = curlRequest("answerInlineQuery", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("forwardMessage", $args);
+    }
+    else
+    {
+        jsonPayload("forwardMessage", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }

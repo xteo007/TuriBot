@@ -106,11 +106,29 @@ if(isset($edited_message))
 }
 
 
-
 //forward the message when one writes /feedback
 //replace 1111 with your id
 if(stripos($text, "/feedback")===0)
 {
-    forwardMessage(1111, $chat_id, NULL, $message_id);
+    $response = forwardMessage(1111, $chat_id, NULL, $message_id, true);
+    if($response['ok'] == true)
+    {
+        sendMessage($chat_id, "Feedback sent", NULL, NULL, NULL, $message_id);
+    }
+    else
+    {
+        sendMessage($chat_id, "Feedback not sent", NULL, NULL, NULL, $message_id);
+    }
 }
 
+
+if(stripos($text, "/admins")===0)
+{
+    $admins = getChatAdministrators($chat_id);
+    $str = "";
+    foreach($admins['result'] as $result)
+    {
+        $str .= "@" . $result['user']['username'] . "\n";
+    }
+    sendMessage($chat_id, "Admins:\n" .  $str);
+}

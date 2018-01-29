@@ -1,7 +1,7 @@
 <?php
 
 
-function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -25,12 +25,22 @@ function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $dis
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("sendLocation", $args);
-	return $rr;	
+
+    if($response == true)
+    {
+        $rr = curlRequest("sendLocation", $args);
+    }
+    else
+    {
+        jsonPayload("sendLocation", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function editMessageLiveLocation($latitude, $longitude, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
+function editMessageLiveLocation($latitude, $longitude, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	$args = array(
 		'latitude' => $latitude,
@@ -53,12 +63,22 @@ function editMessageLiveLocation($latitude, $longitude, $chat_id = NULL, $messag
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("editMessageLiveLocation", $args);
-	return $rr;	
+
+    if($response == true)
+    {
+        $rr = curlRequest("editMessageLiveLocation", $args);
+    }
+    else
+    {
+        jsonPayload("editMessageLiveLocation", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
+function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	if(isset($chat_id))
 	{
@@ -77,12 +97,22 @@ function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_me
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("stopMessageLiveLocation", $args);
-	return $rr;	
+
+    if($response == true)
+    {
+        $rr = curlRequest("stopMessageLiveLocation", $args);
+    }
+    else
+    {
+        jsonPayload("stopMessageLiveLocation", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquare_id = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquare_id = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -116,6 +146,16 @@ function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquar
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("sendVenue", $args);
-	return $rr;	
+
+    if($response == true)
+    {
+        $rr = curlRequest("sendVenue", $args);
+    }
+    else
+    {
+        jsonPayload("sendVenue", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }

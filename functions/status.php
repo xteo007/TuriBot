@@ -1,18 +1,28 @@
 <?php
 
 
-function sendChatAction($chat_id, $action)
+function sendChatAction($chat_id, $action, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
 		'action' => $action
 		);
-	$rr = curlRequest("sendChatAction", $args);
-	return $rr;	
+
+    if($response == true)
+    {
+        $rr = curlRequest("sendChatAction", $args);
+    }
+    else
+    {
+        jsonPayload("sendChatAction", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NULL, $url = NULL, $cache_time = NULL)
+function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NULL, $url = NULL, $cache_time = NULL, $response = false)
 {
 	$args = array(
 		'callback_query_id' => $callback_query_id
@@ -33,6 +43,16 @@ function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NUL
 	{
 		$args['cache_time'] = $cache_time;
 	}
-	$rr = curlRequest("answerCallbackQuery", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("answerCallbackQuery", $args);
+    }
+    else
+    {
+        jsonPayload("answerCallbackQuery", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }

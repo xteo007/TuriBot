@@ -1,7 +1,7 @@
 <?php
 
 
-function kickChatMember($chat_id, $user_id, $until_date = NULL)
+function kickChatMember($chat_id, $user_id, $until_date = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -11,23 +11,43 @@ function kickChatMember($chat_id, $user_id, $until_date = NULL)
 	{
 		$args['until_date'] = $until_date;
 	}
-	$rr = curlRequest("kickChatMember", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("kickChatMember", $args);
+    }
+    else
+    {
+        jsonPayload("kickChatMember", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function unbanChatMember($chat_id, $user_id)
+function unbanChatMember($chat_id, $user_id, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
 		'user_id' => $user_id
 		);
-	$rr = curlRequest("unbanChatMember", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("unbanChatMember", $args);
+    }
+    else
+    {
+        jsonPayload("unbanChatMember", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_messages = NULL, $can_send_media_messages = NULL, $can_send_other_messages = NULL, $can_add_web_page_previews = NULL)
+function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_messages = NULL, $can_send_media_messages = NULL, $can_send_other_messages = NULL, $can_add_web_page_previews = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -53,12 +73,22 @@ function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_me
 	{
 		$args['can_add_web_page_previews'] = $can_add_web_page_previews;
 	}
-	$rr = curlRequest("restrictChatMember", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("restrictChatMember", $args);
+    }
+    else
+    {
+        jsonPayload("restrictChatMember", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function promoteChatMember($chat_id, $user_id, $can_change_info = NULL, $can_post_messages = NULL, $can_edit_messages = NULL, $can_delete_messages = NULL, $can_invite_users = NULL, $can_restrict_members = NULL, $can_pin_messages = NULL, $can_promote_members = NULL)
+function promoteChatMember($chat_id, $user_id, $can_change_info = NULL, $can_post_messages = NULL, $can_edit_messages = NULL, $can_delete_messages = NULL, $can_invite_users = NULL, $can_restrict_members = NULL, $can_pin_messages = NULL, $can_promote_members = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -96,8 +126,18 @@ function promoteChatMember($chat_id, $user_id, $can_change_info = NULL, $can_pos
 	{
 		$args['can_promote_members'] = $can_promote_members;
 	}
-	$rr = curlRequest("promoteChatMember", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("promoteChatMember", $args);
+    }
+    else
+    {
+        jsonPayload("promoteChatMember", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
@@ -106,46 +146,68 @@ function exportChatInviteLink($chat_id)
 	$args = array(
 		'chat_id' => $chat_id
 		);
-	$rr = curlRequest("exportChatInviteLink", $args);
-	return $rr;
+
+    $rr = curlRequest("exportChatInviteLink", $args);
+    return $rr;
 }
 
 
 function setChatPhoto($chat_id, $photo)
 {
-	$file_name = realpath($photo);
-	$photo = curl_file_create($file_name);
-	$args = array(
-		'chat_id' => $chat_id,
-		'photo' => $photo
-		);
-	$rr = curlRequest("setChatPhoto", $args);
-	return $rr;
+    $file_name = realpath($photo);
+    $photo = curl_file_create($file_name);
+    $args = array(
+        'chat_id' => $chat_id,
+        'photo' => $photo
+    );
+
+    $rr = curlRequest("setChatPhoto", $args);
+    return $rr;
 }
 
 
-function deleteChatPhoto($chat_id)
+function deleteChatPhoto($chat_id, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id
 		);
-	$rr = curlRequest("deleteChatPhoto", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("deleteChatPhoto", $args);
+    }
+    else
+    {
+        jsonPayload("deleteChatPhoto", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function setChatTitle($chat_id, $title)
+function setChatTitle($chat_id, $title, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
 		'title' => $title
 		);
-	$rr = curlRequest("setChatTitle", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("setChatTitle", $args);
+    }
+    else
+    {
+        jsonPayload("setChatTitle", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function setChatDescription($chat_id, $description = NULL)
+function setChatDescription($chat_id, $description = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id
@@ -154,12 +216,22 @@ function setChatDescription($chat_id, $description = NULL)
 	{
 		$args['description'] = $description;
 	}
-	$rr = curlRequest("setChatDescription", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("setChatDescription", $args);
+    }
+    else
+    {
+        jsonPayload("setChatDescription", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function pinChatMessage($chat_id, $message_id, $disable_notification = NULL)
+function pinChatMessage($chat_id, $message_id, $disable_notification = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -169,28 +241,58 @@ function pinChatMessage($chat_id, $message_id, $disable_notification = NULL)
 	{
 		$args['disable_notification'] = $disable_notification;
 	}
-	$rr = curlRequest("pinChatMessage", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("pinChatMessage", $args);
+    }
+    else
+    {
+        jsonPayload("pinChatMessage", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function unpinChatMessage($chat_id)
+function unpinChatMessage($chat_id, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id
 		);
-	$rr = curlRequest("unpinChatMessage", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("unpinChatMessage", $args);
+    }
+    else
+    {
+        jsonPayload("unpinChatMessage", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function leaveChat($chat_id)
+function leaveChat($chat_id, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id
 		);
-	$rr = curlRequest("leaveChat", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("leaveChat", $args);
+    }
+    else
+    {
+        jsonPayload("leaveChat", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
@@ -199,8 +301,9 @@ function getChatAdministrators($chat_id)
 	$args = array(
 		'chat_id' => $chat_id
 		);
-	$rr = curlRequest("getChatAdministrators", $args);
-	return $rr;
+
+    $rr = curlRequest("getChatAdministrators", $args);
+    return $rr;
 }
 
 
@@ -209,8 +312,9 @@ function getChatMembersCount($chat_id)
 	$args = array(
 		'chat_id' => $chat_id
 		);
-	$rr = curlRequest("getChatMembersCount", $args);
-	return $rr;
+
+    $rr = curlRequest("getChatMembersCount", $args);
+    return $rr;
 }
 
 
@@ -220,6 +324,7 @@ function getChatMember($chat_id, $user_id)
 		'chat_id' => $chat_id,
 		'user_id' => $user_id
 		);
-	$rr = curlRequest("getChatMember", $args);
-	return $rr;
+
+    $rr = curlRequest("getChatMember", $args);
+    return $rr;
 }

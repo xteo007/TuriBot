@@ -101,72 +101,126 @@ foreach($update as $update_key => $update_val)
 
 
 
+$payload = false;
+
+function jsonPayload($method, $args = NULL)
+{
+    global $payload;
+
+    if($payload == true)
+    {
+        curlRequest($method, $args);
+    }
+    else
+    {
+        if (!isset($args))
+        {
+            $args = array();
+        }
+
+        $args["method"] = $method;
+        $json = json_encode($args);
+
+        ob_start();
+        echo $json;
+        header("Content-Type: application/json");
+        header('Connection: close');
+        header('Content-Length: ' . strlen($json));
+        ob_end_flush();
+        ob_flush();
+        flush();
+
+        $payload = true;
+    }
+}
+
+
 function curlRequest($method, $args = NULL)
 {
-	global $api;
-	$c = curl_init();
-	curl_setopt($c, CURLOPT_URL, "https://api.telegram.org/bot$api/$method");
-	curl_setopt($c, CURLOPT_POST, 1);
-	if(isset($args))
-	{
-		curl_setopt($c, CURLOPT_POSTFIELDS, $args);
-	}
-	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-	$r = curl_exec($c);
-	curl_close($c);
-	$rr = json_decode($r, true);
-	return $rr;
+    global $api;
+    $c = curl_init();
+    curl_setopt($c, CURLOPT_URL, "https://api.telegram.org/bot$api/$method");
+    curl_setopt($c, CURLOPT_POST, 1);
+    if(isset($args))
+    {
+        curl_setopt($c, CURLOPT_POSTFIELDS, $args);
+    }
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+    $r = curl_exec($c);
+    curl_close($c);
+    $rr = json_decode($r, true);
+    return $rr;
 }
 
 
 
 
 //base functions
-function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_preview = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_preview = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	$args = array(
-		'chat_id' => $chat_id,
-		'text' => $text
-		);
-	if(isset($parse_mode))
-	{
-		$args['parse_mode'] = $parse_mode;
-	}
-	if(isset($disable_web_page_preview))
-	{
-		$args['disable_web_page_preview'] = $disable_web_page_preview;
-	}
-	if(isset($disable_notification))
-	{
-		$args['disable_notification'] = $disable_notification;
-	}
-	if(isset($reply_to_message_id))
-	{
-		$args['reply_to_message_id'] = $reply_to_message_id;
-	}
-	if(isset($reply_markup))
-	{
-		$reply_markup = json_encode($reply_markup);
-		$args['reply_markup'] = $reply_markup;
-	}
-	$rr = curlRequest("sendMessage", $args);
-	return $rr;
+    $args = array(
+        'chat_id' => $chat_id,
+        'text' => $text
+    );
+    if(isset($parse_mode))
+    {
+        $args['parse_mode'] = $parse_mode;
+    }
+    if(isset($disable_web_page_preview))
+    {
+        $args['disable_web_page_preview'] = $disable_web_page_preview;
+    }
+    if(isset($disable_notification))
+    {
+        $args['disable_notification'] = $disable_notification;
+    }
+    if(isset($reply_to_message_id))
+    {
+        $args['reply_to_message_id'] = $reply_to_message_id;
+    }
+    if(isset($reply_markup))
+    {
+        $reply_markup = json_encode($reply_markup);
+        $args['reply_markup'] = $reply_markup;
+    }
+
+    if($response == true)
+    {
+        $rr = curlRequest("sendMessage", $args);
+    }
+    else
+    {
+        jsonPayload("sendMessage", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $message_id)
+function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $message_id, $response = false)
 {
-	$args = array(
-		'chat_id' => $chat_id,
-		'from_chat_id' => $from_chat_id,
-		'message_id' => $message_id
-		);
-	if(isset($disable_notification))
-	{
-		$args['disable_notification'] = $disable_notification;
-	}
-	$rr = curlRequest("forwardMessage", $args);
-	return $rr;
+    $args = array(
+        'chat_id' => $chat_id,
+        'from_chat_id' => $from_chat_id,
+        'message_id' => $message_id
+    );
+    if(isset($disable_notification))
+    {
+        $args['disable_notification'] = $disable_notification;
+    }
+
+    if($response == true)
+    {
+        $rr = curlRequest("forwardMessage", $args);
+    }
+    else
+    {
+        jsonPayload("forwardMessage", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 

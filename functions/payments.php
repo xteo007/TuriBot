@@ -2,7 +2,7 @@
 
 
 //payments
-function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $provider_data, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $provider_data, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -67,12 +67,22 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("sendInvoice", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("sendInvoice", $args);
+    }
+    else
+    {
+        jsonPayload("sendInvoice", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, $error_message = NULL)
+function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, $error_message = NULL, $response = false)
 {
 	$args = array(
 		'shipping_query_id' => $shipping_query_id,
@@ -87,12 +97,22 @@ function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, 
 	{
 		$args['error_message'] = $error_message;
 	}
-	$rr = curlRequest("answerShippingQuery", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("answerShippingQuery", $args);
+    }
+    else
+    {
+        jsonPayload("answerShippingQuery", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NULL)
+function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NULL, $response = false)
 {
 	$args = array(
 		'pre_checkout_query_id' => $pre_checkout_query_id,
@@ -102,6 +122,16 @@ function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NU
 	{
 		$args['error_message'] = $error_message;
 	}
-	$rr = curlRequest("answerPreCheckoutQuery", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("answerPreCheckoutQuery", $args);
+    }
+    else
+    {
+        jsonPayload("answerPreCheckoutQuery", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }

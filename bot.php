@@ -19,7 +19,7 @@
 **/
 
 
-//$api is a global variable in curlRequest function!
+//$api and is a global variable in curlRequest function!
 if(isset($_GET['api']))
 {
 $api = $_GET['api'];
@@ -32,8 +32,7 @@ $api = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11";
 
 
 //receiving updates via the webhook
-$content = file_get_contents("php://input");
-$update = json_decode($content, true);
+$update = json_decode(file_get_contents("php://input"), true);
 
 
 //All variables are created automatically without the need of $update['message']['text']; (you can simply use $message_text)
@@ -84,6 +83,40 @@ foreach($update as $update_key => $update_val)
 
 
 
+$payload = false;
+
+function jsonPayload($method, $args = NULL)
+{
+    global $payload;
+
+    if($payload == true)
+    {
+        curlRequest($method, $args);
+    }
+    else
+    {
+        if (!isset($args))
+        {
+            $args = array();
+        }
+
+        $args["method"] = $method;
+        $json = json_encode($args);
+
+        ob_start();
+        echo $json;
+        header("Content-Type: application/json");
+        header('Connection: close');
+        header('Content-Length: ' . strlen($json));
+        ob_end_flush();
+        ob_flush();
+        flush();
+
+        $payload = true;
+    }
+}
+
+
 function curlRequest($method, $args = NULL)
 {
 	global $api;
@@ -105,7 +138,7 @@ function curlRequest($method, $args = NULL)
 
 
 //base functions
-function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_preview = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL)
+function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_preview = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -132,12 +165,22 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("sendMessage", $args);
-	return $rr;
+
+	if($response == true)
+    {
+        $rr = curlRequest("sendMessage", $args);
+    }
+    else
+    {
+        jsonPayload("sendMessage", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 
-function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $message_id)
+function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $message_id, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
@@ -148,8 +191,18 @@ function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $
 	{
 		$args['disable_notification'] = $disable_notification;
 	}
-	$rr = curlRequest("forwardMessage", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("forwardMessage", $args);
+    }
+    else
+    {
+        jsonPayload("forwardMessage", $args);
+        $rr = true;
+    }
+
+    return $rr;
 }
 
 

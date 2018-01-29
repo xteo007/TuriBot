@@ -2,7 +2,7 @@
 
 
 //updating messages
-function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $parse_mode = NULL, $disable_web_page_preview = NULL, $reply_markup = NULL)
+function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $parse_mode = NULL, $disable_web_page_preview = NULL, $reply_markup = NULL, $response = false)
 {
 	$args = array(
 		'text' => $text
@@ -32,12 +32,20 @@ function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_mes
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("editMessageText", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("editMessageText", $args);
+        return $rr;
+    }
+    else
+    {
+        jsonPayload("editMessageText", $args);
+    }
 }
 
 
-function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $caption = NULL, $reply_markup = NULL)
+function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $caption = NULL, $reply_markup = NULL, $response = false)
 {
 	if(isset($chat_id))
 	{
@@ -60,12 +68,20 @@ function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("editMessageCaption", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("editMessageCaption", $args);
+        return $rr;
+    }
+    else
+    {
+        jsonPayload("editMessageCaption", $args);
+    }
 }
 
 
-function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL)
+function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	if(isset($chat_id))
 	{
@@ -84,17 +100,33 @@ function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_mes
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
-	$rr = curlRequest("editMessageReplyMarkup", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("editMessageReplyMarkup", $args);
+        return $rr;
+    }
+    else
+    {
+        jsonPayload("editMessageReplyMarkup", $args);
+    }
 }
 
 
-function deleteMessage($chat_id, $message_id)
+function deleteMessage($chat_id, $message_id, $response = false)
 {
 	$args = array(
 		'chat_id' => $chat_id,
 		'message_id' => $message_id,
 		);
-	$rr = curlRequest("deleteMessage", $args);
-	return $rr;
+
+    if($response == true)
+    {
+        $rr = curlRequest("deleteMessage", $args);
+        return $rr;
+    }
+    else
+    {
+        jsonPayload("deleteMessage", $args);
+    }
 }
