@@ -21,6 +21,8 @@ Nel file `bot_debug.php` sostituire `1111` con il proprio id in questa riga `def
 Siccome il bot genera le variabili in base al contenuto del update ricevuto, una eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
 (Es: $text non esisterà se il bot riceverà una foto)
 
+Il json payload è di default disabilitato perchè potrebbe dare problemi con determinate configurazione di rete o del server, in caso si voglia usare leggere attentamente quanto riportato qui sotto (anche un occhiata alle api Telegram di come funziona il json payload non farebbe male)
+
 Il bot per essere più veloce usa json payload, per questo per alcune funzioni se si vuole ottenere la risposta da Telegram bisognerà specificare un parametro in più. Ciò viene fatto solo sulla prima funzione che viene eseguita dal update ricevuto ma solo con quelle che supportano il json payload, quelle che devono fare file upload o servono solo a ottenere informazioni non lo useranno.
 
 ⚠️ Con alcune configurazioni il json payload potrebbe non funzionare correttamente ed essere eseguito per ultimo, se così fosse forzare l'utilizzo della richiesta post mettendo il parametro `$response` a `true` come da esempio.
