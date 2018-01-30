@@ -19,17 +19,11 @@
 **/
 
 
-//$api and is a global variable in curlRequest function!
-if(isset($_GET['api']))
-{
-$api = $_GET['api'];
-}
-else
-{
-//enter here your api id obtained with @BotFather and manually set the webhook or use setup.php
-$api = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11";
-}
+//put true if you want to use json payload for faster speed. with some server configuration it may not work properly
+define("JSON_PAYLOAD", false);
 
+//$api and is a global variable in curlRequest function!
+$api = $_GET['api'];
 
 //receiving updates via the webhook
 $update = json_decode(file_get_contents("php://input"), true);
@@ -83,17 +77,13 @@ foreach($update as $update_key => $update_val)
 
 
 
-$payload = false;
+$payload = JSON_PAYLOAD;
 
 function jsonPayload($method, $args = NULL)
 {
     global $payload;
 
-    if($payload == true)
-    {
-        curlRequest($method, $args);
-    }
-    else
+    if($payload)
     {
         if (!isset($args))
         {
@@ -105,14 +95,18 @@ function jsonPayload($method, $args = NULL)
 
         ob_start();
         echo $json;
-        header('Content-Type: application/json');
+        header("Content-Type: application/json");
         header('Connection: close');
         header('Content-Length: ' . strlen($json));
         ob_end_flush();
         ob_flush();
         flush();
 
-        $payload = true;
+        $payload = false;
+    }
+    else
+    {
+        curlRequest($method, $args);
     }
 }
 
