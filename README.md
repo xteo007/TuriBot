@@ -129,7 +129,7 @@ $chat_id
 $update_id
 10000
 
-$id_from_username
+$from_username
 Test
 
 $message
