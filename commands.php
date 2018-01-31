@@ -4,131 +4,138 @@
 //in bot_debug.php you will need to enter your id
 require_once "bot.php";
 
-
-//a simple message when /start or /help is received from update
-if(stripos($text, "/start")===0 or stripos($text, "/help")===0)
+if(isset($text))
 {
-	sendMessage($chat_id, "/help - Show this message\n/license - Sends you the link of the page with the license and source code of the bot");
+    //a simple message when /start or /help is received from update
+    if (stripos($text, "/start") === 0 or stripos($text, "/help") === 0)
+    {
+        sendMessage($chat_id, "/help - Show this message\n/license - Sends you the link of the page with the license and source code of the bot");
+    }
+
+
+    //shows license of the bot
+    if (stripos($text, "/license") === 0)
+    {
+        sendMessage($chat_id, "Copyright (C) 2017 Davide Turaccio\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or at your option) any later version.\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.\nYou should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\nThe source code of this bot is avaible on https://github.com/davtur19/php-telegram-bot-api");
+    }
+
+
+    //a message with the user's name, response to the user's message, and buttons
+    if (stripos($text, "/message") === 0)
+    {
+        $menu['inline_keyboard'] = array(
+            array(
+                array(
+                    "text" => "Button 1",
+                    "callback_data" => "btn1"
+                )
+            ),
+            array(
+                array(
+                    "text" => "Button 2",
+                    "callback_data" => "btn2"
+                ),
+                array(
+                    "text" => "Button 3",
+                    "callback_data" => "btn3"
+                )
+            )
+        );
+        sendMessage($chat_id, "Hi " . $from_first_name . "\n" . $text, "Markdown", false, false, $message_id, $menu);
+    }
+
+
+    //it will only work if you have a photo.jpg in the bot folder, otherwise you can use link or file_id
+    if (stripos($text, "/photo") === 0)
+    {
+        sendPhoto($chat_id, "photo.jpg");
+    }
+
+
+    if (stripos($text, "/video") === 0)
+    {
+        sendVideo($chat_id, "video.mp4");
+    }
+
+
+    if (stripos($text, "/album") === 0)
+    {
+        $media = array(
+            array(
+                "type" => "photo",
+                "media" => "http://example/img/photo.jpg"
+            ),
+            array(
+                "type" => "photo",
+                "media" => "http://example/img/test.png"
+            ),
+        );
+        sendMediaGroup($chat_id, $media);
+    }
+
+
+    //send a message when a message is edited
+    if (isset($edited_message))
+    {
+        sendMessage($chat_id, "You edited the message:\n" . $text, "Markdown", false, false, $message_id);
+    }
+
+
+    //forward the message when one writes /feedback
+    //replace 1111 with your id
+    if (stripos($text, "/feedback") === 0)
+    {
+        $response = forwardMessage(1111, $chat_id, NULL, $message_id, true);
+        if ($response['ok'] == true) {
+            sendMessage($chat_id, "Feedback sent", NULL, NULL, NULL, $message_id);
+        } else {
+            sendMessage($chat_id, "Feedback not sent", NULL, NULL, NULL, $message_id);
+        }
+    }
+
+
+    if (stripos($text, "/admins") === 0)
+    {
+        $admins = getChatAdministrators($chat_id);
+        $str = "";
+        foreach ($admins['result'] as $result) {
+            $str .= "@" . $result['user']['username'] . "\n";
+        }
+        sendMessage($chat_id, "Admins:\n" . $str);
+    }
+
+
+    if (stripos($text, "/faq") === 0)
+    {
+        sendMessage($chat_id, "*Il bot mi manda i link di uno strano sito, è normale?*\nSì, quei link sono semplicemente degli url shortner\n\n*Mi posso fidare dei link che manda il bot?*\nSì, i dati vengono trattati secondo le leggi correnti della privacy\n\n*Posso usare il bot per il mio gruppo o canale?*\nSì, c'è il comando /clone apposta per una maggiore personalizzazione\n\n*Come clono il bot?*\nDevi utilizzare @BotFather, per la guida digita /hclone\n\n*Non hai voglia di cercare?*\nPuoi iscriverti al canale ufficiale @PornHubSearch\n\n*Vuoi utilizzare questo bot per mandare  direttamente i video sul tuo canale  o altre personalizzazioni?*\nContattami con \"/feedback channel\"\n\n\nPer altre domande, suggerimenti o idee potete contattarmi direttamente usando /feedback", NULL, NULL, NULL, NULL, 'Markdown');
+    //\n\nIf you would like to *translate* this bot in your language, contact me using the /translation command
+    }
 }
-
-
-//shows license of the bot
-if(stripos($text, "/license")===0)
-{
-	sendMessage($chat_id, "Copyright (C) 2017 Davide Turaccio\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or at your option) any later version.\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details.\nYou should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\nThe source code of this bot is avaible on https://github.com/davtur19/php-telegram-bot-api");
-}
-
-
-//a message with the user's name, response to the user's message, and buttons
-if(stripos($text, "/message")===0)
-{
-	$menu['inline_keyboard'] = array(
-		array(
-			array(
-			"text" => "Button 1",
-			"callback_data" => "btn1"
-			)
-		),
-		array(
-			array(
-			"text" => "Button 2",
-			"callback_data" => "btn2"
-			),
-			array(
-			"text" => "Button 3",
-			"callback_data" => "btn3"
-			)
-		)
-	);
-	sendMessage($chat_id, "Hi " . $from_first_name . "\n" . $text, "Markdown", false, false, $message_id, $menu);
-}
-
 
 //edits the message and notifies the user
-if(stripos($data, "btn1")===0)
+if(isset($data))
 {
-	$menu['inline_keyboard'] = array(
-		array(
-			array(
-			"text" => "Button 1",
-			"callback_data" => "btn1"
-			)
-		),
-		array(
-			array(
-			"text" => "Button 2",
-			"callback_data" => "btn2"
-			),
-			array(
-			"text" => "Button 3",
-			"callback_data" => "btn3"
-			)
-		)
-	);
-	answerCallbackQuery($id, "Button 1");
-	editMessageText("Button 1", $message_chat_id, $message_message_id, NULL, NULL, NULL, $menu);
-}
-
-
-//it will only work if you have a photo.jpg in the bot folder, otherwise you can use link or file_id
-if(stripos($text, "/photo")===0)
-{
-	sendPhoto($chat_id, "photo.jpg");
-}
-
-
-if(stripos($text, "/video")===0)
-{
-    sendVideo($chat_id, "video.mp4");
-}
-
-
-if(stripos($text, "/album")===0)
-{
-	$media = array(
-		array(
-		"type" => "photo",
-		"media" => "http://example/img/photo.jpg"
-		),
-		array(
-		"type" => "photo",
-		"media" => "http://example/img/test.png"
-		),		
-	);
-	sendMediaGroup($chat_id, $media);
-}
-
-
-//send a message when a message is edited
-if(isset($edited_message))
-{
-	sendMessage($chat_id, "You edited the message:\n" . $text, "Markdown", false, false, $message_id);
-}
-
-
-//forward the message when one writes /feedback
-//replace 1111 with your id
-if(stripos($text, "/feedback")===0)
-{
-    $response = forwardMessage(1111, $chat_id, NULL, $message_id, true);
-    if($response['ok'] == true)
+    if (stripos($data, "btn1") === 0)
     {
-        sendMessage($chat_id, "Feedback sent", NULL, NULL, NULL, $message_id);
+        $menu['inline_keyboard'] = array(
+            array(
+                array(
+                    "text" => "Button 1",
+                    "callback_data" => "btn1"
+                )
+            ),
+            array(
+                array(
+                    "text" => "Button 2",
+                    "callback_data" => "btn2"
+                ),
+                array(
+                    "text" => "Button 3",
+                    "callback_data" => "btn3"
+                )
+            )
+        );
+        answerCallbackQuery($id, "Button 1");
+        editMessageText("Button 1", $message_chat_id, $message_message_id, NULL, NULL, NULL, $menu);
     }
-    else
-    {
-        sendMessage($chat_id, "Feedback not sent", NULL, NULL, NULL, $message_id);
-    }
-}
-
-
-if(stripos($text, "/admins")===0)
-{
-    $admins = getChatAdministrators($chat_id);
-    $str = "";
-    foreach($admins['result'] as $result)
-    {
-        $str .= "@" . $result['user']['username'] . "\n";
-    }
-    sendMessage($chat_id, "Admins:\n" .  $str);
 }
