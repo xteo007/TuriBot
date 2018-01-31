@@ -14,10 +14,10 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NU
             $response = true;
 		}
 	}
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'photo' => $photo
-		);
+		];
 	if(isset($caption))
 	{
 		$args['caption'] = $caption;
@@ -36,7 +36,7 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NU
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendPhoto", $args);
     }
@@ -61,10 +61,10 @@ function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $perform
             $response = true;
 		}
 	}
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'audio' => $audio
-		);
+		];
 	if(isset($caption))
 	{
 		$args['caption'] = $caption;
@@ -95,7 +95,7 @@ function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $perform
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendAudio", $args);
     }
@@ -118,10 +118,10 @@ function sendDocument($chat_id, $document, $caption = NULL, $disable_notificatio
             $response = true;
         }
     }
-    $args = array(
+    $args = [
         'chat_id' => $chat_id,
         'document' => $document
-    );
+    ];
     if (isset($caption)) {
         $args['caption'] = $caption;
     }
@@ -156,10 +156,10 @@ function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = 
             $response = true;
         }
     }
-    $args = array(
+    $args = [
         'chat_id' => $chat_id,
         'video' => $video
-    );
+    ];
     if (isset($duration)) {
         $args['duration'] = $duration;
     }
@@ -204,10 +204,10 @@ function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable
             $response = true;
 		}
 	}
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'voice' => $voice
-		);
+		];
 	if(isset($caption))
 	{
 		$args['caption'] = $caption;
@@ -230,7 +230,7 @@ function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendVoice", $args);
     }
@@ -255,10 +255,10 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
             $response = true;
 		}
 	}
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'video_note' => $video_note
-		);
+		];
 	if(isset($duration))
 	{
 		$args['duration'] = $duration;
@@ -281,7 +281,7 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendVideoNote", $args);
     }
@@ -299,10 +299,10 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 function sendMediaGroup($chat_id, $media, $disable_notification = NULL, $reply_to_message_id = NULL)
 {
 	$media = json_encode($media);
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'media' => $media
-		);
+		];
 	if(isset($disable_notification))
 	{
 		$args['disable_notification'] = $disable_notification;
@@ -319,11 +319,11 @@ function sendMediaGroup($chat_id, $media, $disable_notification = NULL, $reply_t
 
 function sendContact($chat_id, $phone_number, $first_name, $last_name, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'phone_number' => $phone_number,
 		'first_name' => $first_name
-		);
+		];
 	if(isset($last_name))
 	{
 		$args['last_name'] = $last_name;
@@ -342,7 +342,7 @@ function sendContact($chat_id, $phone_number, $first_name, $last_name, $disable_
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendContact", $args);
     }

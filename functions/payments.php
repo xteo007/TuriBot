@@ -4,7 +4,7 @@
 //payments
 function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $provider_data, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'title' => $title,
 		'description' => $description,
@@ -13,7 +13,7 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 		'start_parameter' => $start_parameter,
 		'currency' => $currency,
 		'prices' => $prices
-		);
+		];
 	if(isset($provider_data))
 	{
 		$args['provider_data'] = $provider_data;
@@ -68,7 +68,7 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendInvoice", $args);
     }
@@ -84,10 +84,10 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 
 function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, $error_message = NULL, $response = false)
 {
-	$args = array(
+	$args = [
 		'shipping_query_id' => $shipping_query_id,
 		'ok' => $ok
-		);
+		];
 	if(isset($shipping_options))
 	{
 		$shipping_options = json_encode($shipping_options);
@@ -98,7 +98,7 @@ function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, 
 		$args['error_message'] = $error_message;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("answerShippingQuery", $args);
     }
@@ -114,16 +114,16 @@ function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, 
 
 function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NULL, $response = false)
 {
-	$args = array(
+	$args = [
 		'pre_checkout_query_id' => $pre_checkout_query_id,
 		'ok' => $ok
-		);
+		];
 	if(isset($error_message))
 	{
 		$args['error_message'] = $error_message;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("answerPreCheckoutQuery", $args);
     }

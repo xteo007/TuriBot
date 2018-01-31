@@ -4,10 +4,10 @@
 function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_personal = NULL, $next_offset = NULL, $switch_pm_text = NULL, $switch_pm_parameter = NULL, $response = false)
 {
 	$results = json_encode($results);
-	$args = array(
+	$args = [
 		'inline_query_id' => $inline_query_id,
 		'results' => $results
-		);
+		];
 	if(isset($cache_time))
 	{
 		$args['cache_time'] = $cache_time;
@@ -29,13 +29,13 @@ function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_p
 		$args['switch_pm_parameter'] = $switch_pm_parameter;
 	}
 
-    if($response == true)
+    if($response)
     {
-        $rr = curlRequest("forwardMessage", $args);
+        $rr = curlRequest("answerInlineQuery", $args);
     }
     else
     {
-        jsonPayload("forwardMessage", $args);
+        jsonPayload("answerInlineQuery", $args);
         $rr = true;
     }
 

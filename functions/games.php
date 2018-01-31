@@ -4,10 +4,10 @@
 //games
 function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'game_short_name' => $game_short_name
-		);
+		];
 	if(isset($disable_notification))
 	{
 		$args['disable_notification'] = $disable_notification;
@@ -22,7 +22,7 @@ function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $rep
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendGame", $args);
     }
@@ -38,10 +38,10 @@ function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $rep
 
 function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = NULL, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $response = false)
 {
-	$args = array(
+	$args = [
 		'user_id' => $user_id,
 		'score' => $score
-		);
+		];
 	if(isset($force))
 	{
 		$args['force'] = $force;
@@ -63,7 +63,7 @@ function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = N
 		$args['inline_message_id'] = $inline_message_id;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("setGameScore", $args);
     }
@@ -79,9 +79,9 @@ function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = N
 
 function getGameHighScores($user_id, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL)
 {
-	$args = array(
+	$args = [
 		'user_id' => $user_id
-		);
+		];
 	if(isset($chat_id))
 	{
 		$args['chat_id'] = $chat_id;

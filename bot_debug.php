@@ -133,7 +133,7 @@ function jsonPayload($method, $args = NULL)
     {
         if (!isset($args))
         {
-            $args = array();
+            $args = [];
         }
 
         $args["method"] = $method;
@@ -180,10 +180,10 @@ function curlRequest($method, $args = NULL)
 //base functions
 function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_preview = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-    $args = array(
+    $args = [
         'chat_id' => $chat_id,
         'text' => $text
-    );
+    ];
     if(isset($parse_mode))
     {
         $args['parse_mode'] = $parse_mode;
@@ -206,7 +206,7 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
         $args['reply_markup'] = $reply_markup;
     }
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendMessage", $args);
     }
@@ -222,17 +222,17 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 
 function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $message_id, $response = false)
 {
-    $args = array(
+    $args = [
         'chat_id' => $chat_id,
         'from_chat_id' => $from_chat_id,
         'message_id' => $message_id
-    );
+    ];
     if(isset($disable_notification))
     {
         $args['disable_notification'] = $disable_notification;
     }
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("forwardMessage", $args);
     }

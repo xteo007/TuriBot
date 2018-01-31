@@ -3,9 +3,9 @@
 
 function getUserProfilePhotos($user_id, $offset = NULL, $limit = NULL)
 {
-	$args = array(
+	$args = [
 		'user_id' => $user_id
-		);
+		];
 	if(isset($offset))
 	{
 		$args['offset'] = $offset;
@@ -23,9 +23,9 @@ function getUserProfilePhotos($user_id, $offset = NULL, $limit = NULL)
 //$info = getFile("11111111"); $file_path = $info['file_path']; $download link = "https://api.telegram.org/file/bot$info/$file_path" //max 20MB https://core.telegram.org/bots/api#getfile
 function getFile($file_id)
 {
-	$args = array(
+	$args = [
 		'file_id' => $file_id
-		);
+		];
 
     $rr = curlRequest("getFile", $args);
     return $rr;
@@ -34,9 +34,9 @@ function getFile($file_id)
 
 function getChat($chat_id)
 {
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id
-		);
+		];
 
     $rr = curlRequest("getChat", $args);
     return $rr;

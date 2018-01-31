@@ -3,12 +3,12 @@
 
 function setChatStickerSet($chat_id, $sticker_set_name, $response = false)
 {
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'sticker_set_name' => $sticker_set_name
-		);
+		];
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("setChatStickerSet", $args);
     }
@@ -24,11 +24,11 @@ function setChatStickerSet($chat_id, $sticker_set_name, $response = false)
 
 function deleteChatStickerSet($chat_id, $response = false)
 {
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id
-		);
+		];
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("deleteChatStickerSet", $args);
     }
@@ -54,10 +54,10 @@ function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to
             $response = true;
         }
 	}
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'sticker' => $sticker
-		);
+		];
 	if(isset($disable_notification))
 	{
 		$args['disable_notification'] = $disable_notification;
@@ -72,7 +72,7 @@ function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to
 		$args['reply_markup'] = $reply_markup;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendSticker", $args);
     }
@@ -88,9 +88,9 @@ function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to
 
 function getStickerSet($name)
 {
-	$args = array(
+	$args = [
 		'name' => $name
-		);
+		];
 
     $rr = curlRequest("getStickerSet", $args);
     return $rr;
@@ -101,10 +101,10 @@ function uploadStickerFile($user_id, $png_sticker)
 {
 	$file_name = realpath($png_sticker);
 	$png_sticker = curl_file_create($file_name);
-	$args = array(
+	$args = [
 		'user_id' => $user_id,
 		'png_sticker' => $png_sticker
-		);
+		];
 
     $rr = curlRequest("uploadStickerFile", $args);
     return $rr;
@@ -122,13 +122,13 @@ function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $co
 			$response = true;
 		}
 	}
-	$args = array(
+	$args = [
 		'user_id' => $user_id,
 		'name' => $name,
 		'title' => $title,
 		'png_sticker' => $png_sticker,
 		'emojis' => $emojis
-		);
+		];
 	if(isset($contains_masks))
 	{
 		$args['contains_masks'] = $contains_masks;
@@ -139,7 +139,7 @@ function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $co
 		$args['mask_position'] = $mask_position;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("createNewStickerSet", $args);
     }
@@ -164,19 +164,19 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
             $response = true;
         }
 	}
-	$args = array(
+	$args = [
 		'user_id' => $user_id,
 		'name' => $name,
 		'png_sticker' => $png_sticker,
 		'emojis' => $emojis
-		);
+		];
 	if(isset($mask_position))
 	{
 		$mask_position = json_encode($mask_position);
 		$args['mask_position'] = $mask_position;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("addStickerToSet", $args);
     }
@@ -192,12 +192,12 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
 
 function setStickerPositionInSet($sticker, $position, $response = false)
 {
-	$args = array(
+	$args = [
 		'sticker' => $sticker,
 		'position' => $position
-		);
+		];
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("setStickerPositionInSet", $args);
     }
@@ -213,11 +213,11 @@ function setStickerPositionInSet($sticker, $position, $response = false)
 
 function deleteStickerFromSet($sticker, $response = false)
 {
-	$args = array(
+	$args = [
 		'sticker' => $sticker
-		);
+		];
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("deleteStickerFromSet", $args);
     }

@@ -3,12 +3,12 @@
 
 function sendChatAction($chat_id, $action, $response = false)
 {
-	$args = array(
+	$args = [
 		'chat_id' => $chat_id,
 		'action' => $action
-		);
+		];
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("sendChatAction", $args);
     }
@@ -24,9 +24,9 @@ function sendChatAction($chat_id, $action, $response = false)
 
 function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NULL, $url = NULL, $cache_time = NULL, $response = false)
 {
-	$args = array(
+	$args = [
 		'callback_query_id' => $callback_query_id
-		);
+		];
 	if(isset($text))
 	{
 		$args['text'] = $text;
@@ -44,7 +44,7 @@ function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NUL
 		$args['cache_time'] = $cache_time;
 	}
 
-    if($response == true)
+    if($response)
     {
         $rr = curlRequest("answerCallbackQuery", $args);
     }

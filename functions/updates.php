@@ -44,9 +44,9 @@ function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = 
 
 function setWebhook($api, $url, $certificate = NULL, $max_connections = NULL, $allowed_updates = NULL)
 {
-	$args = array(
+	$args = [
 		'url' => $url
-		);
+		];
 	if(isset($max_connections))
 	{
 		$args['max_connections'] = $max_connections;
