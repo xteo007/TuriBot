@@ -16,6 +16,7 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 		];
 	if(isset($provider_data))
 	{
+        $provider_data = json_encode($provider_data);
 		$args['provider_data'] = $provider_data;
 	}
 	if(isset($photo_url))

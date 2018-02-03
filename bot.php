@@ -165,6 +165,7 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 	}
 	if(isset($reply_markup))
 	{
+        $reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 
