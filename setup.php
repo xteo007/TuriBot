@@ -69,7 +69,7 @@ else
 {
 	$actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";	
 	$explode = explode("setup.php", $actual_link);
-	echo "<p>The link is correct?</p>";
+	echo "<p>Is the link correct?</p>";
 	echo "<p>" . $explode[0] . "commands.php</p>";
 	echo "<p><button type='submit' name='yes'>Yes</button>";
 	echo "<button type='submit' name='no'>No</button></p>";
