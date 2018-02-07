@@ -3,7 +3,6 @@
 
 //tests if the bot works
 //returns an array with the telegram response
-//optional parameter to print on screen if the bot works
 function getMe()
 {
 	$rr = curlRequest("getMe");
