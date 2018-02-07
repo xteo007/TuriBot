@@ -2,7 +2,7 @@
 
 
 //payments
-function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $provider_data, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
+function sendInvoice($chat_id, $title, $description, $payload, $provider_token, $start_parameter, $currency, $prices, $provider_data, $photo_url = NULL, $photo_size = NULL, $photo_width = NULL, $photo_height = NULL, $need_name = NULL, $need_phone_number = NULL, $need_email = NULL, $need_shipping_address = NULL, $send_phone_number_to_provider = NULL, $send_email_to_provider = NULL, $is_flexible = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	$args = [
 		'chat_id' => $chat_id,
@@ -48,6 +48,14 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 		$args['need_email'] = $need_email;
 	}
 	if(isset($need_shipping_address))
+	{
+		$args['need_shipping_address'] = $need_shipping_address;
+	}
+	if(isset($send_phone_number_to_provider))
+	{
+		$args['send_email_to_provider'] = $send_email_to_provider;
+	}
+	if(isset($send_email_to_provider))
 	{
 		$args['need_shipping_address'] = $need_shipping_address;
 	}
