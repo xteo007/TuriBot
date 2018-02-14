@@ -47,7 +47,7 @@ function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_mes
 }
 
 
-function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $caption = NULL, $reply_markup = NULL, $response = false)
+function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $caption = NULL, $parse_mode = NULL, $reply_markup = NULL, $response = false)
 {
 	if(isset($chat_id))
 	{
@@ -65,6 +65,10 @@ function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message
 	{
 		$args['caption'] = $caption;
 	}
+    if(isset($parse_mode))
+    {
+        $args['parse_mode'] = $parse_mode;
+    }
 	if(isset($reply_markup))
 	{
 		$reply_markup = json_encode($reply_markup);

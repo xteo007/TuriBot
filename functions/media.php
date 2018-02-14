@@ -3,7 +3,7 @@
 
 //$photo = file_id or http url or file
 //example = "11111111" or "http://your_website.com/photo.jpg" or "photo.jpg" (in same directory)
-function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
+function sendPhoto($chat_id, $photo, $caption = NULL, $parse_mode = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	if(stripos($photo, "http") === false)
 	{
@@ -22,6 +22,10 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NU
 	{
 		$args['caption'] = $caption;
 	}
+	if(isset($parse_mode))
+    {
+        $args['parse_mode'] = $parse_mode;
+    }
 	if(isset($disable_notification))
 	{
 		$args['disable_notification'] = $disable_notification;
@@ -50,7 +54,7 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $disable_notification = NU
 }
 
 
-function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $performer = NULL, $title = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
+function sendAudio($chat_id, $audio, $caption = NULL, $parse_mode = NULL, $duration = NULL, $performer = NULL, $title = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	if(stripos($audio, "http") === false)
 	{
@@ -69,6 +73,10 @@ function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $perform
 	{
 		$args['caption'] = $caption;
 	}
+    if(isset($parse_mode))
+    {
+        $args['parse_mode'] = $parse_mode;
+    }
 	if(isset($duration))
 	{
 		$args['duration'] = $duration;
@@ -109,7 +117,7 @@ function sendAudio($chat_id, $audio, $caption = NULL, $duration = NULL, $perform
 }
 
 
-function sendDocument($chat_id, $document, $caption = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
+function sendDocument($chat_id, $document, $caption = NULL, $parse_mode = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
     if (stripos($document, "http") === false) {
         if (stripos($document, ".") !== false) {
@@ -122,23 +130,34 @@ function sendDocument($chat_id, $document, $caption = NULL, $disable_notificatio
         'chat_id' => $chat_id,
         'document' => $document
     ];
-    if (isset($caption)) {
+    if (isset($caption))
+    {
         $args['caption'] = $caption;
     }
-    if (isset($disable_notification)) {
+    if(isset($parse_mode))
+    {
+        $args['parse_mode'] = $parse_mode;
+    }
+    if (isset($disable_notification))
+    {
         $args['disable_notification'] = $disable_notification;
     }
-    if (isset($reply_to_message_id)) {
+    if (isset($reply_to_message_id))
+    {
         $args['reply_to_message_id'] = $reply_to_message_id;
     }
-    if (isset($reply_markup)) {
+    if (isset($reply_markup))
+    {
         $reply_markup = json_encode($reply_markup);
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response == true) {
+    if ($response == true)
+    {
         $rr = curlRequest("sendDocument", $args);
-    } else {
+    }
+    else
+    {
         jsonPayload("sendDocument", $args);
         $rr = true;
     }
@@ -147,10 +166,12 @@ function sendDocument($chat_id, $document, $caption = NULL, $disable_notificatio
 }
 
 
-function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = NULL, $caption = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
+function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = NULL, $caption = NULL, $parse_mode = NULL, $supports_streaming = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-    if (stripos($video, "http") === false) {
-        if (stripos($video, ".") !== false) {
+    if (stripos($video, "http") === false)
+    {
+        if (stripos($video, ".") !== false)
+        {
             $file_name = realpath($video);
             $video = curl_file_create($file_name);
             $response = true;
@@ -160,32 +181,50 @@ function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = 
         'chat_id' => $chat_id,
         'video' => $video
     ];
-    if (isset($duration)) {
+    if (isset($duration))
+    {
         $args['duration'] = $duration;
     }
-    if (isset($width)) {
+    if (isset($width))
+    {
         $args['width'] = $width;
     }
-    if (isset($height)) {
+    if (isset($height))
+    {
         $args['height'] = $height;
     }
-    if (isset($caption)) {
+    if (isset($caption))
+    {
         $args['caption'] = $caption;
     }
-    if (isset($disable_notification)) {
+    if (isset($parse_mode))
+    {
+        $args['parse_mode'] = $parse_mode;
+    }
+    if (isset($supports_streaming))
+    {
+        $args['supports_streaming'] = $supports_streaming;
+    }
+    if (isset($disable_notification))
+    {
         $args['disable_notification'] = $disable_notification;
     }
-    if (isset($reply_to_message_id)) {
+    if (isset($reply_to_message_id))
+    {
         $args['reply_to_message_id'] = $reply_to_message_id;
     }
-    if (isset($reply_markup)) {
+    if (isset($reply_markup))
+    {
         $reply_markup = json_encode($reply_markup);
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response == true) {
+    if ($response == true)
+    {
         $rr = curlRequest("sendVideo", $args);
-    } else {
+    }
+    else
+    {
         jsonPayload("sendVideo", $args);
         $rr = true;
     }
@@ -193,7 +232,7 @@ function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = 
     return $rr;
 }
 
-function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
+function sendVoice($chat_id, $voice, $caption = NULL, $parse_mode = NULL, $duration = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
 	if(stripos($voice, "http") === false)
 	{
@@ -212,6 +251,10 @@ function sendVoice($chat_id, $voice, $caption = NULL, $duration = NULL, $disable
 	{
 		$args['caption'] = $caption;
 	}
+    if(isset($parse_mode))
+    {
+        $args['parse_mode'] = $parse_mode;
+    }
 	if(isset($duration))
 	{
 		$args['duration'] = $duration;

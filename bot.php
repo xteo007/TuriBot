@@ -84,8 +84,6 @@ if(is_array($update)){
 }
 
 
-
-
 $payload = JSON_PAYLOAD;
 
 function jsonPayload($method, $args = NULL)
@@ -112,10 +110,12 @@ function jsonPayload($method, $args = NULL)
         flush();
 
         $payload = false;
+
+        return true;
     }
     else
     {
-        curlRequest($method, $args);
+        return curlRequest($method, $args);
     }
 }
 
@@ -133,8 +133,7 @@ function curlRequest($method, $args = NULL)
 	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	$r = curl_exec($c);
 	curl_close($c);
-	$rr = json_decode($r, true);
-	return $rr;
+    return json_decode($r, true);
 }
 
 
