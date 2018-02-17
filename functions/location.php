@@ -28,15 +28,12 @@ function sendLocation($chat_id, $latitude, $longitude, $live_period = NULL, $dis
 
     if($response)
     {
-        $rr = curlRequest("sendLocation", $args);
+        return curlRequest('sendLocation', $args);
     }
     else
     {
-        jsonPayload("sendLocation", $args);
-        $rr = true;
+        return jsonPayload('sendLocation', $args);
     }
-
-    return $rr;
 }
 
 
@@ -66,15 +63,12 @@ function editMessageLiveLocation($latitude, $longitude, $chat_id = NULL, $messag
 
     if($response)
     {
-        $rr = curlRequest("editMessageLiveLocation", $args);
+        return curlRequest('editMessageLiveLocation', $args);
     }
     else
     {
-        jsonPayload("editMessageLiveLocation", $args);
-        $rr = true;
+        return jsonPayload('editMessageLiveLocation', $args);
     }
-
-    return $rr;
 }
 
 
@@ -102,27 +96,24 @@ function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_me
     {
         if(isset($args))
         {
-            $rr = curlRequest("stopMessageLiveLocation", $args);
+            return curlRequest('stopMessageLiveLocation', $args);
         }
         else
         {
-            $rr = curlRequest("stopMessageLiveLocation");
+            return curlRequest('stopMessageLiveLocation');
         }
     }
     else
     {
         if(isset($args))
         {
-            jsonPayload("stopMessageLiveLocation", $args);
+            return jsonPayload('stopMessageLiveLocation', $args);
         }
         else
         {
-            jsonPayload("stopMessageLiveLocation");
+            return jsonPayload('stopMessageLiveLocation');
         }
-        $rr = true;
     }
-
-    return $rr;
 }
 
 
@@ -163,13 +154,10 @@ function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquar
 
     if($response)
     {
-        $rr = curlRequest("sendVenue", $args);
+        return curlRequest('sendVenue', $args);
     }
     else
     {
-        jsonPayload("sendVenue", $args);
-        $rr = true;
+        return jsonPayload('sendVenue', $args);
     }
-
-    return $rr;
 }

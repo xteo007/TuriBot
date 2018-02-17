@@ -79,15 +79,12 @@ function sendInvoice($chat_id, $title, $description, $payload, $provider_token, 
 
     if($response)
     {
-        $rr = curlRequest("sendInvoice", $args);
+        return curlRequest('sendInvoice', $args);
     }
     else
     {
-        jsonPayload("sendInvoice", $args);
-        $rr = true;
+        return jsonPayload('sendInvoice', $args);
     }
-
-    return $rr;
 }
 
 
@@ -109,15 +106,12 @@ function answerShippingQuery($shipping_query_id, $ok, $shipping_options = NULL, 
 
     if($response)
     {
-        $rr = curlRequest("answerShippingQuery", $args);
+        return curlRequest('answerShippingQuery', $args);
     }
     else
     {
-        jsonPayload("answerShippingQuery", $args);
-        $rr = true;
+        return jsonPayload('answerShippingQuery', $args);
     }
-
-    return $rr;
 }
 
 
@@ -134,13 +128,10 @@ function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = NU
 
     if($response)
     {
-        $rr = curlRequest("answerPreCheckoutQuery", $args);
+        return curlRequest('answerPreCheckoutQuery', $args);
     }
     else
     {
-        jsonPayload("answerPreCheckoutQuery", $args);
-        $rr = true;
+        return jsonPayload('answerPreCheckoutQuery', $args);
     }
-
-    return $rr;
 }

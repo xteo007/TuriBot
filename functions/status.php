@@ -10,15 +10,12 @@ function sendChatAction($chat_id, $action, $response = false)
 
     if($response)
     {
-        $rr = curlRequest("sendChatAction", $args);
+        return curlRequest('sendChatAction', $args);
     }
     else
     {
-        jsonPayload("sendChatAction", $args);
-        $rr = true;
+        return jsonPayload('sendChatAction', $args);
     }
-
-    return $rr;
 }
 
 
@@ -46,13 +43,10 @@ function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NUL
 
     if($response)
     {
-        $rr = curlRequest("answerCallbackQuery", $args);
+        return curlRequest('answerCallbackQuery', $args);
     }
     else
     {
-        jsonPayload("answerCallbackQuery", $args);
-        $rr = true;
+        return jsonPayload('answerCallbackQuery', $args);
     }
-
-    return $rr;
 }

@@ -24,15 +24,12 @@ function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $rep
 
     if($response)
     {
-        $rr = curlRequest("sendGame", $args);
+        return curlRequest('sendGame', $args);
     }
     else
     {
-        jsonPayload("sendGame", $args);
-        $rr = true;
+        return jsonPayload('sendGame', $args);
     }
-
-    return $rr;
 }
 
 
@@ -65,15 +62,12 @@ function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = N
 
     if($response)
     {
-        $rr = curlRequest("setGameScore", $args);
+        return curlRequest('setGameScore', $args);
     }
     else
     {
-        jsonPayload("setGameScore", $args);
-        $rr = true;
+        return jsonPayload('setGameScore', $args);
     }
-
-    return $rr;
 }
 
 
@@ -95,6 +89,5 @@ function getGameHighScores($user_id, $chat_id = NULL, $message_id = NULL, $inlin
 		$args['inline_message_id'] = $inline_message_id;
 	}
 
-    $rr = curlRequest("getGameHighScores", $args);
-    return $rr;
+    return curlRequest('getGameHighScores', $args);
 }

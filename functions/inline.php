@@ -31,13 +31,10 @@ function answerInlineQuery($inline_query_id, $results, $cache_time = NULL, $is_p
 
     if($response)
     {
-        $rr = curlRequest("answerInlineQuery", $args);
+        return curlRequest('answerInlineQuery', $args);
     }
     else
     {
-        jsonPayload("answerInlineQuery", $args);
-        $rr = true;
+        return jsonPayload('answerInlineQuery', $args);
     }
-
-    return $rr;
 }

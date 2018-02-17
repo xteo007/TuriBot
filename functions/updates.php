@@ -5,8 +5,7 @@
 //returns an array with the telegram response
 function getMe()
 {
-	$rr = curlRequest("getMe");
-	return $rr;
+    return curlRequest('getMe');
 }
 
 
@@ -31,13 +30,12 @@ function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = 
 
 	if(isset($args))
 	{
-        $rr = curlRequest("getUpdates", $args);
+        return curlRequest('getUpdates', $args);
     }
     else
     {
-        $rr = curlRequest("getUpdates");
+        return curlRequest('getUpdates');
     }
-	return $rr;
 }
 
 
@@ -62,40 +60,37 @@ function setWebhook($api, $url, $certificate = NULL, $max_connections = NULL, $a
 	}
 	
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "https://api.telegram.org/bot$api/setWebhook");
+	curl_setopt($ch, CURLOPT_URL, 'https://api.telegram.org/bot' . $api . '/' . setWebhook);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$r = curl_exec($ch);
 	curl_close($ch);
-	$rr = json_decode($r, true);
-	
-	return $rr;
+    return json_decode($r, true);
 }
 
 
 function deleteWebhook()
 {
-	$rr = curlRequest("deleteWebhook");
-	return $rr;
+    return curlRequest('deleteWebhook');
 }
 
 
 //Webhook URL, may be empty if webhook is not set up
 function getWebhookInfo($verbose = false)
 {
-	$rr = curlRequest("getWebhookInfo");
+	$rr = curlRequest('getWebhookInfo');
 	
 	if($verbose)
 	{
 		if($rr['ok'])
 		{
 			$bot = $rr['result']['url'];
-			echo "URL: " . $bot;
+			echo 'URL: ' . $bot;
 		}
 		else
 		{
-			echo "API ID wrong or impossible to connect to Telegram";
+			echo 'API ID wrong or impossible to connect to Telegram';
 		}
 	}
 	return $rr;

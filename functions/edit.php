@@ -35,15 +35,12 @@ function editMessageText($text, $chat_id = NULL, $message_id = NULL, $inline_mes
 
     if($response)
     {
-        $rr = curlRequest("editMessageText", $args);
+        return curlRequest('editMessageText', $args);
     }
     else
     {
-        jsonPayload("editMessageText", $args);
-        $rr = true;
+        return jsonPayload('editMessageText', $args);
     }
-
-    return $rr;
 }
 
 
@@ -79,27 +76,24 @@ function editMessageCaption($chat_id = NULL, $message_id = NULL, $inline_message
     {
         if(isset($args))
         {
-            $rr = curlRequest("editMessageCaption", $args);
+            return curlRequest('editMessageCaption', $args);
         }
         else
         {
-            $rr = curlRequest("editMessageCaption");
+            return curlRequest('editMessageCaption');
         }
     }
     else
     {
         if(isset($args))
         {
-            jsonPayload("editMessageCaption", $args);
+            return jsonPayload('editMessageCaption', $args);
         }
         else
         {
-            jsonPayload("editMessageCaption");
+            return jsonPayload('editMessageCaption');
         }
-        $rr = true;
     }
-
-    return $rr;
 }
 
 
@@ -127,27 +121,24 @@ function editMessageReplyMarkup($chat_id = NULL, $message_id = NULL, $inline_mes
     {
         if(isset($args))
         {
-            $rr = curlRequest("editMessageReplyMarkup", $args);
+            return curlRequest('editMessageReplyMarkup', $args);
         }
         else
         {
-            $rr = curlRequest("editMessageReplyMarkup");
+            return curlRequest('editMessageReplyMarkup');
         }
     }
     else
     {
         if(isset($args))
         {
-            jsonPayload("editMessageReplyMarkup", $args);
+            return jsonPayload('editMessageReplyMarkup', $args);
         }
         else
         {
-            jsonPayload("editMessageReplyMarkup");
+            return jsonPayload('editMessageReplyMarkup');
         }
-        $rr = true;
     }
-
-    return $rr;
 }
 
 
@@ -160,13 +151,10 @@ function deleteMessage($chat_id, $message_id, $response = false)
 
     if($response)
     {
-        $rr = curlRequest("deleteMessage", $args);
+        return curlRequest('deleteMessage', $args);
     }
     else
     {
-        jsonPayload("deleteMessage", $args);
-        $rr = true;
+        return jsonPayload('deleteMessage', $args);
     }
-
-    return $rr;
 }

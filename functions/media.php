@@ -5,9 +5,9 @@
 //example = "11111111" or "http://your_website.com/photo.jpg" or "photo.jpg" (in same directory)
 function sendPhoto($chat_id, $photo, $caption = NULL, $parse_mode = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	if(stripos($photo, "http") === false)
+	if(stripos($photo, 'http') === false)
 	{
-		if(stripos($photo, ".") !== false)
+		if(stripos($photo, '.') !== false)
 		{
 			$file_name = realpath($photo);
 			$photo = curl_file_create($file_name);
@@ -42,23 +42,20 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $parse_mode = NULL, $disab
 
     if($response)
     {
-        $rr = curlRequest("sendPhoto", $args);
+        return curlRequest('sendPhoto', $args);
     }
     else
     {
-        jsonPayload("sendPhoto", $args);
-        $rr = true;
+        return jsonPayload('sendPhoto', $args);
     }
-
-    return $rr;
 }
 
 
 function sendAudio($chat_id, $audio, $caption = NULL, $parse_mode = NULL, $duration = NULL, $performer = NULL, $title = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	if(stripos($audio, "http") === false)
+	if(stripos($audio, 'http') === false)
 	{
-		if(stripos($audio, ".") !== false)
+		if(stripos($audio, '.') !== false)
 		{
 			$file_name = realpath($audio);
 			$audio = curl_file_create($file_name);
@@ -105,22 +102,19 @@ function sendAudio($chat_id, $audio, $caption = NULL, $parse_mode = NULL, $durat
 
     if($response)
     {
-        $rr = curlRequest("sendAudio", $args);
+        return curlRequest('sendAudio', $args);
     }
     else
     {
-        jsonPayload("sendAudio", $args);
-        $rr = true;
+        return jsonPayload('sendAudio', $args);
     }
-
-    return $rr;
 }
 
 
 function sendDocument($chat_id, $document, $caption = NULL, $parse_mode = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-    if (stripos($document, "http") === false) {
-        if (stripos($document, ".") !== false) {
+    if (stripos($document, 'http') === false) {
+        if (stripos($document, '.') !== false) {
             $file_name = realpath($document);
             $document = curl_file_create($file_name);
             $response = true;
@@ -154,23 +148,20 @@ function sendDocument($chat_id, $document, $caption = NULL, $parse_mode = NULL, 
 
     if ($response == true)
     {
-        $rr = curlRequest("sendDocument", $args);
+        return curlRequest('sendDocument', $args);
     }
     else
     {
-        jsonPayload("sendDocument", $args);
-        $rr = true;
+        return jsonPayload('sendDocument', $args);
     }
-
-    return $rr;
 }
 
 
 function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = NULL, $caption = NULL, $parse_mode = NULL, $supports_streaming = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-    if (stripos($video, "http") === false)
+    if (stripos($video, 'http') === false)
     {
-        if (stripos($video, ".") !== false)
+        if (stripos($video, '.') !== false)
         {
             $file_name = realpath($video);
             $video = curl_file_create($file_name);
@@ -221,22 +212,19 @@ function sendVideo($chat_id, $video, $duration = NULL, $width = NULL, $height = 
 
     if ($response == true)
     {
-        $rr = curlRequest("sendVideo", $args);
+        return curlRequest('sendVideo', $args);
     }
     else
     {
-        jsonPayload("sendVideo", $args);
-        $rr = true;
+        return jsonPayload('sendVideo', $args);
     }
-
-    return $rr;
 }
 
 function sendVoice($chat_id, $voice, $caption = NULL, $parse_mode = NULL, $duration = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	if(stripos($voice, "http") === false)
+	if(stripos($voice, 'http') === false)
 	{
-		if(stripos($voice, ".") !== false)
+		if(stripos($voice, '.') !== false)
 		{
 			$file_name = realpath($voice);
 			$voice = curl_file_create($file_name);
@@ -275,23 +263,20 @@ function sendVoice($chat_id, $voice, $caption = NULL, $parse_mode = NULL, $durat
 
     if($response)
     {
-        $rr = curlRequest("sendVoice", $args);
+        return curlRequest('sendVoice', $args);
     }
     else
     {
-        jsonPayload("sendVoice", $args);
-        $rr = true;
+        return jsonPayload('sendVoice', $args);
     }
-
-    return $rr;
 }
 
 //Sending video notes by a URL is currently unsupported by Telegram (Bot Api 3.4) https://core.telegram.org/bots/api#sendvideonote
 function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
 {
-	if(stripos($video_note, "http") === false)
+	if(stripos($video_note, 'http') === false)
 	{
-		if(stripos($video_note, ".") !== false)
+		if(stripos($video_note, '.') !== false)
 		{
 			$file_name = realpath($video_note);
 			$video_note = curl_file_create($file_name);
@@ -326,15 +311,12 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 
     if($response)
     {
-        $rr = curlRequest("sendVideoNote", $args);
+        return curlRequest('sendVideoNote', $args);
     }
     else
     {
-        jsonPayload("sendVideoNote", $args);
-        $rr = true;
+        return jsonPayload('sendVideoNote', $args);
     }
-
-    return $rr;
 }
 
 
@@ -355,8 +337,7 @@ function sendMediaGroup($chat_id, $media, $disable_notification = NULL, $reply_t
 		$args['reply_to_message_id'] = $reply_to_message_id;
 	}
 
-    $rr = curlRequest("sendMediaGroup", $args);
-    return $rr;
+    return curlRequest('sendMediaGroup', $args);
 }
 
 
@@ -387,13 +368,10 @@ function sendContact($chat_id, $phone_number, $first_name, $last_name, $disable_
 
     if($response)
     {
-        $rr = curlRequest("sendContact", $args);
+        return curlRequest('sendContact', $args);
     }
     else
     {
-        jsonPayload("sendContact", $args);
-        $rr = true;
+        return jsonPayload('sendContact', $args);
     }
-
-    return $rr;
 }
