@@ -104,12 +104,6 @@ if(isset($text))
         sendMessage($chat_id, "Admins:\n" . $str);
     }
 
-
-    if (stripos($text, "/faq") === 0)
-    {
-        sendMessage($chat_id, "*Il bot mi manda i link di uno strano sito, è normale?*\nSì, quei link sono semplicemente degli url shortner\n\n*Mi posso fidare dei link che manda il bot?*\nSì, i dati vengono trattati secondo le leggi correnti della privacy\n\n*Posso usare il bot per il mio gruppo o canale?*\nSì, c'è il comando /clone apposta per una maggiore personalizzazione\n\n*Come clono il bot?*\nDevi utilizzare @BotFather, per la guida digita /hclone\n\n*Non hai voglia di cercare?*\nPuoi iscriverti al canale ufficiale @PornHubSearch\n\n*Vuoi utilizzare questo bot per mandare  direttamente i video sul tuo canale  o altre personalizzazioni?*\nContattami con \"/feedback channel\"\n\n\nPer altre domande, suggerimenti o idee potete contattarmi direttamente usando /feedback", NULL, NULL, NULL, NULL, 'Markdown');
-    //\n\nIf you would like to *translate* this bot in your language, contact me using the /translation command
-    }
 }
 
 //edits the message and notifies the user
