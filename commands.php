@@ -23,24 +23,24 @@ if(isset($text))
     //a message with the user's name, response to the user's message, and buttons
     if (stripos($text, '/message') === 0)
     {
-        $menu['inline_keyboard'] = array(
-            array(
-                array(
+        $menu['inline_keyboard'] = [
+            [
+                [
                     'text' => 'Button 1',
                     'callback_data' => 'btn1'
-                )
-            ),
-            array(
-                array(
+                ]
+            ],
+            [
+                [
                     'text' => 'Button 2',
                     'callback_data' => 'btn2'
-                ),
-                array(
+                ],
+                [
                     'text' => 'Button 3',
                     'callback_data' => 'btn3'
-                )
-            )
-        );
+                ]
+            ]
+        ];
         sendMessage($chat_id, 'Hi ' . $from_first_name . PHP_EOL . $text, 'Markdown', false, false, $message_id, $menu);
     }
 
@@ -60,16 +60,16 @@ if(isset($text))
 
     if (stripos($text, '/album') === 0)
     {
-        $media = array(
-            array(
+        $media = [
+            [
                 'type' => 'photo',
                 'media' => 'http://example/img/photo.jpg'
-            ),
-            array(
+            ],
+            [
                 'type' => 'photo',
                 'media' => 'http://example/img/test.png'
-            ),
-        );
+            ]
+        ];
         sendMediaGroup($chat_id, $media);
     }
 
@@ -111,24 +111,24 @@ if(isset($data))
 {
     if (stripos($data, 'btn1') === 0)
     {
-        $menu['inline_keyboard'] = array(
-            array(
-                array(
+        $menu['inline_keyboard'] = [
+            [
+                [
                     'text' => 'Button 1',
                     'callback_data' => 'btn1'
-                )
-            ),
-            array(
-                array(
+                ]
+            ],
+            [
+                [
                     'text' => 'Button 2',
                     'callback_data' => 'btn2'
-                ),
-                array(
+                ],
+                [
                     'text' => 'Button 3',
                     'callback_data' => 'btn3'
-                )
-            )
-        );
+                ]
+            ]
+        ];
         answerCallbackQuery($id, 'Button 1');
         editMessageText('Button 1', $message_chat_id, $message_message_id, NULL, NULL, NULL, $menu);
     }
