@@ -123,13 +123,14 @@ function jsonPayload($method, $args = NULL)
 function curlRequest($method, $args = NULL)
 {
 	global $api;
+	if (!isset($args))
+	{
+		$args = [];
+	}
 	$c = curl_init();
 	curl_setopt($c, CURLOPT_URL, 'https://api.telegram.org/bot' . $api . '/' . $method);
 	curl_setopt($c, CURLOPT_POST, 1);
-	if(isset($args))
-	{
-		curl_setopt($c, CURLOPT_POSTFIELDS, $args);
-	}
+	curl_setopt($c, CURLOPT_POSTFIELDS, $args);
 	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	$r = curl_exec($c);
 	curl_close($c);
