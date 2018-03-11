@@ -39,13 +39,6 @@ elseif(isset($_POST['connections']))
         echo "Setup failed: API ID wrong or impossible to connect to Telegram";
     }
 }
-elseif(isset($_POST['skip']))
-{
-    $api = $_POST['api'];
-    $link = $_POST['link'];
-    $link = $link . "?api=" . $api;
-    setWebhook($api, $link);
-}
 elseif(isset($_POST['api']))
 {
 	$api = $_POST['api'];
