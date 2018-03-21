@@ -60,7 +60,7 @@ function setWebhook($api, $url, $certificate = NULL, $max_connections = NULL, $a
 	}
 	
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://api.telegram.org/bot' . $api . '/' . setWebhook);
+	curl_setopt($ch, CURLOPT_URL, 'https://api.telegram.org/bot' . $api . '/setWebhook');
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $args);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
