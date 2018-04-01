@@ -1,33 +1,34 @@
 <?php
 
 /**
-*    Copyright (C) 2017-2018  Davide Turaccio
-*
-*    This program is free software: you can redistribute it and/or modify
-*    it under the terms of the GNU Affero General Public License as published by
-*    the Free Software Foundation, either version 3 of the License, or
-*    (at your option) any later version.
-*
-*    This program is distributed in the hope that it will be useful,
-*    but WITHOUT ANY WARRANTY; without even the implied warranty of
-*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*    GNU Affero General Public License for more details.
-*
-*    You should have received a copy of the GNU Affero General Public License
-*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*
-**/
+ *    Copyright (C) 2017-2018  Davide Turaccio
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Affero General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Affero General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Affero General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ **/
 
 //put true if you want to use json payload for faster speed. with some server configuration it may not work properly
 define('JSON_PAYLOAD', false);
 //if you do not want to use the variables generated automatically by the telegram update but directly the array of $update put the parameter below to false
 define('EASY_VAR', true);
 
-//$api and is a global variable in curlRequest function!
-if(isset($_GET['api']))
+
+if(!isset($_GET['api']))
 {
-    $api = $_GET['api'];
+	exit();
 }
+
 
 //receiving updates via the webhook
 $update = json_decode(file_get_contents('php://input'), true);
@@ -41,36 +42,50 @@ $update = json_decode(file_get_contents('php://input'), true);
 if(EASY_VAR)
 {
 	//scan update
-	if(is_array($update)){
-		foreach ($update as $update_key => $update_val) {
+	if(is_array($update))
+	{
+		foreach($update as $update_key => $update_val)
+		{
 			//$$ is a variable variable http://php.net/manual/en/language.variables.variable.php
 			$$update_key = $update_val;
-			if (is_array($$update_key)){
+			if(is_array($$update_key))
+			{
 				//scan field of update (message/edited_message/channel_post/edited_channel_post...)
-				foreach ($$update_key as $update_field_key => $update_field_val) {
+				foreach($$update_key as $update_field_key => $update_field_val)
+				{
 					//$update_field_key = $update_key . '_' . $update_field_key;
 					$$update_field_key = $update_field_val;
-					if (is_array($$update_field_key)){
+					if(is_array($$update_field_key))
+					{
 						//scan field of update of message/edited_message/channel_post/edited_channel_post... (message_id,from,date,chat...) https://core.telegram.org/bots/api#update
-						foreach ($$update_field_key as $update_scan_key => $update_scan_val) {
+						foreach($$update_field_key as $update_scan_key => $update_scan_val)
+						{
 							$update_scan_key = $update_field_key . '_' . $update_scan_key;
 							$$update_scan_key = $update_scan_val;
-							if (is_array($$update_scan_key)){
+							if(is_array($$update_scan_key))
+							{
 								//scan field of update of message/edited_message/channel_post/edited_channel_post... of from,chat,forward_from,forward_from_chat...
-								foreach ($$update_scan_key as $update_scan2_key => $update_scan2_val) {
+								foreach($$update_scan_key as $update_scan2_key => $update_scan2_val)
+								{
 									$update_scan2_key = $update_scan_key . '_' . $update_scan2_key;
 									$$update_scan2_key = $update_scan2_val;
-									if (is_array($$update_scan2_key)){
+									if(is_array($$update_scan2_key))
+									{
 										//another scan...
-										foreach ($$update_scan2_key as $update_scan3_key => $update_scan3_val) {
+										foreach($$update_scan2_key as $update_scan3_key => $update_scan3_val)
+										{
 											$update_scan3_key = $update_scan2_key . '_' . $update_scan3_key;
 											$$update_scan3_key = $update_scan3_val;
-											if (is_array($$update_scan3_key)){
-												foreach($$update_scan3_key as $update_scan4_key => $update_scan4_val){
+											if(is_array($$update_scan3_key))
+											{
+												foreach($$update_scan3_key as $update_scan4_key => $update_scan4_val)
+												{
 													$update_scan4_key = $update_scan3_key . '_' . $update_scan4_key;
 													$$update_scan4_key = $update_scan4_val;
-													if (is_array($$update_scan4_key)){
-														foreach ($$update_scan4_key as $update_scan5_key => $update_scan5_val) {
+													if(is_array($$update_scan4_key))
+													{
+														foreach($$update_scan4_key as $update_scan5_key => $update_scan5_val)
+														{
 															$$update_scan5_key = $update_scan5_val;
 														}
 													}
@@ -88,58 +103,48 @@ if(EASY_VAR)
 	}
 }
 
-
 $payload = JSON_PAYLOAD;
 
-function jsonPayload($method, $args = NULL)
+function jsonPayload($method, $args = [])
 {
-    global $payload;
+	global $payload;
 
-    if($payload)
-    {
-        if (!isset($args))
-        {
-            $args = [];
-        }
+	if($payload)
+	{
+		$args['method'] = $method;
+		$json = json_encode($args);
 
-        $args['method'] = $method;
-        $json = json_encode($args);
+		ob_start();
+		echo $json;
+		header('Content-Type: application/json');
+		header('Connection: close');
+		header('Content-Length: ' . strlen($json));
+		ob_end_flush();
+		ob_flush();
+		flush();
 
-        ob_start();
-        echo $json;
-        header('Content-Type: application/json');
-        header('Connection: close');
-        header('Content-Length: ' . strlen($json));
-        ob_end_flush();
-        ob_flush();
-        flush();
+		$payload = false;
 
-        $payload = false;
-
-        return true;
-    }
-    else
-    {
-        return curlRequest($method, $args);
-    }
+		return true;
+	}
+	else
+	{
+		return curlRequest($method, $args);
+	}
 }
 
 
-function curlRequest($method, $args = NULL)
+function curlRequest($method, $args = [])
 {
-	global $api;
-	if (!isset($args))
-	{
-		$args = [];
-	}
 	$c = curl_init();
-	curl_setopt($c, CURLOPT_URL, 'https://api.telegram.org/bot' . $api . '/' . $method);
+	curl_setopt($c, CURLOPT_URL, 'https://api.telegram.org/bot' . $_GET['api'] . '/' . $method);
 	curl_setopt($c, CURLOPT_POST, 1);
 	curl_setopt($c, CURLOPT_POSTFIELDS, $args);
 	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 	$r = curl_exec($c);
 	curl_close($c);
-    return json_decode($r, true);
+
+	return json_decode($r, true);
 }
 
 
@@ -151,8 +156,8 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 	$args = [
 		'chat_id' => $chat_id,
 		'text' => $text
-		];
-    if(isset($parse_mode))
+	];
+	if(isset($parse_mode))
 	{
 		$args['parse_mode'] = $parse_mode;
 	}
@@ -170,18 +175,18 @@ function sendMessage($chat_id, $text, $parse_mode = NULL, $disable_web_page_prev
 	}
 	if(isset($reply_markup))
 	{
-        $reply_markup = json_encode($reply_markup);
+		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
 	}
 
 	if($response)
-    {
-        return curlRequest('sendMessage', $args);
-    }
-    else
-    {
-        return jsonPayload('sendMessage', $args);
-    }
+	{
+		return curlRequest('sendMessage', $args);
+	}
+	else
+	{
+		return jsonPayload('sendMessage', $args);
+	}
 
 }
 
@@ -192,20 +197,20 @@ function forwardMessage($chat_id, $from_chat_id, $disable_notification = NULL, $
 		'chat_id' => $chat_id,
 		'from_chat_id' => $from_chat_id,
 		'message_id' => $message_id
-		];
+	];
 	if(isset($disable_notification))
 	{
 		$args['disable_notification'] = $disable_notification;
 	}
 
-    if($response)
-    {
-        return curlRequest('forwardMessage', $args);
-    }
-    else
-    {
-        return jsonPayload('forwardMessage', $args);
-    }
+	if($response)
+	{
+		return curlRequest('forwardMessage', $args);
+	}
+	else
+	{
+		return jsonPayload('forwardMessage', $args);
+	}
 }
 
 

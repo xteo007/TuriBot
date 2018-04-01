@@ -259,6 +259,7 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
     \---updates.php
             deleteWebhook
             getMe
+			getMeApi
             getUpdates
             getWebhookInfo
             setWebhook
