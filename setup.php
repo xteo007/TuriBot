@@ -4,7 +4,7 @@ require_once 'functions/updates.php';
 
 
 //security check
-var_dump($_POST['yes'], $_POST['api'], $_POST['link'], $_POST['connections'], $_POST['no'], $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
+//var_dump($_POST['yes'], $_POST['api'], $_POST['link'], $_POST['connections'], $_POST['no'], $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
 if(isset($_POST['yes']) and $_POST['yes'] !== '')
 {
 	echo 'Error, invalid parameter';
