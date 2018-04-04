@@ -85,7 +85,7 @@ elseif(isset($_POST['api']))
 	$link = strip_tags($_POST['link']);
     echo '<p><input type="hidden" name="api" value="' . $api . '" /></p>';
     echo '<p><input type="hidden" name="link" value="' . $link . '" /></p>';
-    echo '<p>Input max connections: <input type="number" name="connections" min="0" max="100" value="40"></p>';
+    echo '<p>Input max connections: <input type="number" name="connections" min="0" max="100" value="100"></p>';
     echo '<p>If you are not sure, press Skip</p>';
     echo '<p>Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults to 40. Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s throughput.</p>';
     echo '<p><button type="submit" name="submit">Submit</button>';
