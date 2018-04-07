@@ -1,54 +1,55 @@
-# TuriBot
-# Intro
 
-[![Donate](https://img.shields.io/badge/%F0%9F%92%99-Donate-blue.svg)](https://www.paypal.me/davtur19)
+TuriBot
+
+Intro
+
+￼
 
 TuriBot is a simple way to communicate with Telegram APIs in PHP
 
 Documentation is only in Italian at the moment
 
-# Guida
-## Setup
+Guida
+
+Setup
+
 Caricare i file su un webserver e impostare il webhook manualmente che punti a commands.php, oppure aprire dal browser il file setup.php e fare il setup con esso.
 
 In alternativa si può settare il webhook che punti a bot.php e includere commands.php (togliendo include "bot.php"; da commands.php)
 
-## Attenzione⚠️
-Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da `require_once(bot.php);` a `require_once(bot_debug.php);`)
+Attenzione⚠️
 
-Nel file `bot_debug.php` sostituire `1111` con il proprio id in questa riga `define("MYID", "1111");` , altrimenti sarà solo molto lento ⚠️
+Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da require_once(bot.php); a require_once(bot_debug.php); )
 
-Siccome il bot genera le variabili in base al contenuto del update ricevuto, una eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL
-(Es: $text non esisterà se il bot riceverà una foto)
+Nel file bot_debug.php sostituire 1111 con il proprio id in questa riga define("MYID", "1111"); , altrimenti sarà solo molto lento ⚠️
+
+Siccome il bot genera le variabili in base al contenuto del update ricevuto, una eventuale variabile mancante genererà errori se non gestita correttamente siccome essa sarà NULL (Es: $text non esisterà se il bot riceverà una foto)
 
 Il json payload è di default disabilitato perchè potrebbe dare problemi con determinate configurazione di rete o del server, in caso si voglia usare leggere attentamente quanto riportato qui sotto (anche un occhiata alle api Telegram di come funziona il json payload non farebbe male)
 
 Il bot per essere più veloce usa json payload, per questo per alcune funzioni se si vuole ottenere la risposta da Telegram bisognerà specificare un parametro in più. Ciò viene fatto solo sulla prima funzione che viene eseguita dal update ricevuto ma solo con quelle che supportano il json payload, quelle che devono fare file upload o servono solo a ottenere informazioni non lo useranno.
 
-⚠️ Con alcune configurazioni il json payload potrebbe non funzionare correttamente ed essere eseguito per ultimo, se così fosse forzare l'utilizzo della richiesta post mettendo il parametro `$response` a `true` come da esempio.
+⚠️ Con alcune configurazioni il json payload potrebbe non funzionare correttamente ed essere eseguito per ultimo, se così fosse forzare l'utilizzo della richiesta post mettendo il parametro $response a true come da esempio.
 
-Esempio: `$risposta = sendMessage(...); $risposta = true` mentre così `$risposta = sendMessage(..., true); $risposta = array di risposta da Telegram`. Una `sendPhoto` usando un file invece di `file_id` o `link` userà in automatico la richiesta post. 
+Esempio: $risposta = sendMessage(...); $risposta = true mentre così $risposta = sendMessage(..., true); $risposta = array di risposta da Telegram . Una sendPhoto usando un file invece di file_id o link userà in automatico la richiesta post.
 
-## Nomi delle variabili
+Nomi delle variabili
+
 I nomi delle variabili sono create in modo dinamico e esse esisteranno solo se presenti nel update ricevuto da Telegram. Come nomi hanno gli stessi campi degli array mandati dalle richieste di update tramite webhook di Telegram. Inoltre la prima dimensione del array viene esclusa per creare i nomi delle variabili che sono separate da un underscore.
 
-Nonostante la prima dimesione dell'array non venga usata per creare i nomi delle variabili, è possibile usare $message, $edited_message, $channel_post, ecc... per distinguere i vari messaggi, ad esempio per capire se il messaggio ricevuto è un messaggio normale o modificato.
-(Vedere qua per i nomi: https://core.telegram.org/bots/api#update)
+Nonostante la prima dimesione dell'array non venga usata per creare i nomi delle variabili, è possibile usare $message, $edited_message, $channel_post, ecc... per distinguere i vari messaggi, ad esempio per capire se il messaggio ricevuto è un messaggio normale o modificato. (Vedere qua per i nomi: https://core.telegram.org/bots/api#update )
 
 Possono essere usati anche i nomi delle variabili non completi
 
-Per esempio:
-$chat_id conterrà 'id' che è all'interno del array di 'chat'.
-Mentre facendo solo $chat conterrà l'array di 'chat'.
-(Per maggiori info sui nomi guardare le api di Telegram https://core.telegram.org/bots/api#chat)
+Per esempio: $chat_id conterrà 'id' che è all'interno del array di 'chat'. Mentre facendo solo $chat conterrà l'array di 'chat'. (Per maggiori info sui nomi guardare le api di Telegram https://core.telegram.org/bots/api#chat )
 
-## Funzionamento del bot:
+Funzionamento del bot:
 1. Quando il bot riceve un messaggio, Telegram manda un json come quello qua sotto, alla pagina a cui è settato il webhook.
-1. Poi questo json viene decodificato e messo nella variabile $update che sarà un array come quello qua sotto.
-1. Dopodichè vengono create le variabili usando i campi del array e vengono separati da un underscore, tranne per la prima dimensionde del array (ovvero i campi di update come update_id, message, edited_message, channel_post, ecc..).
+2. Poi questo json viene decodificato e messo nella variabile $update che sarà un array come quello qua sotto.
+3. Dopodichè vengono create le variabili usando i campi del array e vengono separati da un underscore, tranne per la prima dimensionde del array (ovvero i campi di update come update_id, message, edited_message, channel_post, ecc..).
 
 Json mandato da Telegram
-```
+
 {
 "update_id":10000,
 "message":{
@@ -69,9 +70,11 @@ Json mandato da Telegram
   "text":"/start"
 }
 }
-```
+
+
+
 Contenuto di $update
-```
+
 array(2) {
   ["update_id"]=>
   int(10000)
@@ -107,9 +110,11 @@ array(2) {
     string(6) "/start"
   }
 }
-```
+
+
+
 Esempio di alcune variabili seguendo l'array usato sopra
-```
+
 $chat
 ["chat"]=>
     array(4) {
@@ -164,18 +169,21 @@ $message
     ["text"]=>
     string(6) "/start"
   }
-```
-## Divisione dei file
+
+
+
+Divisione dei file
+
 Nella directory principale troviamo:
-* bot.php è il file principale che elabora gli update e richiama i file con all'interno le varie funzioni.
-* bot_debug.php è il file che permette di mandare tutte le variabili create nella chat con il bot, così da poter fare un debug e capire meglio il funzionamento di esso (per usarlo è da sostituire nel require_once in commands.php).
-* commands.php è un file di esempio con dei comandi base per il bot, a cui va settato il webhook.
-* functions è la cartella con le varie funzioni.
-* setup.php serve solo per settare il webhook in modo facile.
-* LICENSE il file con la licenza (GNU Affero General Public License v3.0).
+• bot.php è il file principale che elabora gli update e richiama i file con all'interno le varie funzioni.
+• bot_debug.php è il file che permette di mandare tutte le variabili create nella chat con il bot, così da poter fare un debug e capire meglio il funzionamento di esso (per usarlo è da sostituire nel require_once in commands.php).
+• commands.php è un file di esempio con dei comandi base per il bot, a cui va settato il webhook.
+• functions è la cartella con le varie funzioni.
+• setup.php serve solo per settare il webhook in modo facile.
+• LICENSE il file con la licenza (GNU Affero General Public License v3.0).
 
 Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stesso nome dei metodi disponibili di Telegram
-```
+
 /bot
 |   bot.php
 |   bot_debug.php
@@ -259,12 +267,13 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
     \---updates.php
             deleteWebhook
             getMe
-			getMeApi
+            getMeApi
             getUpdates
             getWebhookInfo
             setWebhook
-```
 
-# Gruppo Telegram
 
-[Entra](https://t.me/joinchat/AYMflw0vciZoaZi7IVChOg)
+
+Gruppo Telegram
+
+Entra
