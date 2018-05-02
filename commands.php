@@ -85,7 +85,7 @@ if(isset($text))
 	//replace 1111 with your id
 	if(stripos($text, '/feedback') === 0)
 	{
-		$response = forwardMessage(25370519, $chat_id, NULL, $message_id, true);
+		$response = forwardMessage(1111, $chat_id, NULL, $message_id, true);
 		if($response['ok'] == true)
 		{
 			sendMessage($chat_id, 'Feedback sent', NULL, NULL, NULL, $message_id);
