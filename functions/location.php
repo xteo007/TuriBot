@@ -117,7 +117,7 @@ function stopMessageLiveLocation($chat_id = NULL, $message_id = NULL, $inline_me
 }
 
 
-function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquare_id = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
+function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquare_id = NULL, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $foursquare_type = NULL, $response = false)
 {
 	$args = [
 		'chat_id' => $chat_id,
@@ -150,6 +150,10 @@ function sendVenue($chat_id, $latitude, $longitude, $title, $address, $foursquar
 	{
 		$reply_markup = json_encode($reply_markup);
 		$args['reply_markup'] = $reply_markup;
+	}
+	if(isset($foursquare_type))
+	{
+		$args['foursquare_type'] = $foursquare_type;
 	}
 
     if($response)
