@@ -10,10 +10,10 @@ function setPassportDataErrors($user_id, $errors, $response = false)
 
 	if($response)
 	{
-		return curlRequest('kickChatMember', $args);
+		return curlRequest('setPassportDataErrors', $args);
 	}
 	else
 	{
-		return jsonPayload('kickChatMember', $args);
+		return jsonPayload('setPassportDataErrors', $args);
 	}
 }
