@@ -17,12 +17,12 @@ if(isset($_POST['no']) and $_POST['no'] !== '')
 }
 if(isset($_POST['api']))
 {
-	preg_match_all('/[a-zA-Z0-9:_-]/', $_POST['api'], $matches, PREG_SET_ORDER, 0);
-	if(strlen($_POST['api']) !== 45 or count($matches) !== 45)
-	{
-		echo 'Invalid token';
-		exit();
-	}
+    $token = explode(":", $_POST['api']);
+    if((!is_numeric($token[0])) or (!sizeof($token) === 2) or (!(preg_match_all('/[a-zA-Z0-9_-]/', $token[1], $matches, PREG_SET_ORDER, 0) === strlen($token[1]))))
+    {
+        echo 'Invalid token';
+        exit();
+    }
 }
 if(isset($_POST['link']))
 {
