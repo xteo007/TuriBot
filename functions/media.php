@@ -23,9 +23,9 @@ function sendPhoto($chat_id, $photo, $caption = NULL, $parse_mode = NULL, $disab
 		$args['caption'] = $caption;
 	}
 	if(isset($parse_mode))
-    {
+    	{
         $args['parse_mode'] = $parse_mode;
-    }
+    	}
 	if(isset($disable_notification))
 	{
 		$args['disable_notification'] = $disable_notification;
