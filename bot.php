@@ -19,9 +19,9 @@
  **/
 
 //put true if you want to use json payload for faster speed. with some server configuration it may not work properly
-define('JSON_PAYLOAD', false);
+define('JSON_PAYLOAD', False);
 //if you do not want to use the variables generated automatically by the telegram update but directly the array of $update put the parameter below to false
-define('EASY_VAR', true);
+define('EASY_VAR', True);
 
 
 if(!isset($_GET['api']))
@@ -31,7 +31,7 @@ if(!isset($_GET['api']))
 
 
 //receiving updates via the webhook
-$update = json_decode(file_get_contents('php://input'), true);
+$update = json_decode(file_get_contents('php://input'), True);
 
 
 //All variables are created automatically without the need of $update['message']['text']; (you can simply use $message_text)
@@ -123,9 +123,9 @@ function jsonPayload($method, $args = [])
 		ob_flush();
 		flush();
 
-		$payload = false;
+		$payload = False;
 
-		return true;
+		return True;
 	}
 	else
 	{
@@ -146,7 +146,7 @@ function curlRequest($method, $args = [])
 	$r = curl_exec($c);
 	curl_close($c);
 
-	return json_decode($r, true);
+	return json_decode($r, True);
 }
 
 
