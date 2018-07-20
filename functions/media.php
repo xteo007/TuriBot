@@ -320,9 +320,9 @@ function sendVideoNote($chat_id, $video_note, $duration = NULL, $length = NULL, 
 }
 
 
-//in $media send array of InputMedia, for now it only supports sending via id or link https://core.telegram.org/bots/api#sendmediagroup
+//in $media send an associative array with type and id/link/path. Exaple: $media = [['type' => 'photo', 'media' => '1234'], ['type' => 'video', 'media' => 'https://site/video.mp4']] https://core.telegram.org/bots/api#inputmedia
 function sendMediaGroup($chat_id, $media, $disable_notification = NULL, $reply_to_message_id = NULL)
-{
+{	
 	$media = json_encode($media);
 	$args = [
 		'chat_id' => $chat_id,
