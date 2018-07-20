@@ -137,10 +137,12 @@ function jsonPayload($method, $args = [])
 function curlRequest($method, $args = [])
 {
 	$c = curl_init();
-	curl_setopt($c, CURLOPT_URL, 'https://api.telegram.org/bot' . $_GET['api'] . '/' . $method);
-	curl_setopt($c, CURLOPT_POST, 1);
-	curl_setopt($c, CURLOPT_POSTFIELDS, $args);
-	curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt_array($c, [
+		CURLOPT_URL => 'https://api.telegram.org/bot' . $_GET['api'] . '/' . $method,
+		CURLOPT_RETURNTRANSFER => True,
+		CURLOPT_POST => True,
+		CURLOPT_POSTFIELDS => $args
+		]);
 	$r = curl_exec($c);
 	curl_close($c);
 
