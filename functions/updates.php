@@ -42,7 +42,7 @@ function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = 
 
 	if(isset($args))
 	{
-        return curlRequest('getUpdates', $args);
+		return curlRequest('getUpdates', $args);
 	}
 	else
 	{
