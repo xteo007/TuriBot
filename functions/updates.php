@@ -5,7 +5,7 @@
 //returns an array with the telegram response
 function getMe()
 {
-    return curlRequest('getMe');
+	return curlRequest('getMe');
 }
 
 
@@ -43,11 +43,11 @@ function getUpdates($offset, $limit = NULL, $timeout = NULL, $allowed_updates = 
 	if(isset($args))
 	{
         return curlRequest('getUpdates', $args);
-    }
-    else
-    {
-        return curlRequest('getUpdates');
-    }
+	}
+	else
+	{
+		return curlRequest('getUpdates');
+	}
 }
 
 
@@ -78,13 +78,13 @@ function setWebhook($api, $url, $certificate = NULL, $max_connections = NULL, $a
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$r = curl_exec($ch);
 	curl_close($ch);
-    return json_decode($r, true);
+	return json_decode($r, true);
 }
 
 
 function deleteWebhook()
 {
-    return curlRequest('deleteWebhook');
+	return curlRequest('deleteWebhook');
 }
 
 
