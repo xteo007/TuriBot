@@ -57,6 +57,7 @@ function sendAudio(
     $duration = null,
     $performer = null,
     $title = null,
+    $thumb = null,
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
@@ -88,6 +89,9 @@ function sendAudio(
     if (isset($title)) {
         $args['title'] = $title;
     }
+    if (isset($thumb)) {
+        $args['thumb'] = $thumb;
+    }
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;
     }
@@ -110,6 +114,7 @@ function sendAudio(
 function sendDocument(
     $chat_id,
     $document,
+    $thumb = null,
     $caption = null,
     $parse_mode = null,
     $disable_notification = null,
@@ -128,6 +133,9 @@ function sendDocument(
         'chat_id'  => $chat_id,
         'document' => $document
     ];
+    if (isset($thumb)) {
+        $args['thumb'] = $thumb;
+    }
     if (isset($caption)) {
         $args['caption'] = $caption;
     }
@@ -145,7 +153,7 @@ function sendDocument(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response == true) {
+    if ($response) {
         return curlRequest('sendDocument', $args);
     } else {
         return jsonPayload('sendDocument', $args);
@@ -159,6 +167,7 @@ function sendVideo(
     $duration = null,
     $width = null,
     $height = null,
+    $thumb = null,
     $caption = null,
     $parse_mode = null,
     $supports_streaming = null,
@@ -187,6 +196,9 @@ function sendVideo(
     if (isset($height)) {
         $args['height'] = $height;
     }
+    if (isset($thumb)) {
+        $args['thumb'] = $thumb;
+    }
     if (isset($caption)) {
         $args['caption'] = $caption;
     }
@@ -207,12 +219,75 @@ function sendVideo(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response == true) {
+    if ($response) {
         return curlRequest('sendVideo', $args);
     } else {
         return jsonPayload('sendVideo', $args);
     }
 }
+
+
+function sendAnimation(
+    $chat_id,
+    $animation,
+    $duration = null,
+    $width = null,
+    $height = null,
+    $thumb = null,
+    $caption = null,
+    $parse_mode = null,
+    $disable_notification = null,
+    $reply_to_message_id = null,
+    $reply_markup = null,
+    $response = RESPONSE
+) {
+    if (stripos($animation, 'http') === false) {
+        if (stripos($animation, '.') !== false) {
+            $file_name = realpath($animation);
+            $animation = curl_file_create($file_name);
+            $response = true;
+        }
+    }
+    $args = [
+        'chat_id'   => $chat_id,
+        'animation' => $animation
+    ];
+    if (isset($duration)) {
+        $args['duration'] = $duration;
+    }
+    if (isset($width)) {
+        $args['width'] = $width;
+    }
+    if (isset($height)) {
+        $args['height'] = $height;
+    }
+    if (isset($thumb)) {
+        $args['thumb'] = $thumb;
+    }
+    if (isset($caption)) {
+        $args['caption'] = $caption;
+    }
+    if (isset($parse_mode)) {
+        $args['parse_mode'] = $parse_mode;
+    }
+    if (isset($disable_notification)) {
+        $args['disable_notification'] = $disable_notification;
+    }
+    if (isset($reply_to_message_id)) {
+        $args['reply_to_message_id'] = $reply_to_message_id;
+    }
+    if (isset($reply_markup)) {
+        $reply_markup = json_encode($reply_markup);
+        $args['reply_markup'] = $reply_markup;
+    }
+
+    if ($response) {
+        return curlRequest('sendAnimation', $args);
+    } else {
+        return jsonPayload('sendAnimation', $args);
+    }
+}
+
 
 function sendVoice(
     $chat_id,
@@ -263,12 +338,14 @@ function sendVoice(
     }
 }
 
+
 //Sending video notes by a URL is currently unsupported by Telegram (Bot Api 3.4) https://core.telegram.org/bots/api#sendvideonote
 function sendVideoNote(
     $chat_id,
     $video_note,
     $duration = null,
     $length = null,
+    $thumb = null,
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
@@ -290,6 +367,9 @@ function sendVideoNote(
     }
     if (isset($length)) {
         $args['length'] = $length;
+    }
+    if (isset($thumb)) {
+        $args['thumb'] = $thumb;
     }
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;

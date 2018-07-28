@@ -168,15 +168,15 @@ function editMessageMedia(
 
     if ($response) {
         if (isset($args)) {
-            return curlRequest('editMessageCaption', $args);
+            return curlRequest('editMessageMedia', $args);
         } else {
-            return curlRequest('editMessageCaption');
+            return curlRequest('editMessageMedia');
         }
     } else {
         if (isset($args)) {
-            return jsonPayload('editMessageCaption', $args);
+            return jsonPayload('editMessageMedia', $args);
         } else {
-            return jsonPayload('editMessageCaption');
+            return jsonPayload('editMessageMedia');
         }
     }
 }
