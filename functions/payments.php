@@ -11,7 +11,7 @@ function sendInvoice(
     $start_parameter,
     $currency,
     $prices,
-    $provider_data,
+    $provider_data = null,
     $photo_url = null,
     $photo_size = null,
     $photo_width = null,

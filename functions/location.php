@@ -117,6 +117,7 @@ function sendVenue(
     $title,
     $address,
     $foursquare_id = null,
+    $foursquare_type = null,
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
@@ -132,6 +133,9 @@ function sendVenue(
     ];
     if (isset($foursquare_id)) {
         $args['foursquare_id'] = $foursquare_id;
+    }
+    if (isset($foursquare_type)) {
+        $args['foursquare_type'] = $foursquare_type;
     }
     if (isset($message_id)) {
         $args['message_id'] = $message_id;

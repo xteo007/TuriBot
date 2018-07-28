@@ -413,7 +413,8 @@ function sendContact(
     $chat_id,
     $phone_number,
     $first_name,
-    $last_name,
+    $last_name = null,
+    $vcard = null,
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
@@ -426,6 +427,9 @@ function sendContact(
     ];
     if (isset($last_name)) {
         $args['last_name'] = $last_name;
+    }
+    if (isset($vcard)) {
+        $args['vcard'] = $vcard;
     }
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;
