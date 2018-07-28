@@ -13,12 +13,10 @@ function sendPhoto(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($photo, 'http') === false) {
-        if (stripos($photo, '.') !== false) {
-            $file_name = realpath($photo);
-            $photo = curl_file_create($file_name);
-            $response = true;
-        }
+    if ((stripos($photo, 'http') === false) and (stripos($photo, '.') !== false)) {
+        $file_name = realpath($photo);
+        $photo = curl_file_create($file_name);
+        $response = true;
     }
     $args = [
         'chat_id' => $chat_id,
@@ -63,13 +61,18 @@ function sendAudio(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($audio, 'http') === false) {
-        if (stripos($audio, '.') !== false) {
-            $file_name = realpath($audio);
-            $audio = curl_file_create($file_name);
-            $response = true;
-        }
+    if ((stripos($audio, 'http') === false) and (stripos($audio, '.') !== false)) {
+        $file_name = realpath($audio);
+        $audio = curl_file_create($file_name);
+        $response = true;
     }
+
+    if ((stripos($thumb, 'http') === false) and (stripos($thumb, '.') !== false)) {
+        $file_name = realpath($thumb);
+        $thumb = curl_file_create($file_name);
+        $response = true;
+    }
+
     $args = [
         'chat_id' => $chat_id,
         'audio'   => $audio
@@ -122,13 +125,18 @@ function sendDocument(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($document, 'http') === false) {
-        if (stripos($document, '.') !== false) {
-            $file_name = realpath($document);
+    if ((stripos($document, 'http') === false) and (stripos($document, '.') !== false)) {
+        $file_name = realpath($document);
             $document = curl_file_create($file_name);
             $response = true;
-        }
     }
+
+    if ((stripos($thumb, 'http') === false) and (stripos($thumb, '.') !== false)) {
+        $file_name = realpath($thumb);
+        $thumb = curl_file_create($file_name);
+        $response = true;
+    }
+
     $args = [
         'chat_id'  => $chat_id,
         'document' => $document
@@ -176,13 +184,18 @@ function sendVideo(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($video, 'http') === false) {
-        if (stripos($video, '.') !== false) {
-            $file_name = realpath($video);
-            $video = curl_file_create($file_name);
-            $response = true;
-        }
+    if ((stripos($video, 'http') === false) and (stripos($video, '.') !== false)) {
+        $file_name = realpath($video);
+        $video = curl_file_create($file_name);
+        $response = true;
     }
+
+    if ((stripos($thumb, 'http') === false) and (stripos($thumb, '.') !== false)) {
+        $file_name = realpath($thumb);
+        $thumb = curl_file_create($file_name);
+        $response = true;
+    }
+
     $args = [
         'chat_id' => $chat_id,
         'video'   => $video
@@ -241,13 +254,18 @@ function sendAnimation(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($animation, 'http') === false) {
-        if (stripos($animation, '.') !== false) {
-            $file_name = realpath($animation);
-            $animation = curl_file_create($file_name);
-            $response = true;
-        }
+    if ((stripos($animation, 'http') === false) and (stripos($animation, '.') !== false)) {
+        $file_name = realpath($animation);
+        $animation = curl_file_create($file_name);
+        $response = true;
     }
+
+    if ((stripos($thumb, 'http') === false) and (stripos($thumb, '.') !== false)) {
+        $file_name = realpath($thumb);
+        $thumb = curl_file_create($file_name);
+        $response = true;
+    }
+
     $args = [
         'chat_id'   => $chat_id,
         'animation' => $animation
@@ -300,13 +318,12 @@ function sendVoice(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($voice, 'http') === false) {
-        if (stripos($voice, '.') !== false) {
-            $file_name = realpath($voice);
-            $voice = curl_file_create($file_name);
-            $response = true;
-        }
+    if ((stripos($voice, 'http') === false) and (stripos($voice, '.') !== false)) {
+        $file_name = realpath($voice);
+        $voice = curl_file_create($file_name);
+        $response = true;
     }
+
     $args = [
         'chat_id' => $chat_id,
         'voice'   => $voice
@@ -351,13 +368,18 @@ function sendVideoNote(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($video_note, 'http') === false) {
-        if (stripos($video_note, '.') !== false) {
-            $file_name = realpath($video_note);
-            $video_note = curl_file_create($file_name);
-            $response = true;
-        }
+    if ((stripos($video_note, 'http') === false) and (stripos($video_note, '.') !== false)) {
+        $file_name = realpath($video_note);
+        $video_note = curl_file_create($file_name);
+        $response = true;
     }
+
+    if ((stripos($thumb, 'http') === false) and (stripos($thumb, '.') !== false)) {
+        $file_name = realpath($thumb);
+        $thumb = curl_file_create($file_name);
+        $response = true;
+    }
+
     $args = [
         'chat_id'    => $chat_id,
         'video_note' => $video_note

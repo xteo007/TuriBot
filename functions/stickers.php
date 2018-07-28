@@ -38,13 +38,12 @@ function sendSticker(
     $reply_markup = null,
     $response = RESPONSE
 ) {
-    if (stripos($sticker, 'http') === false) {
-        if (stripos($sticker, '.') !== false) {
+    if ((stripos($sticker, 'http') === false) and (stripos($sticker, '.') !== false)) {
             $file_name = realpath($sticker);
             $sticker = curl_file_create($file_name);
             $response = true;
-        }
     }
+
     $args = [
         'chat_id' => $chat_id,
         'sticker' => $sticker
@@ -101,13 +100,12 @@ function createNewStickerSet(
     $mask_position = null,
     $response = RESPONSE
 ) {
-    if (stripos($png_sticker, 'http') === false) {
-        if (stripos($png_sticker, '.') !== false) {
+    if ((stripos($png_sticker, 'http') === false) and (stripos($png_sticker, '.') !== false)) {
             $file_name = realpath($png_sticker);
             $png_sticker = curl_file_create($file_name);
             $response = true;
-        }
     }
+
     $args = [
         'user_id'     => $user_id,
         'name'        => $name,
@@ -133,13 +131,12 @@ function createNewStickerSet(
 
 function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = null, $response = RESPONSE)
 {
-    if (stripos($png_sticker, 'http') === false) {
-        if (stripos($png_sticker, '.') !== false) {
+    if ((stripos($png_sticker, 'http') === false) and (stripos($png_sticker, '.') !== false)) {
             $file_name = realpath($png_sticker);
             $png_sticker = curl_file_create($file_name);
             $response = true;
-        }
     }
+
     $args = [
         'user_id'     => $user_id,
         'name'        => $name,
