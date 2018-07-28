@@ -76,13 +76,12 @@ if (isset($text) and isset($chat_id)) {
 
 
     //forward the message when one writes /feedback
-    //replace 1111 with your id
-    if (stripos($text, '/feedback') === 0 and isset($message_id)) {
-        $response = forwardMessage(1111, $chat_id, null, $message_id, true);
-        if ($response['ok'] == true) {
-            sendMessage($chat_id, 'Feedback sent', null, null, null, $message_id);
+    if ($input = command('/feedback', 1) and isset($message_id)) {
+        $r = forwardMessage(MYID, $chat_id, null, $message_id, true);
+        if ($r['ok']) {
+            sendMessage($chat_id, 'Feedback sent');
         } else {
-            sendMessage($chat_id, 'Feedback not sent', null, null, null, $message_id);
+            sendMessage($chat_id, 'Feedback not sent');
         }
     }
 
