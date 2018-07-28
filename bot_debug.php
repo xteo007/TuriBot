@@ -50,7 +50,7 @@ fclose($f);
 if (EASY_VAR) {
     //scan update
     if (isset($update)) {
-        sendMessage(MYID, '*$update* = `' . print_r($update, true) . '`\n', 'Markdown');
+        sendMessage(MYID, '*$update* = `' . print_r($update, true) . '`' . PHP_EOL, 'Markdown');
         if (is_array($update)) {
             foreach ($update as $update_key => $update_val) {
                 //check if the var already exist for security reasons
