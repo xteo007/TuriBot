@@ -3,50 +3,46 @@
 
 function sendChatAction($chat_id, $action, $response = false)
 {
-	$args = [
-		'chat_id' => $chat_id,
-		'action' => $action
-		];
+    $args = [
+        'chat_id' => $chat_id,
+        'action'  => $action
+    ];
 
-    if($response)
-    {
+    if ($response) {
         return curlRequest('sendChatAction', $args);
-    }
-    else
-    {
+    } else {
         return jsonPayload('sendChatAction', $args);
     }
 }
 
 
-function answerCallbackQuery($callback_query_id, $text = NULL, $show_alert = NULL, $url = NULL, $cache_time = NULL, $response = false)
-{
-	$args = [
-		'callback_query_id' => $callback_query_id
-		];
-	if(isset($text))
-	{
-		$args['text'] = $text;
-	}
-	if(isset($show_alert))
-	{
-		$args['show_alert'] = $show_alert;
-	}
-	if(isset($url))
-	{
-		$args['url'] = $url;
-	}
-	if(isset($cache_time))
-	{
-		$args['cache_time'] = $cache_time;
-	}
-
-    if($response)
-    {
-        return curlRequest('answerCallbackQuery', $args);
+function answerCallbackQuery(
+    $callback_query_id,
+    $text = null,
+    $show_alert = null,
+    $url = null,
+    $cache_time = null,
+    $response = false
+) {
+    $args = [
+        'callback_query_id' => $callback_query_id
+    ];
+    if (isset($text)) {
+        $args['text'] = $text;
     }
-    else
-    {
+    if (isset($show_alert)) {
+        $args['show_alert'] = $show_alert;
+    }
+    if (isset($url)) {
+        $args['url'] = $url;
+    }
+    if (isset($cache_time)) {
+        $args['cache_time'] = $cache_time;
+    }
+
+    if ($response) {
+        return curlRequest('answerCallbackQuery', $args);
+    } else {
         return jsonPayload('answerCallbackQuery', $args);
     }
 }

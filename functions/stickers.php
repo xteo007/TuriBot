@@ -3,17 +3,14 @@
 
 function setChatStickerSet($chat_id, $sticker_set_name, $response = false)
 {
-	$args = [
-		'chat_id' => $chat_id,
-		'sticker_set_name' => $sticker_set_name
-		];
+    $args = [
+        'chat_id'          => $chat_id,
+        'sticker_set_name' => $sticker_set_name
+    ];
 
-    if($response)
-    {
+    if ($response) {
         return curlRequest('setChatStickerSet', $args);
-    }
-    else
-    {
+    } else {
         return jsonPayload('setChatStickerSet', $args);
     }
 }
@@ -21,56 +18,51 @@ function setChatStickerSet($chat_id, $sticker_set_name, $response = false)
 
 function deleteChatStickerSet($chat_id, $response = false)
 {
-	$args = [
-		'chat_id' => $chat_id
-		];
+    $args = [
+        'chat_id' => $chat_id
+    ];
 
-    if($response)
-    {
+    if ($response) {
         return curlRequest('deleteChatStickerSet', $args);
-    }
-    else
-    {
+    } else {
         return jsonPayload('deleteChatStickerSet', $args);
     }
 }
 
 
-function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
-{
-	if(stripos($sticker, 'http') === false)
-	{
-		if(stripos($sticker, '.') !== false)
-		{
-			$file_name = realpath($sticker);
-			$sticker = curl_file_create($file_name);
+function sendSticker(
+    $chat_id,
+    $sticker,
+    $disable_notification = null,
+    $reply_to_message_id = null,
+    $reply_markup = null,
+    $response = false
+) {
+    if (stripos($sticker, 'http') === false) {
+        if (stripos($sticker, '.') !== false) {
+            $file_name = realpath($sticker);
+            $sticker = curl_file_create($file_name);
             $response = true;
         }
-	}
-	$args = [
-		'chat_id' => $chat_id,
-		'sticker' => $sticker
-		];
-	if(isset($disable_notification))
-	{
-		$args['disable_notification'] = $disable_notification;
-	}
-	if(isset($reply_to_message_id))
-	{
-		$args['reply_to_message_id'] = $reply_to_message_id;
-	}
-	if(isset($reply_markup))
-	{
-		$reply_markup = json_encode($reply_markup);
-		$args['reply_markup'] = $reply_markup;
-	}
-
-    if($response)
-    {
-        return curlRequest('sendSticker', $args);
     }
-    else
-    {
+    $args = [
+        'chat_id' => $chat_id,
+        'sticker' => $sticker
+    ];
+    if (isset($disable_notification)) {
+        $args['disable_notification'] = $disable_notification;
+    }
+    if (isset($reply_to_message_id)) {
+        $args['reply_to_message_id'] = $reply_to_message_id;
+    }
+    if (isset($reply_markup)) {
+        $reply_markup = json_encode($reply_markup);
+        $args['reply_markup'] = $reply_markup;
+    }
+
+    if ($response) {
+        return curlRequest('sendSticker', $args);
+    } else {
         return jsonPayload('sendSticker', $args);
     }
 }
@@ -78,9 +70,9 @@ function sendSticker($chat_id, $sticker, $disable_notification = NULL, $reply_to
 
 function getStickerSet($name)
 {
-	$args = [
-		'name' => $name
-		];
+    $args = [
+        'name' => $name
+    ];
 
     return curlRequest('getStickerSet', $args);
 }
@@ -88,85 +80,80 @@ function getStickerSet($name)
 
 function uploadStickerFile($user_id, $png_sticker)
 {
-	$file_name = realpath($png_sticker);
-	$png_sticker = curl_file_create($file_name);
-	$args = [
-		'user_id' => $user_id,
-		'png_sticker' => $png_sticker
-		];
+    $file_name = realpath($png_sticker);
+    $png_sticker = curl_file_create($file_name);
+    $args = [
+        'user_id'     => $user_id,
+        'png_sticker' => $png_sticker
+    ];
 
     return curlRequest('uploadStickerFile', $args);
 }
 
 
-function createNewStickerSet($user_id, $name, $title, $png_sticker, $emojis, $contains_masks = NULL, $mask_position = NULL, $response = false)
-{
-	if(stripos($png_sticker, 'http') === false)
-	{
-		if(stripos($png_sticker, '.') !== false)
-		{
-			$file_name = realpath($png_sticker);
-			$png_sticker = curl_file_create($file_name);
-			$response = true;
-		}
-	}
-	$args = [
-		'user_id' => $user_id,
-		'name' => $name,
-		'title' => $title,
-		'png_sticker' => $png_sticker,
-		'emojis' => $emojis
-		];
-	if(isset($contains_masks))
-	{
-		$args['contains_masks'] = $contains_masks;
-	}
-	if(isset($mask_position))
-	{
-		$mask_position = json_encode($mask_position);
-		$args['mask_position'] = $mask_position;
-	}
-
-    if($response)
-    {
-        return curlRequest('createNewStickerSet', $args);
+function createNewStickerSet(
+    $user_id,
+    $name,
+    $title,
+    $png_sticker,
+    $emojis,
+    $contains_masks = null,
+    $mask_position = null,
+    $response = false
+) {
+    if (stripos($png_sticker, 'http') === false) {
+        if (stripos($png_sticker, '.') !== false) {
+            $file_name = realpath($png_sticker);
+            $png_sticker = curl_file_create($file_name);
+            $response = true;
+        }
     }
-    else
-    {
+    $args = [
+        'user_id'     => $user_id,
+        'name'        => $name,
+        'title'       => $title,
+        'png_sticker' => $png_sticker,
+        'emojis'      => $emojis
+    ];
+    if (isset($contains_masks)) {
+        $args['contains_masks'] = $contains_masks;
+    }
+    if (isset($mask_position)) {
+        $mask_position = json_encode($mask_position);
+        $args['mask_position'] = $mask_position;
+    }
+
+    if ($response) {
+        return curlRequest('createNewStickerSet', $args);
+    } else {
         return jsonPayload('createNewStickerSet', $args);
     }
 }
 
 
-function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = NULL, $response = false)
+function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = null, $response = false)
 {
-	if(stripos($png_sticker, 'http') === false)
-	{
-		if(stripos($png_sticker, '.') !== false)
-		{
-			$file_name = realpath($png_sticker);
-			$png_sticker = curl_file_create($file_name);
+    if (stripos($png_sticker, 'http') === false) {
+        if (stripos($png_sticker, '.') !== false) {
+            $file_name = realpath($png_sticker);
+            $png_sticker = curl_file_create($file_name);
             $response = true;
         }
-	}
-	$args = [
-		'user_id' => $user_id,
-		'name' => $name,
-		'png_sticker' => $png_sticker,
-		'emojis' => $emojis
-		];
-	if(isset($mask_position))
-	{
-		$mask_position = json_encode($mask_position);
-		$args['mask_position'] = $mask_position;
-	}
-
-    if($response)
-    {
-        return curlRequest('addStickerToSet', $args);
     }
-    else
-    {
+    $args = [
+        'user_id'     => $user_id,
+        'name'        => $name,
+        'png_sticker' => $png_sticker,
+        'emojis'      => $emojis
+    ];
+    if (isset($mask_position)) {
+        $mask_position = json_encode($mask_position);
+        $args['mask_position'] = $mask_position;
+    }
+
+    if ($response) {
+        return curlRequest('addStickerToSet', $args);
+    } else {
         return jsonPayload('addStickerToSet', $args);
     }
 }
@@ -174,17 +161,14 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
 
 function setStickerPositionInSet($sticker, $position, $response = false)
 {
-	$args = [
-		'sticker' => $sticker,
-		'position' => $position
-		];
+    $args = [
+        'sticker'  => $sticker,
+        'position' => $position
+    ];
 
-    if($response)
-    {
+    if ($response) {
         return curlRequest('setStickerPositionInSet', $args);
-    }
-    else
-    {
+    } else {
         return jsonPayload('setStickerPositionInSet', $args);
     }
 }
@@ -192,16 +176,13 @@ function setStickerPositionInSet($sticker, $position, $response = false)
 
 function deleteStickerFromSet($sticker, $response = false)
 {
-	$args = [
-		'sticker' => $sticker
-		];
+    $args = [
+        'sticker' => $sticker
+    ];
 
-    if($response)
-    {
+    if ($response) {
         return curlRequest('deleteStickerFromSet', $args);
-    }
-    else
-    {
+    } else {
         return jsonPayload('deleteStickerFromSet', $args);
     }
 }

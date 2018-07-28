@@ -1,23 +1,19 @@
 <?php
 
 
-function kickChatMember($chat_id, $user_id, $until_date = NULL, $response = false)
+function kickChatMember($chat_id, $user_id, $until_date = null, $response = false)
 {
-	$args = [
-		'chat_id' => $chat_id,
-		'user_id' => $user_id
-		];
-	if(isset($until_date))
-	{
-		$args['until_date'] = $until_date;
-	}
-
-    if($response)
-    {
-        return curlRequest('kickChatMember', $args);
+    $args = [
+        'chat_id' => $chat_id,
+        'user_id' => $user_id
+    ];
+    if (isset($until_date)) {
+        $args['until_date'] = $until_date;
     }
-    else
-    {
+
+    if ($response) {
+        return curlRequest('kickChatMember', $args);
+    } else {
         return jsonPayload('kickChatMember', $args);
     }
 }

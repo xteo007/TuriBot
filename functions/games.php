@@ -2,92 +2,89 @@
 
 
 //games
-function sendGame($chat_id, $game_short_name, $disable_notification = NULL, $reply_to_message_id = NULL, $reply_markup = NULL, $response = false)
-{
-	$args = [
-		'chat_id' => $chat_id,
-		'game_short_name' => $game_short_name
-		];
-	if(isset($disable_notification))
-	{
-		$args['disable_notification'] = $disable_notification;
-	}
-	if(isset($reply_to_message_id))
-	{
-		$args['reply_to_message_id'] = $reply_to_message_id;
-	}
-	if(isset($reply_markup))
-	{
-		$reply_markup = json_encode($reply_markup);
-		$args['reply_markup'] = $reply_markup;
-	}
-
-    if($response)
-    {
-        return curlRequest('sendGame', $args);
+function sendGame(
+    $chat_id,
+    $game_short_name,
+    $disable_notification = null,
+    $reply_to_message_id = null,
+    $reply_markup = null,
+    $response = false
+) {
+    $args = [
+        'chat_id' => $chat_id,
+        'game_short_name' => $game_short_name
+    ];
+    if (isset($disable_notification)) {
+        $args['disable_notification'] = $disable_notification;
     }
-    else
-    {
+    if (isset($reply_to_message_id)) {
+        $args['reply_to_message_id'] = $reply_to_message_id;
+    }
+    if (isset($reply_markup)) {
+        $reply_markup = json_encode($reply_markup);
+        $args['reply_markup'] = $reply_markup;
+    }
+
+    if ($response) {
+        return curlRequest('sendGame', $args);
+    } else {
         return jsonPayload('sendGame', $args);
     }
 }
 
 
-function setGameScore($user_id, $score, $force = NULL, $disable_edit_message = NULL, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL, $response = false)
-{
-	$args = [
-		'user_id' => $user_id,
-		'score' => $score
-		];
-	if(isset($force))
-	{
-		$args['force'] = $force;
-	}
-	if(isset($disable_edit_message))
-	{
-		$args['disable_edit_message'] = $disable_edit_message;
-	}
-	if(isset($chat_id))
-	{
-		$args['chat_id'] = $chat_id;
-	}
-	if(isset($message_id))
-	{
-		$args['message_id'] = $message_id;
-	}
-	if(isset($inline_message_id))
-	{
-		$args['inline_message_id'] = $inline_message_id;
-	}
-
-    if($response)
-    {
-        return curlRequest('setGameScore', $args);
+function setGameScore(
+    $user_id,
+    $score,
+    $force = null,
+    $disable_edit_message = null,
+    $chat_id = null,
+    $message_id = null,
+    $inline_message_id = null,
+    $response = false
+) {
+    $args = [
+        'user_id' => $user_id,
+        'score'   => $score
+    ];
+    if (isset($force)) {
+        $args['force'] = $force;
     }
-    else
-    {
+    if (isset($disable_edit_message)) {
+        $args['disable_edit_message'] = $disable_edit_message;
+    }
+    if (isset($chat_id)) {
+        $args['chat_id'] = $chat_id;
+    }
+    if (isset($message_id)) {
+        $args['message_id'] = $message_id;
+    }
+    if (isset($inline_message_id)) {
+        $args['inline_message_id'] = $inline_message_id;
+    }
+
+    if ($response) {
+        return curlRequest('setGameScore', $args);
+    } else {
         return jsonPayload('setGameScore', $args);
     }
 }
 
 
-function getGameHighScores($user_id, $chat_id = NULL, $message_id = NULL, $inline_message_id = NULL)
+function getGameHighScores($user_id, $chat_id = null, $message_id = null, $inline_message_id = null)
 {
-	$args = [
-		'user_id' => $user_id
-		];
-	if(isset($chat_id))
-	{
-		$args['chat_id'] = $chat_id;
-	}
-	if(isset($message_id))
-	{
-		$args['message_id'] = $message_id;
-	}
-	if(isset($inline_message_id))
-	{
-		$args['inline_message_id'] = $inline_message_id;
-	}
+    $args = [
+        'user_id' => $user_id
+    ];
+    if (isset($chat_id)) {
+        $args['chat_id'] = $chat_id;
+    }
+    if (isset($message_id)) {
+        $args['message_id'] = $message_id;
+    }
+    if (isset($inline_message_id)) {
+        $args['inline_message_id'] = $inline_message_id;
+    }
 
     return curlRequest('getGameHighScores', $args);
 }
