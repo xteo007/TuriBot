@@ -1,7 +1,7 @@
 <?php
 
 
-function kickChatMember($chat_id, $user_id, $until_date = null, $response = false)
+function kickChatMember($chat_id, $user_id, $until_date = null, $response = RESPONSE)
 {
     $args = [
         'chat_id' => $chat_id,
@@ -19,7 +19,7 @@ function kickChatMember($chat_id, $user_id, $until_date = null, $response = fals
 }
 
 
-function unbanChatMember($chat_id, $user_id, $response = false)
+function unbanChatMember($chat_id, $user_id, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id,
@@ -37,7 +37,7 @@ function unbanChatMember($chat_id, $user_id, $response = false)
 }
 
 
-function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_messages = NULL, $can_send_media_messages = NULL, $can_send_other_messages = NULL, $can_add_web_page_previews = NULL, $response = false)
+function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_messages = NULL, $can_send_media_messages = NULL, $can_send_other_messages = NULL, $can_add_web_page_previews = NULL, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id,
@@ -75,7 +75,7 @@ function restrictChatMember($chat_id, $user_id, $until_date = NULL, $can_send_me
 }
 
 
-function promoteChatMember($chat_id, $user_id, $can_change_info = NULL, $can_post_messages = NULL, $can_edit_messages = NULL, $can_delete_messages = NULL, $can_invite_users = NULL, $can_restrict_members = NULL, $can_pin_messages = NULL, $can_promote_members = NULL, $response = false)
+function promoteChatMember($chat_id, $user_id, $can_change_info = NULL, $can_post_messages = NULL, $can_edit_messages = NULL, $can_delete_messages = NULL, $can_invite_users = NULL, $can_restrict_members = NULL, $can_pin_messages = NULL, $can_promote_members = NULL, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id,
@@ -148,7 +148,7 @@ function setChatPhoto($chat_id, $photo)
 }
 
 
-function deleteChatPhoto($chat_id, $response = false)
+function deleteChatPhoto($chat_id, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id
@@ -165,7 +165,7 @@ function deleteChatPhoto($chat_id, $response = false)
 }
 
 
-function setChatTitle($chat_id, $title, $response = false)
+function setChatTitle($chat_id, $title, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id,
@@ -183,7 +183,7 @@ function setChatTitle($chat_id, $title, $response = false)
 }
 
 
-function setChatDescription($chat_id, $description = NULL, $response = false)
+function setChatDescription($chat_id, $description = NULL, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id
@@ -204,7 +204,7 @@ function setChatDescription($chat_id, $description = NULL, $response = false)
 }
 
 
-function pinChatMessage($chat_id, $message_id, $disable_notification = NULL, $response = false)
+function pinChatMessage($chat_id, $message_id, $disable_notification = NULL, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id,
@@ -226,7 +226,7 @@ function pinChatMessage($chat_id, $message_id, $disable_notification = NULL, $re
 }
 
 
-function unpinChatMessage($chat_id, $response = false)
+function unpinChatMessage($chat_id, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id
@@ -243,7 +243,7 @@ function unpinChatMessage($chat_id, $response = false)
 }
 
 
-function leaveChat($chat_id, $response = false)
+function leaveChat($chat_id, $response = RESPONSE)
 {
 	$args = [
 		'chat_id' => $chat_id

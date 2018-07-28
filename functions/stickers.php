@@ -1,7 +1,7 @@
 <?php
 
 
-function setChatStickerSet($chat_id, $sticker_set_name, $response = false)
+function setChatStickerSet($chat_id, $sticker_set_name, $response = RESPONSE)
 {
     $args = [
         'chat_id'          => $chat_id,
@@ -16,7 +16,7 @@ function setChatStickerSet($chat_id, $sticker_set_name, $response = false)
 }
 
 
-function deleteChatStickerSet($chat_id, $response = false)
+function deleteChatStickerSet($chat_id, $response = RESPONSE)
 {
     $args = [
         'chat_id' => $chat_id
@@ -36,7 +36,7 @@ function sendSticker(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($sticker, 'http') === false) {
         if (stripos($sticker, '.') !== false) {
@@ -99,7 +99,7 @@ function createNewStickerSet(
     $emojis,
     $contains_masks = null,
     $mask_position = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($png_sticker, 'http') === false) {
         if (stripos($png_sticker, '.') !== false) {
@@ -131,7 +131,7 @@ function createNewStickerSet(
 }
 
 
-function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = null, $response = false)
+function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = null, $response = RESPONSE)
 {
     if (stripos($png_sticker, 'http') === false) {
         if (stripos($png_sticker, '.') !== false) {
@@ -159,7 +159,7 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
 }
 
 
-function setStickerPositionInSet($sticker, $position, $response = false)
+function setStickerPositionInSet($sticker, $position, $response = RESPONSE)
 {
     $args = [
         'sticker'  => $sticker,
@@ -174,7 +174,7 @@ function setStickerPositionInSet($sticker, $position, $response = false)
 }
 
 
-function deleteStickerFromSet($sticker, $response = false)
+function deleteStickerFromSet($sticker, $response = RESPONSE)
 {
     $args = [
         'sticker' => $sticker

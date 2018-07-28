@@ -9,7 +9,7 @@ function sendLocation(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'chat_id'   => $chat_id,
@@ -45,7 +45,7 @@ function editMessageLiveLocation(
     $message_id = null,
     $inline_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'latitude'  => $latitude,
@@ -78,7 +78,7 @@ function stopMessageLiveLocation(
     $message_id = null,
     $inline_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
@@ -121,7 +121,7 @@ function sendVenue(
     $reply_to_message_id = null,
     $reply_markup = null,
     $foursquare_type = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'chat_id'   => $chat_id,

@@ -10,7 +10,7 @@ function editMessageText(
     $parse_mode = null,
     $disable_web_page_preview = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'text' => $text
@@ -50,7 +50,7 @@ function editMessageCaption(
     $caption = null,
     $parse_mode = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
@@ -93,7 +93,7 @@ function editMessageReplyMarkup(
     $message_id = null,
     $inline_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
@@ -125,16 +125,58 @@ function editMessageReplyMarkup(
 }
 
 
-function deleteMessage($chat_id, $message_id, $response = false)
+function deleteMessage($chat_id, $message_id, $response = RESPONSE)
 {
     $args = [
-        'chat_id' => $chat_id,
-        'message_id' => $message_id,
+        'chat_id'    => $chat_id,
+        'message_id' => $message_id
     ];
 
     if ($response) {
         return curlRequest('deleteMessage', $args);
     } else {
         return jsonPayload('deleteMessage', $args);
+    }
+}
+
+
+function editMessageMedia(
+    $chat_id = null,
+    $message_id = null,
+    $inline_message_id = null,
+    $media = null,
+    $reply_markup = null,
+    $response = RESPONSE
+) {
+    $args = [
+        'media' => $media
+    ];
+
+    if (isset($chat_id)) {
+        $args['chat_id'] = $chat_id;
+    }
+    if (isset($message_id)) {
+        $args['message_id'] = $message_id;
+    }
+    if (isset($inline_message_id)) {
+        $args['inline_message_id'] = $inline_message_id;
+    }
+    if (isset($reply_markup)) {
+        $reply_markup = json_encode($reply_markup);
+        $args['reply_markup'] = $reply_markup;
+    }
+
+    if ($response) {
+        if (isset($args)) {
+            return curlRequest('editMessageCaption', $args);
+        } else {
+            return curlRequest('editMessageCaption');
+        }
+    } else {
+        if (isset($args)) {
+            return jsonPayload('editMessageCaption', $args);
+        } else {
+            return jsonPayload('editMessageCaption');
+        }
     }
 }

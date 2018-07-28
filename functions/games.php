@@ -8,7 +8,7 @@ function sendGame(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'chat_id' => $chat_id,
@@ -41,7 +41,7 @@ function setGameScore(
     $chat_id = null,
     $message_id = null,
     $inline_message_id = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'user_id' => $user_id,

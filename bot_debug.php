@@ -20,8 +20,8 @@
 
 //replace 1111 with your id
 define('MYID', '1111');
-//put true if you want to use json payload for faster speed. with some server configuration it may not work properly
-define('JSON_PAYLOAD', false);
+//put false if you want to use json payload for faster speed. with some server configuration it may not work properly, moreover the first request will not receive any reply from telegram
+define('RESPONSE', true);
 //if you do not want to use the variables generated automatically by the telegram update but directly the array of $update put the parameter below to false
 define('EASY_VAR', true);
 
@@ -53,78 +53,94 @@ if (EASY_VAR) {
         sendMessage(MYID, '*$update* = `' . print_r($update, true) . '`\n', 'Markdown');
         if (is_array($update)) {
             foreach ($update as $update_key => $update_val) {
-                //$$ is a variable variable http://php.net/manual/en/language.variables.variable.php
-                $$update_key = $update_val;
-                if (is_array($$update_key)) {
-                    //scan field of update (message/edited_message/channel_post/edited_channel_post...)
-                    foreach ($$update_key as $update_field_key => $update_field_val) {
-                        //$update_field_key = $update_key . '_' . $update_field_key;
-                        $$update_field_key = $update_field_val;
-                        if (is_array($$update_field_key)) {
-                            //scan field of update of message/edited_message/channel_post/edited_channel_post... (message_id,from,date,chat...) https://core.telegram.org/bots/api#update
-                            foreach ($$update_field_key as $update_scan_key => $update_scan_val) {
-                                $update_scan_key = $update_field_key . '_' . $update_scan_key;
-                                $$update_scan_key = $update_scan_val;
-                                if (is_array($$update_scan_key)) {
-                                    //scan field of update of message/edited_message/channel_post/edited_channel_post... of from,chat,forward_from,forward_from_chat...
-                                    foreach ($$update_scan_key as $update_scan2_key => $update_scan2_val) {
-                                        $update_scan2_key = $update_scan_key . '_' . $update_scan2_key;
-                                        $$update_scan2_key = $update_scan2_val;
-                                        if (is_array($$update_scan2_key)) {
-                                            //another scan...
-                                            foreach ($$update_scan2_key as $update_scan3_key => $update_scan3_val) {
-                                                $update_scan3_key = $update_scan2_key . '_' . $update_scan3_key;
-                                                $$update_scan3_key = $update_scan3_val;
-                                                if (is_array($$update_scan3_key)) {
-                                                    foreach ($$update_scan3_key as $update_scan4_key => $update_scan4_val) {
-                                                        $update_scan4_key = $update_scan3_key . '_' . $update_scan4_key;
-                                                        $$update_scan4_key = $update_scan4_val;
-                                                        if (is_array($$update_scan4_key)) {
-                                                            foreach ($$update_scan4_key as $update_scan5_key => $update_scan5_val) {
-                                                                $$update_scan5_key = $update_scan5_val;
-                                                                sendMessage(MYID,
-                                                                    '*$' . $update_scan5_key . '* = `' . print_r($update_scan5_val,
-                                                                        true) . '`' . PHP_EOL, 'Markdown');
+                //check if the var already exist for security reasons
+                if (!isset($$update_key)) {
+                    //$$ is a variable variable http://php.net/manual/en/language.variables.variable.php
+                    $$update_key = $update_val;
+                    if (is_array($$update_key)) {
+                        //scan field of update (message/edited_message/channel_post/edited_channel_post...)
+                        foreach ($$update_key as $update_field_key => $update_field_val) {
+                            if (!isset($$update_field_key)) {
+                                $$update_field_key = $update_field_val;
+                                if (is_array($$update_field_key)) {
+                                    //scan field of update of message/edited_message/channel_post/edited_channel_post... (message_id,from,date,chat...) https://core.telegram.org/bots/api#update
+                                    foreach ($$update_field_key as $update_scan_key => $update_scan_val) {
+                                        $update_scan_key = $update_field_key . '_' . $update_scan_key;
+                                        if (!isset($$update_scan_key)) {
+                                            $$update_scan_key = $update_scan_val;
+                                            if (is_array($$update_scan_key)) {
+                                                //scan field of update of message/edited_message/channel_post/edited_channel_post... of from,chat,forward_from,forward_from_chat...
+                                                foreach ($$update_scan_key as $update_scan2_key => $update_scan2_val) {
+                                                    $update_scan2_key = $update_scan_key . '_' . $update_scan2_key;
+                                                    if (!isset($$update_scan2_key)) {
+                                                        $$update_scan2_key = $update_scan2_val;
+                                                        if (is_array($$update_scan2_key)) {
+                                                            //another scan...
+                                                            foreach ($$update_scan2_key as $update_scan3_key => $update_scan3_val) {
+                                                                $update_scan3_key = $update_scan2_key . '_' . $update_scan3_key;
+                                                                if (!isset($$update_scan3_key)) {
+                                                                    $$update_scan3_key = $update_scan3_val;
+                                                                    if (is_array($$update_scan3_key)) {
+                                                                        foreach ($$update_scan3_key as $update_scan4_key => $update_scan4_val) {
+                                                                            $update_scan4_key = $update_scan3_key . '_' . $update_scan4_key;
+                                                                            if (!isset($$update_scan4_key)) {
+                                                                                $$update_scan4_key = $update_scan4_val;
+                                                                                if (is_array($$update_scan4_key)) {
+                                                                                    foreach ($$update_scan4_key as $update_scan5_key => $update_scan5_val) {
+                                                                                        if (!isset($$update_scan5_key)) {
+                                                                                            $$update_scan5_key = $update_scan5_val;
+                                                                                            sendMessage(MYID,
+                                                                                                '*$' . $update_scan5_key . '* = `' . print_r($update_scan5_val,
+                                                                                                    true) . '`' . PHP_EOL,
+                                                                                                'Markdown');
+                                                                                        }
+                                                                                    }
+                                                                                } else {
+                                                                                    sendMessage(MYID,
+                                                                                        '*$' . $update_scan4_key . '* = `' . print_r($update_scan4_val,
+                                                                                            true) . '`' . PHP_EOL,
+                                                                                        'Markdown');
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    } else {
+                                                                        sendMessage(MYID,
+                                                                            '*$' . $update_scan3_key . '* = `' . print_r($update_scan3_val,
+                                                                                true) . '`' . PHP_EOL, 'Markdown');
+                                                                    }
+                                                                }
                                                             }
                                                         } else {
                                                             sendMessage(MYID,
-                                                                '*$' . $update_scan4_key . '* = `' . print_r($update_scan4_val,
+                                                                '*$' . $update_scan2_key . '* = `' . print_r($update_scan2_val,
                                                                     true) . '`' . PHP_EOL, 'Markdown');
                                                         }
                                                     }
-                                                } else {
-                                                    sendMessage(MYID,
-                                                        '*$' . $update_scan3_key . '* = `' . print_r($update_scan3_val,
-                                                            true) . '`' . PHP_EOL, 'Markdown');
                                                 }
+                                            } else {
+                                                sendMessage(MYID,
+                                                    '*$' . $update_scan_key . '* = `' . print_r($update_scan_val,
+                                                        true) . '`' . PHP_EOL, 'Markdown');
                                             }
-                                        } else {
-                                            sendMessage(MYID,
-                                                '*$' . $update_scan2_key . '* = `' . print_r($update_scan2_val,
-                                                    true) . '`' . PHP_EOL, 'Markdown');
                                         }
                                     }
                                 } else {
-                                    sendMessage(MYID, '*$' . $update_scan_key . '* = `' . print_r($update_scan_val,
+                                    sendMessage(MYID, '*$' . $update_field_key . '* = `' . print_r($update_field_val,
                                             true) . '`' . PHP_EOL, 'Markdown');
                                 }
                             }
-                        } else {
-                            sendMessage(MYID,
-                                '*$' . $update_field_key . '* = `' . print_r($update_field_val, true) . '`' . PHP_EOL,
-                                'Markdown');
                         }
+                    } else {
+                        sendMessage(MYID, '*$' . $update_key . '* = `' . print_r($update_val, true) . '`' . PHP_EOL,
+                            'Markdown');
                     }
-                } else {
-                    sendMessage(MYID, '*$' . $update_key . '* = `' . print_r($update_val, true) . '`' . PHP_EOL,
-                        'Markdown');
                 }
             }
         }
     }
 }
 
-$payload = JSON_PAYLOAD;
+$payload = RESPONSE;
 
 function jsonPayload($method, $args = [])
 {
@@ -177,7 +193,7 @@ function sendMessage(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'chat_id' => $chat_id,
@@ -209,12 +225,12 @@ function sendMessage(
 }
 
 
-function forwardMessage($chat_id, $from_chat_id, $disable_notification = null, $message_id, $response = false)
+function forwardMessage($chat_id, $from_chat_id, $disable_notification = null, $message_id, $response = RESPONSE)
 {
     $args = [
-        'chat_id' => $chat_id,
+        'chat_id'      => $chat_id,
         'from_chat_id' => $from_chat_id,
-        'message_id' => $message_id
+        'message_id'   => $message_id
     ];
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;

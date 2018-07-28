@@ -26,7 +26,7 @@ function sendInvoice(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'chat_id'         => $chat_id,
@@ -99,7 +99,7 @@ function answerShippingQuery(
     $ok,
     $shipping_options = null,
     $error_message = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'shipping_query_id' => $shipping_query_id,
@@ -121,7 +121,7 @@ function answerShippingQuery(
 }
 
 
-function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = null, $response = false)
+function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = null, $response = RESPONSE)
 {
     $args = [
         'pre_checkout_query_id' => $pre_checkout_query_id,

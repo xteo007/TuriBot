@@ -11,7 +11,7 @@ function sendPhoto(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($photo, 'http') === false) {
         if (stripos($photo, '.') !== false) {
@@ -60,7 +60,7 @@ function sendAudio(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($audio, 'http') === false) {
         if (stripos($audio, '.') !== false) {
@@ -115,7 +115,7 @@ function sendDocument(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($document, 'http') === false) {
         if (stripos($document, '.') !== false) {
@@ -165,7 +165,7 @@ function sendVideo(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($video, 'http') === false) {
         if (stripos($video, '.') !== false) {
@@ -223,7 +223,7 @@ function sendVoice(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($voice, 'http') === false) {
         if (stripos($voice, '.') !== false) {
@@ -272,7 +272,7 @@ function sendVideoNote(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     if (stripos($video_note, 'http') === false) {
         if (stripos($video_note, '.') !== false) {
@@ -337,7 +337,7 @@ function sendContact(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'chat_id'      => $chat_id,

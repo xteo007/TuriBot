@@ -1,7 +1,7 @@
 <?php
 
 
-function sendChatAction($chat_id, $action, $response = false)
+function sendChatAction($chat_id, $action, $response = RESPONSE)
 {
     $args = [
         'chat_id' => $chat_id,
@@ -22,7 +22,7 @@ function answerCallbackQuery(
     $show_alert = null,
     $url = null,
     $cache_time = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'callback_query_id' => $callback_query_id

@@ -9,7 +9,7 @@ function answerInlineQuery(
     $next_offset = null,
     $switch_pm_text = null,
     $switch_pm_parameter = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $results = json_encode($results);
     $args = [

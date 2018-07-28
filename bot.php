@@ -18,8 +18,8 @@
  *
  **/
 
-//put true if you want to use json payload for faster speed. with some server configuration it may not work properly
-define('JSON_PAYLOAD', false);
+//put false if you want to use json payload for faster speed. with some server configuration it may not work properly, moreover the first request will not receive any reply from telegram
+define('RESPONSE', true);
 //if you do not want to use the variables generated automatically by the telegram update but directly the array of $update put the parameter below to false
 define('EASY_VAR', true);
 
@@ -101,7 +101,7 @@ if (EASY_VAR) {
 }
 
 
-$payload = JSON_PAYLOAD;
+$payload = RESPONSE;
 
 function jsonPayload($method, $args = [])
 {
@@ -154,7 +154,7 @@ function sendMessage(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $response = false
+    $response = RESPONSE
 ) {
     $args = [
         'chat_id' => $chat_id,
@@ -186,7 +186,7 @@ function sendMessage(
 }
 
 
-function forwardMessage($chat_id, $from_chat_id, $disable_notification = null, $message_id, $response = false)
+function forwardMessage($chat_id, $from_chat_id, $disable_notification = null, $message_id, $response = RESPONSE)
 {
     $args = [
         'chat_id'      => $chat_id,
