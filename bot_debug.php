@@ -20,10 +20,13 @@
 
 //replace 1111 with your id
 define('MYID', '1111');
+//set the nickname of the bot for the recognition of the commands, lowercase!
+define('NICKNAMEBOT', '@bot');
 //put false if you want to use json payload for faster speed. with some server configuration it may not work properly, moreover the first request will not receive any reply from telegram
 define('RESPONSE', true);
 //if you do not want to use the variables generated automatically by the telegram update but directly the array of $update put the parameter below to false
 define('EASY_VAR', true);
+
 
 
 if (!isset($_GET['api'])) {
@@ -171,10 +174,12 @@ function jsonPayload($method, $args = [])
 function curlRequest($method, $args = [])
 {
     $c = curl_init();
-    curl_setopt($c, CURLOPT_URL, 'https://api.telegram.org/bot' . $_GET['api'] . '/' . $method);
-    curl_setopt($c, CURLOPT_POST, 1);
-    curl_setopt($c, CURLOPT_POSTFIELDS, $args);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt_array($c, [
+        CURLOPT_URL            => 'https://api.telegram.org/bot' . $_GET['api'] . '/' . $method,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $args
+    ]);
     $r = curl_exec($c);
     curl_close($c);
 
@@ -182,6 +187,20 @@ function curlRequest($method, $args = [])
 }
 
 
+function curlRequestApi($api, $method, $args = [])
+{
+    $c = curl_init();
+    curl_setopt_array($c, [
+        CURLOPT_URL            => 'https://api.telegram.org/bot' . $api . '/' . $method,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $args
+    ]);
+    $r = curl_exec($c);
+    curl_close($c);
+
+    return json_decode($r, true);
+}
 
 
 //base functions

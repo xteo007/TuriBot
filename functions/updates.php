@@ -11,14 +11,7 @@ function getMe()
 
 function getMeApi($api)
 {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://api.telegram.org/bot' . $api . '/getMe');
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $r = curl_exec($ch);
-    curl_close($ch);
-
-    return json_decode($r, true);
+    return curlRequestApi($api, 'getMe');
 }
 
 
@@ -97,3 +90,7 @@ function getWebhookInfo($verbose = false)
     return $rr;
 }
 
+function getWebhookInfoApi($api)
+{
+    return curlRequestApi($api, 'getWebhookInfo');
+}
