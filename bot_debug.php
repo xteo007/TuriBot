@@ -19,7 +19,7 @@
  **/
 
 //replace 1111 with your id
-define('MYID', '1111');
+define('MYID', 1111);
 //set the nickname of the bot for the recognition of the commands, lowercase!
 define('NICKNAMEBOT', '@bot');
 //put false if you want to use json payload for faster speed. with some server configuration it may not work properly, moreover the first request will not receive any reply from telegram
