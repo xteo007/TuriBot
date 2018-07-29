@@ -237,3 +237,7 @@ include_once 'functions/inline.php';
 include_once 'functions/stickers.php';
 include_once 'functions/payments.php';
 include_once 'functions/games.php';
+
+include_once 'functions/input.php';
+include_once 'functions/debug.php';
+
