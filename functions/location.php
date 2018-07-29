@@ -121,7 +121,6 @@ function sendVenue(
     $disable_notification = null,
     $reply_to_message_id = null,
     $reply_markup = null,
-    $foursquare_type = null,
     $response = RESPONSE
 ) {
     $args = [
@@ -152,9 +151,6 @@ function sendVenue(
     if (isset($reply_markup)) {
         $reply_markup = json_encode($reply_markup);
         $args['reply_markup'] = $reply_markup;
-    }
-    if (isset($foursquare_type)) {
-        $args['foursquare_type'] = $foursquare_type;
     }
 
     if ($response) {
