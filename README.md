@@ -17,7 +17,7 @@ Documentation is only in Italian at the moment
 
 1. Editare commands.php e fare il proprio bot.
 
-#CronJob
+# CronJob
 
 Per usare i cronjob basterà creare un file a parte e inculudere base_functions.php per avere tutte le funzioni base.
 
