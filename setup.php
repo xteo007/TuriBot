@@ -4,8 +4,7 @@ require_once 'functions/updates.php';
 require_once 'base_functions.php';
 
 
-if(!function_exists('curl_version'))
-{
+if (!function_exists('curl_version')) {
     echo 'You must install or enable php-curl';
     exit();
 }
