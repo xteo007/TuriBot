@@ -177,6 +177,7 @@ Nella directory principale troviamo:
 Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stesso nome dei metodi disponibili di Telegram
 ```
 /bot
+|   base_functions.php
 |   bot.php
 |   bot_debug.php
 |   commands.php
@@ -201,9 +202,13 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
     |       unbanChatMember
     |       unpinChatMessage
     |       
+    +---debug.php
+    |       debug
+    |
     +---edit.php
     |       deleteMessage
     |       editMessageCaption
+    |       editMessageMedia
     |       editMessageReplyMarkup
     |       editMessageText
     |       
@@ -220,6 +225,9 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
     +---inline.php
     |       answerInlineQuery
     |       
+    +---input.php
+    |       command
+    |
     +---location.php
     |       editMessageLiveLocation
     |       sendLocation
@@ -227,6 +235,7 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
     |       stopMessageLiveLocation
     |       
     +---media.php
+    |       sendAnimation
     |       sendAudio
     |       sendContact
     |       sendDocument
@@ -236,6 +245,9 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
     |       sendVideoNote
     |       sendVoice
     |       
+    +---passport.php
+    |       setPassportDataErrors
+    |
     +---payments.php
     |       answerPreCheckoutQuery
     |       answerShippingQuery
@@ -252,6 +264,7 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
     |       deleteStickerFromSet
     |       getStickerSet
     |       sendSticker
+    |       setStickerPositionInSet
     |       setChatStickerSet
     |       setStickerPositionInSet
     |       uploadStickerFile
@@ -262,9 +275,10 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
             getMeApi
             getUpdates
             getWebhookInfo
+            getWebhookInfoApi
             setWebhook
 ```
 
 # Gruppo Telegram
 
-[Entra](https://t.me/joinchat/AYMflw0vciZoaZi7IVChOg)
+[Entra](https://t.me/joinchat/AYMfl0mfCUqPCjGcDJXl6Q)
