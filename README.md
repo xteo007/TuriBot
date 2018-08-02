@@ -9,9 +9,17 @@ Documentation is only in Italian at the moment
 
 # Guida
 ## Setup
-Caricare i file su un webserver e impostare il webhook manualmente che punti a commands.php, oppure aprire dal browser il file setup.php e fare il setup con esso.
+1. Caricare i file su un webserver o usare `git clone https://github.com/davtur19/TuriBot.git NomeCartella`
 
-In alternativa si può settare il webhook che punti a bot.php e includere commands.php (togliendo include "bot.php"; da commands.php)
+1. Aprire setup.php e seguire la procedura per settare il webhook, oppure settare il webhook manualmente a SITO/commands.php?api=TOKEN
+
+1. Editare config.php e settare come descritto dai commenti.
+
+1. Editare commands.php e fare il proprio bot.
+
+#CronJob
+
+Per usare i cronjob basterà creare un file a parte e inculudere base_functions.php per avere tutte le funzioni base.
 
 ## Attenzione⚠️
 Il bot genera automaticamente le variabili ricevute dal update, è consigliato leggere attentamente la documentazione e usare bot_debug.php per capire come funziona (è da sostituire in commands.php, da `require_once(bot.php);` a `require_once(bot_debug.php);`)
