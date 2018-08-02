@@ -5,42 +5,36 @@ require_once 'base_functions.php';
 
 
 if (!function_exists('curl_version')) {
-    echo 'You must install or enable php-curl';
-    exit();
+    exit('You must install or enable php-curl');
 }
 
 
 //security check
 //var_dump($_POST['yes'], $_POST['api'], $_POST['link'], $_POST['connections'], $_POST['no'], $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
 if (isset($_POST['yes']) and $_POST['yes'] !== '') {
-    echo 'Error, invalid parameter';
-    exit();
+    exit('Error, invalid parameter');
 }
 
 if (isset($_POST['no']) and $_POST['no'] !== '') {
-    echo 'Error, invalid parameter';
-    exit();
+    exit('Error, invalid parameter');
 }
 
 if (isset($_POST['api'])) {
     $token = explode(":", $_POST['api']);
     if ((!is_numeric($token[0])) or (!sizeof($token) === 2) or (!(preg_match_all('/[a-zA-Z0-9_-]/', $token[1], $matches,
                 PREG_SET_ORDER, 0) === strlen($token[1])))) {
-        echo 'Invalid token';
-        exit();
+        exit('Invalid token');
     }
 }
 
 if (isset($_POST['link'])) {
     if (!(stripos($_POST['link'], 'https://') === 0)) {
-        echo 'The link must have https://';
-        exit();
+        exit('The link must have https://');
     }
 }
 
 if (isset($_POST['connections']) and !((1 <= $_POST['connections']) and ($_POST['connections'] <= 100))) {
-    echo 'The connections parameter must be a number between 1 and 100';
-    exit();
+    exit('The connections parameter must be a number between 1 and 100');
 }
 
 
