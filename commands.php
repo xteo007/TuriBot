@@ -4,6 +4,7 @@
 //in bot_debug.php you will need to enter your id
 require_once 'bot.php';
 
+
 if (isset($text) and isset($chat_id)) {
     //a simple message when /start or /help is received from update
     if (stripos($text, '/start') === 0 or stripos($text, '/help') === 0) {

@@ -23,11 +23,16 @@ if (!isset($_GET['api'])) {
 }
 
 
+require_once('config.php');
+include_once('base_functions.php');
+
+$payload = RESPONSE;
+
+
 //receiving updates via the webhook
 $content = file_get_contents('php://input');
 $update = json_decode($content, true);
 
-$payload = RESPONSE;
 
 //saves last request for debug
 $file = 'update.json';
@@ -44,7 +49,7 @@ fclose($f);
 if (EASY_VAR) {
     //scan update
     if (isset($update)) {
-        sendMessage(MYID, '*$update* = `' . print_r($update, true) . '`' . PHP_EOL, 'Markdown');
+        sendMessage(MYID, '*$update* = `' . var_export($update, true) . '`' . PHP_EOL, 'Markdown');
         if (is_array($update)) {
             foreach ($update as $update_key => $update_val) {
                 //check if the var already exist for security reasons
@@ -84,14 +89,14 @@ if (EASY_VAR) {
                                                                                         if (!isset($$update_scan5_key)) {
                                                                                             $$update_scan5_key = $update_scan5_val;
                                                                                             sendMessage(MYID,
-                                                                                                '*$' . $update_scan5_key . '* = `' . print_r($update_scan5_val,
+                                                                                                '*$' . $update_scan5_key . '* = `' . var_export($update_scan5_val,
                                                                                                     true) . '`' . PHP_EOL,
                                                                                                 'Markdown');
                                                                                         }
                                                                                     }
                                                                                 } else {
                                                                                     sendMessage(MYID,
-                                                                                        '*$' . $update_scan4_key . '* = `' . print_r($update_scan4_val,
+                                                                                        '*$' . $update_scan4_key . '* = `' . var_export($update_scan4_val,
                                                                                             true) . '`' . PHP_EOL,
                                                                                         'Markdown');
                                                                                 }
@@ -99,33 +104,33 @@ if (EASY_VAR) {
                                                                         }
                                                                     } else {
                                                                         sendMessage(MYID,
-                                                                            '*$' . $update_scan3_key . '* = `' . print_r($update_scan3_val,
+                                                                            '*$' . $update_scan3_key . '* = `' . var_export($update_scan3_val,
                                                                                 true) . '`' . PHP_EOL, 'Markdown');
                                                                     }
                                                                 }
                                                             }
                                                         } else {
                                                             sendMessage(MYID,
-                                                                '*$' . $update_scan2_key . '* = `' . print_r($update_scan2_val,
+                                                                '*$' . $update_scan2_key . '* = `' . var_export($update_scan2_val,
                                                                     true) . '`' . PHP_EOL, 'Markdown');
                                                         }
                                                     }
                                                 }
                                             } else {
                                                 sendMessage(MYID,
-                                                    '*$' . $update_scan_key . '* = `' . print_r($update_scan_val,
+                                                    '*$' . $update_scan_key . '* = `' . var_export($update_scan_val,
                                                         true) . '`' . PHP_EOL, 'Markdown');
                                             }
                                         }
                                     }
                                 } else {
-                                    sendMessage(MYID, '*$' . $update_field_key . '* = `' . print_r($update_field_val,
+                                    sendMessage(MYID, '*$' . $update_field_key . '* = `' . var_export($update_field_val,
                                             true) . '`' . PHP_EOL, 'Markdown');
                                 }
                             }
                         }
                     } else {
-                        sendMessage(MYID, '*$' . $update_key . '* = `' . print_r($update_val, true) . '`' . PHP_EOL,
+                        sendMessage(MYID, '*$' . $update_key . '* = `' . var_export($update_val, true) . '`' . PHP_EOL,
                             'Markdown');
                     }
                 }
@@ -133,7 +138,4 @@ if (EASY_VAR) {
         }
     }
 }
-
-
-include_once('base_functions.php');
 

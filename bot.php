@@ -23,10 +23,13 @@ if (!isset($_GET['api'])) {
 }
 
 
-//receiving updates via the webhook
-$update = json_decode(file_get_contents('php://input'), true);
+require_once('config.php');
 
 $payload = RESPONSE;
+
+
+//receiving updates via the webhook
+$update = json_decode(file_get_contents('php://input'), true);
 
 
 //All variables are created automatically without the need of $update['message']['text']; (you can simply use $message_text)
