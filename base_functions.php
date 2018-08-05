@@ -10,10 +10,10 @@ function jsonPayload($method, $args = [])
         $json = json_encode($args);
 
         ob_start();
-        echo $json;
         header('Content-Type: application/json');
         header('Connection: close');
         header('Content-Length: ' . strlen($json));
+        echo $json;
         ob_end_flush();
         ob_flush();
         flush();
