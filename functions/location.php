@@ -12,9 +12,9 @@ function sendLocation(
     $response = RESPONSE
 ) {
     $args = [
-        'chat_id'   => $chat_id,
-        'latitude'  => $latitude,
-        'longitude' => $longitude
+        'chat_id' => $chat_id,
+        'latitude' => $latitude,
+        'longitude' => $longitude,
     ];
     if (isset($live_period)) {
         $args['live_period'] = $live_period;
@@ -48,8 +48,8 @@ function editMessageLiveLocation(
     $response = RESPONSE
 ) {
     $args = [
-        'latitude'  => $latitude,
-        'longitude' => $longitude
+        'latitude' => $latitude,
+        'longitude' => $longitude,
     ];
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
@@ -124,11 +124,11 @@ function sendVenue(
     $response = RESPONSE
 ) {
     $args = [
-        'chat_id'   => $chat_id,
-        'latitude'  => $latitude,
+        'chat_id' => $chat_id,
+        'latitude' => $latitude,
         'longitude' => $longitude,
-        'title'     => $title,
-        'address'   => $address
+        'title' => $title,
+        'address' => $address,
     ];
     if (isset($foursquare_id)) {
         $args['foursquare_id'] = $foursquare_id;

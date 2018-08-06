@@ -49,7 +49,7 @@ fclose($f);
 if (EASY_VAR) {
     //scan update
     if (isset($update)) {
-        sendMessage(MYID, '*$update* = `' . var_export($update, true) . '`' . PHP_EOL, 'Markdown');
+        sendMessage(MYID, '*$update* = `'.var_export($update, true).'`'.PHP_EOL, 'Markdown');
         if (is_array($update)) {
             foreach ($update as $update_key => $update_val) {
                 //check if the var already exist for security reasons
@@ -64,24 +64,24 @@ if (EASY_VAR) {
                                 if (is_array($$update_field_key)) {
                                     //scan field of update of message/edited_message/channel_post/edited_channel_post... (message_id,from,date,chat...) https://core.telegram.org/bots/api#update
                                     foreach ($$update_field_key as $update_scan_key => $update_scan_val) {
-                                        $update_scan_key = $update_field_key . '_' . $update_scan_key;
+                                        $update_scan_key = $update_field_key.'_'.$update_scan_key;
                                         if (!isset($$update_scan_key)) {
                                             $$update_scan_key = $update_scan_val;
                                             if (is_array($$update_scan_key)) {
                                                 //scan field of update of message/edited_message/channel_post/edited_channel_post... of from,chat,forward_from,forward_from_chat...
                                                 foreach ($$update_scan_key as $update_scan2_key => $update_scan2_val) {
-                                                    $update_scan2_key = $update_scan_key . '_' . $update_scan2_key;
+                                                    $update_scan2_key = $update_scan_key.'_'.$update_scan2_key;
                                                     if (!isset($$update_scan2_key)) {
                                                         $$update_scan2_key = $update_scan2_val;
                                                         if (is_array($$update_scan2_key)) {
                                                             //another scan...
                                                             foreach ($$update_scan2_key as $update_scan3_key => $update_scan3_val) {
-                                                                $update_scan3_key = $update_scan2_key . '_' . $update_scan3_key;
+                                                                $update_scan3_key = $update_scan2_key.'_'.$update_scan3_key;
                                                                 if (!isset($$update_scan3_key)) {
                                                                     $$update_scan3_key = $update_scan3_val;
                                                                     if (is_array($$update_scan3_key)) {
                                                                         foreach ($$update_scan3_key as $update_scan4_key => $update_scan4_val) {
-                                                                            $update_scan4_key = $update_scan3_key . '_' . $update_scan4_key;
+                                                                            $update_scan4_key = $update_scan3_key.'_'.$update_scan4_key;
                                                                             if (!isset($$update_scan4_key)) {
                                                                                 $$update_scan4_key = $update_scan4_val;
                                                                                 if (is_array($$update_scan4_key)) {
@@ -89,48 +89,48 @@ if (EASY_VAR) {
                                                                                         if (!isset($$update_scan5_key)) {
                                                                                             $$update_scan5_key = $update_scan5_val;
                                                                                             sendMessage(MYID,
-                                                                                                '*$' . $update_scan5_key . '* = `' . var_export($update_scan5_val,
-                                                                                                    true) . '`' . PHP_EOL,
+                                                                                                '*$'.$update_scan5_key.'* = `'.var_export($update_scan5_val,
+                                                                                                    true).'`'.PHP_EOL,
                                                                                                 'Markdown');
                                                                                         }
                                                                                     }
                                                                                 } else {
                                                                                     sendMessage(MYID,
-                                                                                        '*$' . $update_scan4_key . '* = `' . var_export($update_scan4_val,
-                                                                                            true) . '`' . PHP_EOL,
+                                                                                        '*$'.$update_scan4_key.'* = `'.var_export($update_scan4_val,
+                                                                                            true).'`'.PHP_EOL,
                                                                                         'Markdown');
                                                                                 }
                                                                             }
                                                                         }
                                                                     } else {
                                                                         sendMessage(MYID,
-                                                                            '*$' . $update_scan3_key . '* = `' . var_export($update_scan3_val,
-                                                                                true) . '`' . PHP_EOL, 'Markdown');
+                                                                            '*$'.$update_scan3_key.'* = `'.var_export($update_scan3_val,
+                                                                                true).'`'.PHP_EOL, 'Markdown');
                                                                     }
                                                                 }
                                                             }
                                                         } else {
                                                             sendMessage(MYID,
-                                                                '*$' . $update_scan2_key . '* = `' . var_export($update_scan2_val,
-                                                                    true) . '`' . PHP_EOL, 'Markdown');
+                                                                '*$'.$update_scan2_key.'* = `'.var_export($update_scan2_val,
+                                                                    true).'`'.PHP_EOL, 'Markdown');
                                                         }
                                                     }
                                                 }
                                             } else {
                                                 sendMessage(MYID,
-                                                    '*$' . $update_scan_key . '* = `' . var_export($update_scan_val,
-                                                        true) . '`' . PHP_EOL, 'Markdown');
+                                                    '*$'.$update_scan_key.'* = `'.var_export($update_scan_val,
+                                                        true).'`'.PHP_EOL, 'Markdown');
                                             }
                                         }
                                     }
                                 } else {
-                                    sendMessage(MYID, '*$' . $update_field_key . '* = `' . var_export($update_field_val,
-                                            true) . '`' . PHP_EOL, 'Markdown');
+                                    sendMessage(MYID, '*$'.$update_field_key.'* = `'.var_export($update_field_val,
+                                            true).'`'.PHP_EOL, 'Markdown');
                                 }
                             }
                         }
                     } else {
-                        sendMessage(MYID, '*$' . $update_key . '* = `' . var_export($update_val, true) . '`' . PHP_EOL,
+                        sendMessage(MYID, '*$'.$update_key.'* = `'.var_export($update_val, true).'`'.PHP_EOL,
                             'Markdown');
                     }
                 }

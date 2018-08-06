@@ -41,7 +41,7 @@ function getUpdates($offset, $limit = null, $timeout = null, $allowed_updates = 
 function setWebhook($api, $url, $certificate = null, $max_connections = null, $allowed_updates = null)
 {
     $args = [
-        'url' => $url
+        'url' => $url,
     ];
     if (isset($max_connections)) {
         $args['max_connections'] = $max_connections;
@@ -73,7 +73,7 @@ function getWebhookInfo($verbose = false)
     if ($verbose) {
         if ($rr['ok']) {
             $bot = $rr['result']['url'];
-            echo 'URL: ' . $bot;
+            echo 'URL: '.$bot;
         } else {
             echo 'API ID wrong or impossible to connect to Telegram';
         }

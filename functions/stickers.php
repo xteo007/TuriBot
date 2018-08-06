@@ -4,8 +4,8 @@
 function setChatStickerSet($chat_id, $sticker_set_name, $response = RESPONSE)
 {
     $args = [
-        'chat_id'          => $chat_id,
-        'sticker_set_name' => $sticker_set_name
+        'chat_id' => $chat_id,
+        'sticker_set_name' => $sticker_set_name,
     ];
 
     if ($response) {
@@ -19,7 +19,7 @@ function setChatStickerSet($chat_id, $sticker_set_name, $response = RESPONSE)
 function deleteChatStickerSet($chat_id, $response = RESPONSE)
 {
     $args = [
-        'chat_id' => $chat_id
+        'chat_id' => $chat_id,
     ];
 
     if ($response) {
@@ -39,14 +39,14 @@ function sendSticker(
     $response = RESPONSE
 ) {
     if ((stripos($sticker, 'http') === false) and (stripos($sticker, '.') !== false)) {
-            $file_name = realpath($sticker);
-            $sticker = curl_file_create($file_name);
-            $response = true;
+        $file_name = realpath($sticker);
+        $sticker = curl_file_create($file_name);
+        $response = true;
     }
 
     $args = [
         'chat_id' => $chat_id,
-        'sticker' => $sticker
+        'sticker' => $sticker,
     ];
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;
@@ -70,7 +70,7 @@ function sendSticker(
 function getStickerSet($name)
 {
     $args = [
-        'name' => $name
+        'name' => $name,
     ];
 
     return curlRequest('getStickerSet', $args);
@@ -82,8 +82,8 @@ function uploadStickerFile($user_id, $png_sticker)
     $file_name = realpath($png_sticker);
     $png_sticker = curl_file_create($file_name);
     $args = [
-        'user_id'     => $user_id,
-        'png_sticker' => $png_sticker
+        'user_id' => $user_id,
+        'png_sticker' => $png_sticker,
     ];
 
     return curlRequest('uploadStickerFile', $args);
@@ -101,17 +101,17 @@ function createNewStickerSet(
     $response = RESPONSE
 ) {
     if ((stripos($png_sticker, 'http') === false) and (stripos($png_sticker, '.') !== false)) {
-            $file_name = realpath($png_sticker);
-            $png_sticker = curl_file_create($file_name);
-            $response = true;
+        $file_name = realpath($png_sticker);
+        $png_sticker = curl_file_create($file_name);
+        $response = true;
     }
 
     $args = [
-        'user_id'     => $user_id,
-        'name'        => $name,
-        'title'       => $title,
+        'user_id' => $user_id,
+        'name' => $name,
+        'title' => $title,
         'png_sticker' => $png_sticker,
-        'emojis'      => $emojis
+        'emojis' => $emojis,
     ];
     if (isset($contains_masks)) {
         $args['contains_masks'] = $contains_masks;
@@ -132,16 +132,16 @@ function createNewStickerSet(
 function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position = null, $response = RESPONSE)
 {
     if ((stripos($png_sticker, 'http') === false) and (stripos($png_sticker, '.') !== false)) {
-            $file_name = realpath($png_sticker);
-            $png_sticker = curl_file_create($file_name);
-            $response = true;
+        $file_name = realpath($png_sticker);
+        $png_sticker = curl_file_create($file_name);
+        $response = true;
     }
 
     $args = [
-        'user_id'     => $user_id,
-        'name'        => $name,
+        'user_id' => $user_id,
+        'name' => $name,
         'png_sticker' => $png_sticker,
-        'emojis'      => $emojis
+        'emojis' => $emojis,
     ];
     if (isset($mask_position)) {
         $mask_position = json_encode($mask_position);
@@ -159,8 +159,8 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
 function setStickerPositionInSet($sticker, $position, $response = RESPONSE)
 {
     $args = [
-        'sticker'  => $sticker,
-        'position' => $position
+        'sticker' => $sticker,
+        'position' => $position,
     ];
 
     if ($response) {
@@ -174,7 +174,7 @@ function setStickerPositionInSet($sticker, $position, $response = RESPONSE)
 function deleteStickerFromSet($sticker, $response = RESPONSE)
 {
     $args = [
-        'sticker' => $sticker
+        'sticker' => $sticker,
     ];
 
     if ($response) {

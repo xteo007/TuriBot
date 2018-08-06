@@ -13,7 +13,7 @@ function editMessageText(
     $response = RESPONSE
 ) {
     $args = [
-        'text' => $text
+        'text' => $text,
     ];
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
@@ -128,8 +128,8 @@ function editMessageReplyMarkup(
 function deleteMessage($chat_id, $message_id, $response = RESPONSE)
 {
     $args = [
-        'chat_id'    => $chat_id,
-        'message_id' => $message_id
+        'chat_id' => $chat_id,
+        'message_id' => $message_id,
     ];
 
     if ($response) {
@@ -149,7 +149,7 @@ function editMessageMedia(
     $response = RESPONSE
 ) {
     $args = [
-        'media' => $media
+        'media' => $media,
     ];
 
     if (isset($chat_id)) {

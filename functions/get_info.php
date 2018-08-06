@@ -4,7 +4,7 @@
 function getUserProfilePhotos($user_id, $offset = null, $limit = null)
 {
     $args = [
-        'user_id' => $user_id
+        'user_id' => $user_id,
     ];
     if (isset($offset)) {
         $args['offset'] = $offset;
@@ -21,7 +21,7 @@ function getUserProfilePhotos($user_id, $offset = null, $limit = null)
 function getFile($file_id)
 {
     $args = [
-        'file_id' => $file_id
+        'file_id' => $file_id,
     ];
 
     return curlRequest('getFile', $args);
@@ -31,7 +31,7 @@ function getFile($file_id)
 function getChat($chat_id)
 {
     $args = [
-        'chat_id' => $chat_id
+        'chat_id' => $chat_id,
     ];
 
     return curlRequest('getChat', $args);

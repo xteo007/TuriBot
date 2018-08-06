@@ -5,7 +5,7 @@ function sendChatAction($chat_id, $action, $response = RESPONSE)
 {
     $args = [
         'chat_id' => $chat_id,
-        'action'  => $action
+        'action' => $action,
     ];
 
     if ($response) {
@@ -25,7 +25,7 @@ function answerCallbackQuery(
     $response = RESPONSE
 ) {
     $args = [
-        'callback_query_id' => $callback_query_id
+        'callback_query_id' => $callback_query_id,
     ];
     if (isset($text)) {
         $args['text'] = $text;

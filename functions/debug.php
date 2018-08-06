@@ -17,7 +17,7 @@ function debug()
         $array_str = str_split($str, 4050);
 
         foreach ($array_str as $value) {
-            sendMessage($id, 'Debug:' . PHP_EOL . $value);
+            sendMessage($id, 'Debug:'.PHP_EOL.$value);
         }
     }
 
