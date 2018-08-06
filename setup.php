@@ -63,14 +63,14 @@ if (isset($_POST['yes'])) {
     $link = strip_tags($_POST['link']);
     $connections = $_POST['connections'];
     $link = $link . '?api=' . $api;
-    setWebhook($api, $link, null, $connections);
+    $responseWebhook = setWebhook($api, $link, null, $connections);
     $response = getMeApi($api);
 
-    if ($response['description'] == 'Webhook was set' or $response['description'] == 'Webhook is already set') {
+    if (($responseWebhook['description'] == 'Webhook was set' or $responseWebhook['description'] == 'Webhook is already set') and $response['ok'] == true) {
         $username = $response['result']['username'];
         echo 'Setup successful: <a href="http://t.me/' . $username . '"> @' . $username . '</a>';
     } else {
-        echo 'Setup failed: API ID wrong or impossible to connect to Telegram';
+        echo 'Setup failed: API TOKEN wrong or impossible to connect to Telegram';
         echo '<p>Click here to try the setup again: <button type="submit" name="reset">Reset</button></p>';
     }
 
