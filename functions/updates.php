@@ -55,7 +55,7 @@ function setWebhook($api, $url, $certificate = null, $max_connections = null, $a
         $args['certificate'] = $certificate;
     }
 
-    return curlRequestApi($api, 'setWebhook');
+    return curlRequestApi($api, 'setWebhook', $args);
 }
 
 

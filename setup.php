@@ -66,7 +66,7 @@ if (isset($_POST['yes'])) {
     setWebhook($api, $link, null, $connections);
     $response = getMeApi($api);
 
-    if ($response['ok']) {
+    if ($response['description'] == 'Webhook was set' or $response['description'] == 'Webhook is already set') {
         $username = $response['result']['username'];
         echo 'Setup successful: <a href="http://t.me/' . $username . '"> @' . $username . '</a>';
     } else {
