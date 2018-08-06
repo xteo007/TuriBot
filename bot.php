@@ -25,7 +25,7 @@ if (!isset($_GET['api'])) {
 
 require_once('config.php');
 
-$payload = RESPONSE;
+$payload = !RESPONSE;
 
 
 //receiving updates via the webhook
