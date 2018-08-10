@@ -1,10 +1,8 @@
 <?php
 
-function debug()
+function debug(...$args)
 {
     global $chat_id;
-
-    $args = func_get_args();
 
     if (!isset($chat_id) or $chat_id == 0 or $chat_id == '') {
         $id = MYID;
@@ -17,9 +15,8 @@ function debug()
         $array_str = str_split($str, 4050);
 
         foreach ($array_str as $value) {
-            sendMessage($id, 'Debug:'.PHP_EOL.$value);
+            sendMessage($id, 'Debug:' . PHP_EOL . $value);
         }
     }
-
     return true;
 }

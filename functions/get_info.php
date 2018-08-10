@@ -6,6 +6,7 @@ function getUserProfilePhotos($user_id, $offset = null, $limit = null)
     $args = [
         'user_id' => $user_id,
     ];
+
     if (isset($offset)) {
         $args['offset'] = $offset;
     }

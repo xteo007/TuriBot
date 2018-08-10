@@ -65,7 +65,7 @@ function deleteWebhook()
 }
 
 
-//Webhook URL, may be empty if webhook is not set up
+//WebHook URL, may be empty if WebHook is not set up
 function getWebhookInfo($verbose = false)
 {
     $rr = curlRequest('getWebhookInfo');
@@ -73,7 +73,7 @@ function getWebhookInfo($verbose = false)
     if ($verbose) {
         if ($rr['ok']) {
             $bot = $rr['result']['url'];
-            echo 'URL: '.$bot;
+            echo 'URL: ' . $bot;
         } else {
             echo 'API ID wrong or impossible to connect to Telegram';
         }
@@ -81,6 +81,7 @@ function getWebhookInfo($verbose = false)
 
     return $rr;
 }
+
 
 function getWebhookInfoApi($api)
 {

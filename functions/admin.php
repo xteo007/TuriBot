@@ -7,6 +7,7 @@ function kickChatMember($chat_id, $user_id, $until_date = null, $response = RESP
         'chat_id' => $chat_id,
         'user_id' => $user_id,
     ];
+
     if (isset($until_date)) {
         $args['until_date'] = $until_date;
     }
@@ -43,11 +44,13 @@ function restrictChatMember(
     $can_send_other_messages = null,
     $can_add_web_page_previews = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'chat_id' => $chat_id,
         'user_id' => $user_id,
     ];
+
     if (isset($until_date)) {
         $args['until_date'] = $until_date;
     }
@@ -84,11 +87,13 @@ function promoteChatMember(
     $can_pin_messages = null,
     $can_promote_members = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'chat_id' => $chat_id,
         'user_id' => $user_id,
     ];
+
     if (isset($can_change_info)) {
         $args['can_change_info'] = $can_change_info;
     }
@@ -136,6 +141,7 @@ function setChatPhoto($chat_id, $photo)
 {
     $file_name = realpath($photo);
     $photo = curl_file_create($file_name);
+
     $args = [
         'chat_id' => $chat_id,
         'photo' => $photo,
@@ -179,6 +185,7 @@ function setChatDescription($chat_id, $description = null, $response = RESPONSE)
     $args = [
         'chat_id' => $chat_id,
     ];
+
     if (isset($description)) {
         $args['description'] = $description;
     }
@@ -197,6 +204,7 @@ function pinChatMessage($chat_id, $message_id, $disable_notification = null, $re
         'chat_id' => $chat_id,
         'message_id' => $message_id,
     ];
+
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;
     }

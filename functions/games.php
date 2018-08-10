@@ -14,6 +14,7 @@ function sendGame(
         'chat_id' => $chat_id,
         'game_short_name' => $game_short_name,
     ];
+
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;
     }
@@ -47,6 +48,7 @@ function setGameScore(
         'user_id' => $user_id,
         'score' => $score,
     ];
+
     if (isset($force)) {
         $args['force'] = $force;
     }
@@ -76,6 +78,7 @@ function getGameHighScores($user_id, $chat_id = null, $message_id = null, $inlin
     $args = [
         'user_id' => $user_id,
     ];
+
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
     }

@@ -10,12 +10,14 @@ function answerInlineQuery(
     $switch_pm_text = null,
     $switch_pm_parameter = null,
     $response = RESPONSE
-) {
+)
+{
     $results = json_encode($results);
     $args = [
         'inline_query_id' => $inline_query_id,
         'results' => $results,
     ];
+
     if (isset($cache_time)) {
         $args['cache_time'] = $cache_time;
     }

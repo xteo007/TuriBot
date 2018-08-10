@@ -27,7 +27,8 @@ function sendInvoice(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'chat_id' => $chat_id,
         'title' => $title,
@@ -38,6 +39,7 @@ function sendInvoice(
         'currency' => $currency,
         'prices' => $prices,
     ];
+
     if (isset($provider_data)) {
         $provider_data = json_encode($provider_data);
         $args['provider_data'] = $provider_data;
@@ -100,11 +102,13 @@ function answerShippingQuery(
     $shipping_options = null,
     $error_message = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'shipping_query_id' => $shipping_query_id,
         'ok' => $ok,
     ];
+
     if (isset($shipping_options)) {
         $shipping_options = json_encode($shipping_options);
         $args['shipping_options'] = $shipping_options;
@@ -127,6 +131,7 @@ function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = nu
         'pre_checkout_query_id' => $pre_checkout_query_id,
         'ok' => $ok,
     ];
+
     if (isset($error_message)) {
         $args['error_message'] = $error_message;
     }

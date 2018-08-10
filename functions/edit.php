@@ -11,10 +11,12 @@ function editMessageText(
     $disable_web_page_preview = null,
     $reply_markup = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'text' => $text,
     ];
+
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
     }
@@ -51,7 +53,8 @@ function editMessageCaption(
     $parse_mode = null,
     $reply_markup = null,
     $response = RESPONSE
-) {
+)
+{
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
     }
@@ -94,7 +97,8 @@ function editMessageReplyMarkup(
     $inline_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-) {
+)
+{
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
     }
@@ -147,7 +151,8 @@ function editMessageMedia(
     $media = null,
     $reply_markup = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'media' => $media,
     ];

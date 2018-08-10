@@ -25,10 +25,10 @@ if (!isset($_GET['api'])) {
 
 require_once('config.php');
 
-$payload = !RESPONSE;
+$jsonPayload = !RESPONSE;
+$curlRequestSession = null;
 
-
-//receiving updates via the webhook
+//receiving updates via the WebHook
 $update = json_decode(file_get_contents('php://input'), true);
 
 
@@ -100,4 +100,4 @@ if (EASY_VAR) {
 }
 
 
-include_once('base_functions.php');
+require_once('base_functions.php');

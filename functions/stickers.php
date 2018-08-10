@@ -37,7 +37,8 @@ function sendSticker(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-) {
+)
+{
     if ((stripos($sticker, 'http') === false) and (stripos($sticker, '.') !== false)) {
         $file_name = realpath($sticker);
         $sticker = curl_file_create($file_name);
@@ -48,6 +49,7 @@ function sendSticker(
         'chat_id' => $chat_id,
         'sticker' => $sticker,
     ];
+
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;
     }
@@ -81,6 +83,7 @@ function uploadStickerFile($user_id, $png_sticker)
 {
     $file_name = realpath($png_sticker);
     $png_sticker = curl_file_create($file_name);
+
     $args = [
         'user_id' => $user_id,
         'png_sticker' => $png_sticker,
@@ -99,7 +102,8 @@ function createNewStickerSet(
     $contains_masks = null,
     $mask_position = null,
     $response = RESPONSE
-) {
+)
+{
     if ((stripos($png_sticker, 'http') === false) and (stripos($png_sticker, '.') !== false)) {
         $file_name = realpath($png_sticker);
         $png_sticker = curl_file_create($file_name);
@@ -113,6 +117,7 @@ function createNewStickerSet(
         'png_sticker' => $png_sticker,
         'emojis' => $emojis,
     ];
+
     if (isset($contains_masks)) {
         $args['contains_masks'] = $contains_masks;
     }
@@ -143,6 +148,7 @@ function addStickerToSet($user_id, $name, $png_sticker, $emojis, $mask_position 
         'png_sticker' => $png_sticker,
         'emojis' => $emojis,
     ];
+
     if (isset($mask_position)) {
         $mask_position = json_encode($mask_position);
         $args['mask_position'] = $mask_position;

@@ -24,12 +24,12 @@ if (!isset($_GET['api'])) {
 
 
 require_once('config.php');
-include_once('base_functions.php');
+require_once('base_functions.php');
 
-$payload = RESPONSE;
+$jsonPayload = !RESPONSE;
+$curlRequestSession = null;
 
-
-//receiving updates via the webhook
+//receiving updates via the WebHook
 $content = file_get_contents('php://input');
 $update = json_decode($content, true);
 

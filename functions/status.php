@@ -23,10 +23,12 @@ function answerCallbackQuery(
     $url = null,
     $cache_time = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'callback_query_id' => $callback_query_id,
     ];
+
     if (isset($text)) {
         $args['text'] = $text;
     }

@@ -16,6 +16,7 @@ function sendLocation(
         'latitude' => $latitude,
         'longitude' => $longitude,
     ];
+
     if (isset($live_period)) {
         $args['live_period'] = $live_period;
     }
@@ -51,6 +52,7 @@ function editMessageLiveLocation(
         'latitude' => $latitude,
         'longitude' => $longitude,
     ];
+
     if (isset($chat_id)) {
         $args['chat_id'] = $chat_id;
     }
@@ -130,6 +132,7 @@ function sendVenue(
         'title' => $title,
         'address' => $address,
     ];
+
     if (isset($foursquare_id)) {
         $args['foursquare_id'] = $foursquare_id;
     }

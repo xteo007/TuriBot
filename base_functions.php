@@ -3,22 +3,22 @@
 
 function jsonPayload($method, $args = [])
 {
-    global $payload;
+    global $jsonPayload;
 
-    if ($payload) {
+    if ($jsonPayload) {
         $args['method'] = $method;
         $json = json_encode($args);
 
         ob_start();
         header('Content-Type: application/json');
         header('Connection: close');
-        header('Content-Length: '.strlen($json));
+        header('Content-Length: ' . strlen($json));
         echo $json;
         ob_end_flush();
         ob_flush();
         flush();
 
-        $payload = false;
+        $jsonPayload = false;
 
         return true;
     } else {
@@ -29,32 +29,46 @@ function jsonPayload($method, $args = [])
 
 function curlRequest($method, $args = [])
 {
-    $c = curl_init();
-    curl_setopt_array($c, [
-        CURLOPT_URL => 'https://api.telegram.org/bot'.$_GET['api'].'/'.$method,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => true,
+    global $curlRequestSession;
+    if (!isset($curlRequestSession)) {
+        $curlRequestSession = curl_init();
+        curl_setopt_array($curlRequestSession, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_HEADER => false,
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_HTTPHEADER => ["Connection: Keep-Alive", "Keep-Alive: 120"]
+        ]);
+    }
+
+    curl_setopt_array($curlRequestSession, [
+        CURLOPT_URL => 'https://api.telegram.org/bot' . $_GET['api'] . '/' . $method,
         CURLOPT_POSTFIELDS => $args,
     ]);
-    $r = curl_exec($c);
-    curl_close($c);
-
+    $r = curl_exec($curlRequestSession);
     return json_decode($r, true);
 }
 
 
 function curlRequestApi($api, $method, $args = [])
 {
-    $c = curl_init();
-    curl_setopt_array($c, [
-        CURLOPT_URL => 'https://api.telegram.org/bot'.$api.'/'.$method,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST => true,
+    global $curlRequestSession;
+    if (!isset($curlRequestSession)) {
+        $curlRequestSession = curl_init();
+        curl_setopt_array($curlRequestSession, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_HEADER => false,
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_HTTPHEADER => ["Connection: Keep-Alive", "Keep-Alive: 120"]
+        ]);
+    }
+
+    curl_setopt_array($curlRequestSession, [
+        CURLOPT_URL => 'https://api.telegram.org/bot' . $api . '/' . $method,
         CURLOPT_POSTFIELDS => $args,
     ]);
-    $r = curl_exec($c);
-    curl_close($c);
-
+    $r = curl_exec($curlRequestSession);
     return json_decode($r, true);
 }
 
@@ -69,11 +83,13 @@ function sendMessage(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-) {
+)
+{
     $args = [
         'chat_id' => $chat_id,
         'text' => $text,
     ];
+
     if (isset($parse_mode)) {
         $args['parse_mode'] = $parse_mode;
     }
@@ -100,13 +116,14 @@ function sendMessage(
 }
 
 
-function forwardMessage($chat_id, $from_chat_id, $disable_notification = null, $message_id, $response = RESPONSE)
+function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notification = null, $response = RESPONSE)
 {
     $args = [
         'chat_id' => $chat_id,
         'from_chat_id' => $from_chat_id,
         'message_id' => $message_id,
     ];
+
     if (isset($disable_notification)) {
         $args['disable_notification'] = $disable_notification;
     }
