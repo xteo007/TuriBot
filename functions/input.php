@@ -17,8 +17,7 @@ function command($input, $parameters = null)
             return true;
         }
         return false;
-    } else {
-        if (stripos($text, $input) === 0) {
+    } elseif (stripos($text, $input) === 0) {
             if ($parameters === 0) {
                 return true;
             }
@@ -33,6 +32,5 @@ function command($input, $parameters = null)
             }
             return $save;
         }
-    }
     return false;
 }

@@ -67,8 +67,8 @@ function curlRequestApi($api, $method, $args = [])
         CURLOPT_URL => 'https://api.telegram.org/bot' . $api . '/' . $method,
         CURLOPT_POSTFIELDS => $args,
     ]);
-    $r = curl_exec($curlRequestSession);
-    return json_decode($r, true);
+    $response = curl_exec($curlRequestSession);
+    return json_decode($response, true);
 }
 
 
