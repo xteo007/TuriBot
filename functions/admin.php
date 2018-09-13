@@ -12,11 +12,10 @@ function kickChatMember($chat_id, $user_id, $until_date = null, $response = RESP
         $args['until_date'] = $until_date;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('kickChatMember', $args);
-    } else {
-        return jsonPayload('kickChatMember', $args);
     }
+    return jsonPayload('kickChatMember', $args);
 }
 
 
@@ -27,11 +26,10 @@ function unbanChatMember($chat_id, $user_id, $response = RESPONSE)
         'user_id' => $user_id,
     ];
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('unbanChatMember', $args);
-    } else {
-        return jsonPayload('unbanChatMember', $args);
     }
+    return jsonPayload('unbanChatMember', $args);
 }
 
 
@@ -44,8 +42,7 @@ function restrictChatMember(
     $can_send_other_messages = null,
     $can_add_web_page_previews = null,
     $response = RESPONSE
-)
-{
+) {
     $args = [
         'chat_id' => $chat_id,
         'user_id' => $user_id,
@@ -67,11 +64,10 @@ function restrictChatMember(
         $args['can_add_web_page_previews'] = $can_add_web_page_previews;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('restrictChatMember', $args);
-    } else {
-        return jsonPayload('restrictChatMember', $args);
     }
+    return jsonPayload('restrictChatMember', $args);
 }
 
 
@@ -87,8 +83,7 @@ function promoteChatMember(
     $can_pin_messages = null,
     $can_promote_members = null,
     $response = RESPONSE
-)
-{
+) {
     $args = [
         'chat_id' => $chat_id,
         'user_id' => $user_id,
@@ -119,11 +114,10 @@ function promoteChatMember(
         $args['can_promote_members'] = $can_promote_members;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('promoteChatMember', $args);
-    } else {
-        return jsonPayload('promoteChatMember', $args);
     }
+    return jsonPayload('promoteChatMember', $args);
 }
 
 
@@ -157,11 +151,10 @@ function deleteChatPhoto($chat_id, $response = RESPONSE)
         'chat_id' => $chat_id,
     ];
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('deleteChatPhoto', $args);
-    } else {
-        return jsonPayload('deleteChatPhoto', $args);
     }
+    return jsonPayload('deleteChatPhoto', $args);
 }
 
 
@@ -172,11 +165,10 @@ function setChatTitle($chat_id, $title, $response = RESPONSE)
         'title' => $title,
     ];
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('setChatTitle', $args);
-    } else {
-        return jsonPayload('setChatTitle', $args);
     }
+    return jsonPayload('setChatTitle', $args);
 }
 
 
@@ -190,11 +182,10 @@ function setChatDescription($chat_id, $description = null, $response = RESPONSE)
         $args['description'] = $description;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('setChatDescription', $args);
-    } else {
-        return jsonPayload('setChatDescription', $args);
     }
+    return jsonPayload('setChatDescription', $args);
 }
 
 
@@ -209,11 +200,10 @@ function pinChatMessage($chat_id, $message_id, $disable_notification = null, $re
         $args['disable_notification'] = $disable_notification;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('pinChatMessage', $args);
-    } else {
-        return jsonPayload('pinChatMessage', $args);
     }
+    return jsonPayload('pinChatMessage', $args);
 }
 
 
@@ -223,11 +213,10 @@ function unpinChatMessage($chat_id, $response = RESPONSE)
         'chat_id' => $chat_id,
     ];
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('unpinChatMessage', $args);
-    } else {
-        return jsonPayload('unpinChatMessage', $args);
     }
+    return jsonPayload('unpinChatMessage', $args);
 }
 
 
@@ -237,11 +226,10 @@ function leaveChat($chat_id, $response = RESPONSE)
         'chat_id' => $chat_id,
     ];
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('leaveChat', $args);
-    } else {
-        return jsonPayload('leaveChat', $args);
     }
+    return jsonPayload('leaveChat', $args);
 }
 
 

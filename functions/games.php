@@ -26,11 +26,10 @@ function sendGame(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendGame', $args);
-    } else {
-        return jsonPayload('sendGame', $args);
     }
+    return jsonPayload('sendGame', $args);
 }
 
 
@@ -65,11 +64,10 @@ function setGameScore(
         $args['inline_message_id'] = $inline_message_id;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('setGameScore', $args);
-    } else {
-        return jsonPayload('setGameScore', $args);
     }
+    return jsonPayload('setGameScore', $args);
 }
 
 

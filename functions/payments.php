@@ -27,8 +27,7 @@ function sendInvoice(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     $args = [
         'chat_id' => $chat_id,
         'title' => $title,
@@ -88,11 +87,10 @@ function sendInvoice(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendInvoice', $args);
-    } else {
-        return jsonPayload('sendInvoice', $args);
     }
+    return jsonPayload('sendInvoice', $args);
 }
 
 
@@ -102,8 +100,7 @@ function answerShippingQuery(
     $shipping_options = null,
     $error_message = null,
     $response = RESPONSE
-)
-{
+) {
     $args = [
         'shipping_query_id' => $shipping_query_id,
         'ok' => $ok,
@@ -117,11 +114,10 @@ function answerShippingQuery(
         $args['error_message'] = $error_message;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('answerShippingQuery', $args);
-    } else {
-        return jsonPayload('answerShippingQuery', $args);
     }
+    return jsonPayload('answerShippingQuery', $args);
 }
 
 
@@ -136,9 +132,8 @@ function answerPreCheckoutQuery($pre_checkout_query_id, $ok, $error_message = nu
         $args['error_message'] = $error_message;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('answerPreCheckoutQuery', $args);
-    } else {
-        return jsonPayload('answerPreCheckoutQuery', $args);
     }
+    return jsonPayload('answerPreCheckoutQuery', $args);
 }

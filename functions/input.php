@@ -15,9 +15,8 @@ function command($input, $parameters = null)
             stripos($text, $input . ' ') === 0 or
             stripos($text, $input . NICKNAMEBOT . ' ') === 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     } else {
         if (stripos($text, $input) === 0) {
             if ($parameters === 0) {
@@ -32,10 +31,8 @@ function command($input, $parameters = null)
                     return false;
                 }
             }
-
             return $save;
-        } else {
-            return false;
         }
     }
+    return false;
 }

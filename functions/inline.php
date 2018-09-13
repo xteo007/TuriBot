@@ -10,8 +10,7 @@ function answerInlineQuery(
     $switch_pm_text = null,
     $switch_pm_parameter = null,
     $response = RESPONSE
-)
-{
+) {
     $results = json_encode($results);
     $args = [
         'inline_query_id' => $inline_query_id,
@@ -34,9 +33,8 @@ function answerInlineQuery(
         $args['switch_pm_parameter'] = $switch_pm_parameter;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('answerInlineQuery', $args);
-    } else {
-        return jsonPayload('answerInlineQuery', $args);
     }
+    return jsonPayload('answerInlineQuery', $args);
 }

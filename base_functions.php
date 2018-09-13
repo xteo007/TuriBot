@@ -5,7 +5,7 @@ function jsonPayload($method, $args = [])
 {
     global $jsonPayload;
 
-    if ($jsonPayload) {
+    if ($jsonPayload === true) {
         $args['method'] = $method;
         $json = json_encode($args);
 
@@ -19,11 +19,10 @@ function jsonPayload($method, $args = [])
         flush();
 
         $jsonPayload = false;
-
         return true;
-    } else {
-        return curlRequest($method, $args);
     }
+
+    return curlRequest($method, $args);
 }
 
 
@@ -45,8 +44,8 @@ function curlRequest($method, $args = [])
         CURLOPT_URL => 'https://api.telegram.org/bot' . $_GET['api'] . '/' . $method,
         CURLOPT_POSTFIELDS => $args,
     ]);
-    $r = curl_exec($curlRequestSession);
-    return json_decode($r, true);
+    $response = curl_exec($curlRequestSession);
+    return json_decode($response, true);
 }
 
 
@@ -83,8 +82,7 @@ function sendMessage(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     $args = [
         'chat_id' => $chat_id,
         'text' => $text,
@@ -107,12 +105,10 @@ function sendMessage(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendMessage', $args);
-    } else {
-        return jsonPayload('sendMessage', $args);
     }
-
+    return jsonPayload('sendMessage', $args);
 }
 
 
@@ -128,11 +124,10 @@ function forwardMessage($chat_id, $from_chat_id, $message_id, $disable_notificat
         $args['disable_notification'] = $disable_notification;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('forwardMessage', $args);
-    } else {
-        return jsonPayload('forwardMessage', $args);
     }
+    return jsonPayload('forwardMessage', $args);
 }
 
 

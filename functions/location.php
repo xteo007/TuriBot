@@ -31,11 +31,10 @@ function sendLocation(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendLocation', $args);
-    } else {
-        return jsonPayload('sendLocation', $args);
     }
+    return jsonPayload('sendLocation', $args);
 }
 
 
@@ -67,11 +66,10 @@ function editMessageLiveLocation(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('editMessageLiveLocation', $args);
-    } else {
-        return jsonPayload('editMessageLiveLocation', $args);
     }
+    return jsonPayload('editMessageLiveLocation', $args);
 }
 
 
@@ -96,19 +94,12 @@ function stopMessageLiveLocation(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
-        if (isset($args)) {
-            return curlRequest('stopMessageLiveLocation', $args);
-        } else {
-            return curlRequest('stopMessageLiveLocation');
-        }
-    } else {
-        if (isset($args)) {
-            return jsonPayload('stopMessageLiveLocation', $args);
-        } else {
-            return jsonPayload('stopMessageLiveLocation');
-        }
+    if ($response === true) {
+        return isset($args) ? curlRequest('stopMessageLiveLocation', $args) :
+            curlRequest('stopMessageLiveLocation');
     }
+    return isset($args) ? jsonPayload('stopMessageLiveLocation', $args) :
+        jsonPayload('stopMessageLiveLocation');
 }
 
 
@@ -156,9 +147,8 @@ function sendVenue(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendVenue', $args);
-    } else {
-        return jsonPayload('sendVenue', $args);
     }
+    return jsonPayload('sendVenue', $args);
 }

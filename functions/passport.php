@@ -8,9 +8,8 @@ function setPassportDataErrors($user_id, $errors, $response = RESPONSE)
         'errors' => $errors,
     ];
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('setPassportDataErrors', $args);
-    } else {
-        return jsonPayload('setPassportDataErrors', $args);
     }
+    return jsonPayload('setPassportDataErrors', $args);
 }

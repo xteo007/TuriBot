@@ -50,7 +50,7 @@ if (isset($_POST['yes'])) {
         $link = $explode[0] . 'commands.php';
     }
 
-    echo '<p><input type="hidden" name="link" value="' . $link . '" /></p>';
+    echo '<p><input type="hidden" name="link" value="' . htmlspecialchars($link) . '" /></p>';
     echo '<p>Input API Token: <input type="text" name="api" value="" style="width:400px;" /></p>';
     echo '<p>Example: 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11</p>';
     echo '<p><button type="submit" name="submit">Submit</button></p>';
@@ -66,7 +66,7 @@ if (isset($_POST['yes'])) {
 
     if (($responseWebhook['description'] == 'Webhook was set' or $responseWebhook['description'] == 'Webhook is already set') and $response['ok'] == true) {
         $username = $response['result']['username'];
-        echo 'Setup successful: <a href="http://t.me/' . $username . '"> @' . $username . '</a>';
+        echo 'Setup successful: <a href="http://t.me/' . htmlspecialchars($username) . '"> @' . htmlspecialchars($username) . '</a>';
     } else {
         echo 'Setup failed: API TOKEN wrong or impossible to connect to Telegram';
         echo '<p>Click here to try the setup again: <button type="submit" name="reset">Reset</button></p>';
@@ -77,8 +77,8 @@ if (isset($_POST['yes'])) {
     $api = $_POST['api'];
     $link = strip_tags($_POST['link']);
 
-    echo '<p><input type="hidden" name="api" value="' . $api . '" /></p>';
-    echo '<p><input type="hidden" name="link" value="' . $link . '" /></p>';
+    echo '<p><input type="hidden" name="api" value="' . htmlspecialchars($api) . '" /></p>';
+    echo '<p><input type="hidden" name="link" value="' . htmlspecialchars($link) . '" /></p>';
     echo '<p>Input max connections: <input type="number" name="connections" min="0" max="100" value="100"></p>';
     echo '<p>Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery, 1-100. Defaults of Bot APIs is 40. Use lower values to limit the load on your bot‘s server, and higher values to increase your bot’s throughput.</p>';
     echo '<p><button type="submit" name="submit">Submit</button>';

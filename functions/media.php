@@ -12,8 +12,7 @@ function sendPhoto(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     if ((stripos($photo, 'http') === false) and (stripos($photo, '.') !== false)) {
         $file_name = realpath($photo);
         $photo = curl_file_create($file_name);
@@ -42,11 +41,10 @@ function sendPhoto(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendPhoto', $args);
-    } else {
-        return jsonPayload('sendPhoto', $args);
     }
+    return jsonPayload('sendPhoto', $args);
 }
 
 
@@ -63,8 +61,7 @@ function sendAudio(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     if ((stripos($audio, 'http') === false) and (stripos($audio, '.') !== false)) {
         $file_name = realpath($audio);
         $audio = curl_file_create($file_name);
@@ -111,11 +108,10 @@ function sendAudio(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendAudio', $args);
-    } else {
-        return jsonPayload('sendAudio', $args);
     }
+    return jsonPayload('sendAudio', $args);
 }
 
 
@@ -129,8 +125,7 @@ function sendDocument(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     if ((stripos($document, 'http') === false) and (stripos($document, '.') !== false)) {
         $file_name = realpath($document);
         $document = curl_file_create($file_name);
@@ -168,11 +163,10 @@ function sendDocument(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendDocument', $args);
-    } else {
-        return jsonPayload('sendDocument', $args);
     }
+    return jsonPayload('sendDocument', $args);
 }
 
 
@@ -190,8 +184,7 @@ function sendVideo(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     if ((stripos($video, 'http') === false) and (stripos($video, '.') !== false)) {
         $file_name = realpath($video);
         $video = curl_file_create($file_name);
@@ -241,11 +234,10 @@ function sendVideo(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendVideo', $args);
-    } else {
-        return jsonPayload('sendVideo', $args);
     }
+    return jsonPayload('sendVideo', $args);
 }
 
 
@@ -262,8 +254,7 @@ function sendAnimation(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     if ((stripos($animation, 'http') === false) and (stripos($animation, '.') !== false)) {
         $file_name = realpath($animation);
         $animation = curl_file_create($file_name);
@@ -310,11 +301,10 @@ function sendAnimation(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendAnimation', $args);
-    } else {
-        return jsonPayload('sendAnimation', $args);
     }
+    return jsonPayload('sendAnimation', $args);
 }
 
 
@@ -328,8 +318,7 @@ function sendVoice(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     if ((stripos($voice, 'http') === false) and (stripos($voice, '.') !== false)) {
         $file_name = realpath($voice);
         $voice = curl_file_create($file_name);
@@ -360,11 +349,10 @@ function sendVoice(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendVoice', $args);
-    } else {
-        return jsonPayload('sendVoice', $args);
     }
+    return jsonPayload('sendVoice', $args);
 }
 
 
@@ -379,8 +367,7 @@ function sendVideoNote(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     if ((stripos($video_note, 'http') === false) and (stripos($video_note, '.') !== false)) {
         $file_name = realpath($video_note);
         $video_note = curl_file_create($file_name);
@@ -418,11 +405,10 @@ function sendVideoNote(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendVideoNote', $args);
-    } else {
-        return jsonPayload('sendVideoNote', $args);
     }
+    return jsonPayload('sendVideoNote', $args);
 }
 
 
@@ -456,8 +442,7 @@ function sendContact(
     $reply_to_message_id = null,
     $reply_markup = null,
     $response = RESPONSE
-)
-{
+) {
     $args = [
         'chat_id' => $chat_id,
         'phone_number' => $phone_number,
@@ -481,9 +466,8 @@ function sendContact(
         $args['reply_markup'] = $reply_markup;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendContact', $args);
-    } else {
-        return jsonPayload('sendContact', $args);
     }
+    return jsonPayload('sendContact', $args);
 }

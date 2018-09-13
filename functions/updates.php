@@ -32,9 +32,8 @@ function getUpdates($offset, $limit = null, $timeout = null, $allowed_updates = 
 
     if (isset($args)) {
         return curlRequest('getUpdates', $args);
-    } else {
-        return curlRequest('getUpdates');
     }
+    return curlRequest('getUpdates');
 }
 
 
@@ -68,18 +67,18 @@ function deleteWebhook()
 //WebHook URL, may be empty if WebHook is not set up
 function getWebhookInfo($verbose = false)
 {
-    $rr = curlRequest('getWebhookInfo');
+    $result = curlRequest('getWebhookInfo');
 
-    if ($verbose) {
-        if ($rr['ok']) {
-            $bot = $rr['result']['url'];
+    if ($verbose === true) {
+        if ($result['ok']) {
+            $bot = $result['result']['url'];
             echo 'URL: ' . $bot;
         } else {
             echo 'API ID wrong or impossible to connect to Telegram';
         }
     }
 
-    return $rr;
+    return $result;
 }
 
 

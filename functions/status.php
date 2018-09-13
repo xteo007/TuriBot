@@ -8,11 +8,10 @@ function sendChatAction($chat_id, $action, $response = RESPONSE)
         'action' => $action,
     ];
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('sendChatAction', $args);
-    } else {
-        return jsonPayload('sendChatAction', $args);
     }
+    return jsonPayload('sendChatAction', $args);
 }
 
 
@@ -23,8 +22,7 @@ function answerCallbackQuery(
     $url = null,
     $cache_time = null,
     $response = RESPONSE
-)
-{
+) {
     $args = [
         'callback_query_id' => $callback_query_id,
     ];
@@ -42,9 +40,8 @@ function answerCallbackQuery(
         $args['cache_time'] = $cache_time;
     }
 
-    if ($response) {
+    if ($response === true) {
         return curlRequest('answerCallbackQuery', $args);
-    } else {
-        return jsonPayload('answerCallbackQuery', $args);
     }
+    return jsonPayload('answerCallbackQuery', $args);
 }
