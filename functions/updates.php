@@ -69,15 +69,13 @@ function getWebhookInfo($verbose = false)
 {
     $result = curlRequest('getWebhookInfo');
 
-    if ($verbose === true) {
-        if ($result['ok']) {
+    if (($verbose === true) and $result['ok']) {
             $bot = $result['result']['url'];
-            echo 'URL: ' . $bot;
-        } else {
-            echo 'API ID wrong or impossible to connect to Telegram';
-        }
+        echo 'URL: ' . htmlspecialchars($bot);
+        return $result;
     }
 
+    echo 'API ID wrong or impossible to connect to Telegram';
     return $result;
 }
 
