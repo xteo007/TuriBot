@@ -18,11 +18,11 @@
  *
  **/
 
-require_once('config.php');
-
-if ((!isset($_GET['api'])) or (!is_numeric(stripos($_GET['api'], (string)BOTID)))) {
+if (!isset($_GET['api'])) {
     exit();
 }
+
+require_once('config.php');
 
 $jsonPayload = !RESPONSE;
 $curlRequestSession = null;
