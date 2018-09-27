@@ -69,6 +69,7 @@ if (isset($_POST['yes'])) {
         echo 'Setup successful: <a href="http://t.me/' . htmlspecialchars($username) . '"> @' . htmlspecialchars($username) . '</a>';
     } else {
         echo 'Setup failed: API TOKEN wrong or impossible to connect to Telegram';
+        echo $response['result']['description'];
         echo '<p>Click here to try the setup again: <button type="submit" name="reset">Reset</button></p>';
     }
 
