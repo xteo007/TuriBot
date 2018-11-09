@@ -22,7 +22,7 @@ if (!isset($_GET['api'])) {
     exit();
 }
 
-require_once('config.php');
+require_once 'config.php';
 
 $jsonPayload = !RESPONSE;
 $curlRequestSession = null;
@@ -99,4 +99,4 @@ if (EASY_VAR === true) {
 }
 
 
-require_once('base_functions.php');
+require_once 'base_functions.php';

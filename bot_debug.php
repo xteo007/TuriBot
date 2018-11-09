@@ -22,8 +22,8 @@ if (!isset($_GET['api'])) {
     exit();
 }
 
-require_once('config.php');
-require_once('base_functions.php');
+require_once 'config.php';
+require_once 'base_functions.php';
 
 $jsonPayload = !RESPONSE;
 $curlRequestSession = null;
