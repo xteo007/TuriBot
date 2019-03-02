@@ -284,7 +284,3 @@ Questa è la divisione delle varie funzioni nei file, sono chiamate con lo stess
             getWebhookInfoApi
             setWebhook
 ```
-
-# Gruppo Telegram
-
-[Entra](https://t.me/joinchat/AYMfl0mfCUqPCjGcDJXl6Q)
