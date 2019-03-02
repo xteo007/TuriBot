@@ -1,8 +1,6 @@
 # TuriBot
 # Intro
 
-[![Donate](https://img.shields.io/badge/%F0%9F%92%99-Donate-blue.svg)](https://www.paypal.me/davtur19)
-
 TuriBot is a simple way to communicate with Telegram APIs in PHP
 
 Documentation is only in Italian at the moment
