@@ -75,7 +75,7 @@ function getWebhookInfo($verbose = false)
         return $result;
     }
 
-    echo 'API ID wrong or impossible to connect to Telegram';
+    echo 'API TOKEN wrong or impossible to connect to Telegram';
     return $result;
 }
 
